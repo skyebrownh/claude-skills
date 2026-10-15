@@ -21,6 +21,7 @@ These act outside the conversation (commit, push, merge), so typing the command 
 | Skill | What it does |
 | --- | --- |
 | [`writing-skills`](skills/authoring/writing-skills/SKILL.md) | The style guide for writing and editing skills and CLAUDE.md files. |
+| [`fresh-eyes`](skills/guides/fresh-eyes/SKILL.md) | A fresh-context review that only reports. Code mode: two reviewers check the branch against the project's standards and against the issue. Document mode (given a path, such as `SPEC.md`): a cold reader looks for gaps. Findings come back sorted into Act on, Consider and Noted. |
 
 ## Install
 
