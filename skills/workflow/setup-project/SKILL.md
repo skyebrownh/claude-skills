@@ -50,11 +50,11 @@ This step is done when every section of the template has either a guessed answer
 
 ## 4. Interview Skye in rounds
 
-Ask in rounds of at most four numbered questions, one per section that still needs a decision. Give each question your **recommended answer** and where it came from, and word it so that "yes" accepts the recommendation, for example: "1. Tests: `uv run python manage.py test` (from README). Use that?" Skye can reply "all yes", or with a number and a correction.
+Follow `grilling`, with one question per section that still needs a decision. Three things are specific to this skill:
 
 - Don't ask about anything you found for certain in step 3 (e.g. a PR template that exists). Put it in the draft and let her correct it there.
 - **Ask about deploying explicitly, even if you're confident.** "Merging deploys" is the fact `/merge` relies on to warn her, so it must come from her.
-- Ask follow-up rounds until every section is settled. If a section doesn't apply (no releases, nothing deploys), it gets removed rather than left with a placeholder.
+- **A section that doesn't apply** (no releases, nothing deploys) gets removed rather than left with a placeholder.
 
 This step is done when every section has an answer Skye has seen.
 

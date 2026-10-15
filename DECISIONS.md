@@ -75,3 +75,15 @@ Choices worth remembering:
 - **`/ship` and `/merge` stop when a project is behind,** rather than running on facts that may no longer mean what they expect. They read `migrations.md` from `/setup-project`'s folder, because skills only Skye starts can't call each other.
 - **Each change names the text it expects,** and a mismatch stops and asks instead of overwriting, because it likely means the project was customised.
 - **`/setup-project` applies the migrations,** rather than a separate `/align` skill: it already writes `workflow.md`, and keeping one owner for that file avoids two skills disagreeing about it.
+
+## 2026-10-15: Grilling and tdd guides
+
+Two guides that Claude may start on its own, and that other skills build on, in a new `skills/guides/` bucket (#4). Both are adapted from Matt Pocock's `grilling` and `tdd` ([mattpocock/skills](https://github.com/mattpocock/skills), MIT).
+
+- **`grilling`** keeps his design tree and frontier: each round asks every question whose parents are settled, with no limit on how many, and facts are looked up by subagents rather than asked. It replaces `/setup-project`'s own interview rules, including its "at most four questions" limit, because holding questions back only adds rounds. Added: each recommended answer names its source, and the interview ends only when Skye confirms nothing is left open, followed by a summary of the decisions.
+- **`tdd`** keeps his idea of a good test (behaviour through public paths), his three anti-patterns (implementation-coupled, tautological, horizontal slicing) and his "mock only at system boundaries" rule, narrowed to external services, time and randomness, with a test database preferred to a mocked one. `good-tests.md` rewrites his examples in Python and JavaScript, Skye's languages.
+
+Where `tdd` differs from his:
+
+- **The test plan comes from the approved plan,** rather than confirming the seams to test with Skye separately. She already approved what the work should do, so a second approval would repeat it. A test the plan didn't foresee is fine if it tests planned behaviour, and is listed in the handover; a new behaviour becomes a new issue.
+- **Refactoring happens inside the loop, while green,** with the tests re-run after each change. His version leaves refactoring to a later review stage; tidying while the code is fresh and the tests are passing is cheaper, and the tests prove nothing changed.
