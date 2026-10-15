@@ -18,6 +18,7 @@ Check everything first, and stop at the first problem, saying what's wrong and w
 Read `.claude/workflow.md` at the repo root. You need these sections: **Default branch** and **Merging**, plus **After a deploy, check** and **Releases** if they exist.
 
 - **It's missing, or Merging still holds `<placeholders>`:** stop and say to run `/setup-project` first. Don't guess how this project merges or whether it deploys.
+- **The project is on an older version of the process:** its version is the number under **Process version** (1 if that section is missing), and the current version is the newest heading in [setup-project's migrations.md](../setup-project/migrations.md). If the project's is lower, stop. Name each migration it's missing (e.g. "2: Parent PRs") and say to run `/setup-project`, which applies them. Running on an old setup could follow facts that no longer mean what this skill expects.
 - **Merging deploys: yes:** say where it deploys before merging, in one line, so the approval is an informed one.
 
 ## 1. Check the pull request
