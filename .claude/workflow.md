@@ -7,6 +7,12 @@ so the skills themselves stay the same in every project. Written by
 it is: the skills find facts by heading.
 -->
 
+## Process version
+
+<!-- Which version of Skye's process this project is set up for. Change it only through /setup-project, which applies the migrations that bring a project up to date. -->
+
+2
+
 ## Default branch
 
 `main`

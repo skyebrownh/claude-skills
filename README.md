@@ -12,7 +12,7 @@ These act outside the conversation (commit, push, merge), so typing the command 
 
 | Skill | What it does |
 | --- | --- |
-| [`/setup-project`](skills/workflow/setup-project/SKILL.md) | Interviews Skye and writes the project's `.claude/workflow.md`. Run once per project, before `/ship` and `/merge`. |
+| [`/setup-project`](skills/workflow/setup-project/SKILL.md) | Interviews Skye and writes the project's `.claude/workflow.md`. Run once per project, before `/ship` and `/merge`, and again to bring a project up to date when the process changes. |
 | [`/ship`](skills/workflow/ship/SKILL.md) | Commits the reviewed work on an issue's branch, pushes it, and opens the PR. Never merges. A parent issue's `Ships as:` line decides how its children ship: one PR per child (each from its own branch), or one PR, where `/ship <child#>` commits each child on the parent's branch and a final `/ship` opens the PR. |
 | [`/merge <PR#>`](skills/workflow/merge/SKILL.md) | Merges an approved PR, cleans up the branch, and lists what to check after the deploy. |
 
@@ -40,6 +40,12 @@ The script makes **symlinks** (pointers to the folders in this repo) instead of 
 1. `./install.sh` (once per machine, and after adding skills).
 2. In the project, run `/setup-project` and approve the `workflow.md` it drafts.
 3. Commit `.claude/workflow.md` with the project's next reviewed change.
+
+### Keeping projects up to date
+
+Most changes here reach every project at once, through the symlinks. Some don't: a project's own files, such as its `workflow.md` or its issue templates, were written for the process as it was when it was set up. So each project's `workflow.md` records a **Process version**, and [`migrations.md`](skills/workflow/setup-project/migrations.md) lists, for each version, what changes in a project to reach it.
+
+When a project is behind, `/ship` and `/merge` stop and say which migrations it's missing. Running `/setup-project` there shows those changes, applies them once Skye approves, and updates the version. A change here that leaves projects out of date needs a new migration (the PR template's checklist asks).
 
 ## Layout
 

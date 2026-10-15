@@ -16,6 +16,7 @@ The approval arrives as a typed command, possibly in a new session, so **check e
 Read `.claude/workflow.md` at the repo root. You need these sections: **Default branch**, **Checks before committing**, **Pull requests** and **Merging**.
 
 - **It's missing, or a section you need still holds `<placeholders>`:** stop and say to run `/setup-project` first. Don't guess the commands.
+- **The project is on an older version of the process:** its version is the number under **Process version** (1 if that section is missing), and the current version is the newest heading in [setup-project's migrations.md](../setup-project/migrations.md). If the project's is lower, stop. Name each migration it's missing (e.g. "2: Parent PRs") and say to run `/setup-project`, which applies them. Running on an old setup could follow facts that no longer mean what this skill expects.
 - If the project's CLAUDE.md disagrees with `workflow.md`, stop and ask which is right.
 
 ## 1. Check before doing anything
