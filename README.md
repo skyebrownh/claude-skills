@@ -13,7 +13,7 @@ These act outside the conversation (commit, push, merge), so typing the command 
 | Skill | What it does |
 | --- | --- |
 | [`/setup-project`](skills/workflow/setup-project/SKILL.md) | Interviews Skye and writes the project's `.claude/workflow.md`. Run once per project, before `/ship` and `/merge`. |
-| [`/ship`](skills/workflow/ship/SKILL.md) | Commits the reviewed work on a single-issue branch, pushes it, and opens the PR. Never merges. |
+| [`/ship`](skills/workflow/ship/SKILL.md) | Commits the reviewed work on an issue's branch, pushes it, and opens the PR. Never merges. A parent issue's `Ships as:` line decides how its children ship: one PR per child (each from its own branch), or one PR, where `/ship <child#>` commits each child on the parent's branch and a final `/ship` opens the PR. |
 | [`/merge <PR#>`](skills/workflow/merge/SKILL.md) | Merges an approved PR, cleans up the branch, and lists what to check after the deploy. |
 
 ### Claude may also start

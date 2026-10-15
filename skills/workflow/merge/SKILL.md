@@ -39,7 +39,7 @@ Stop if:
 
 ## 2. Merge
 
-Count `closingIssuesReferences`. One issue means a single-issue PR, and more than one means a multi-issue PR. Use the style **Merging** gives for that kind:
+Count `closingIssuesReferences`. One issue means a single-issue PR, and more than one means a parent PR (it closes a parent and its children). Use the style **Merging** gives for that kind:
 
 | Style | Command |
 | --- | --- |
@@ -47,7 +47,7 @@ Count `closingIssuesReferences`. One issue means a single-issue PR, and more tha
 | rebase | `gh pr merge <PR> --rebase` |
 | merge commit | `gh pr merge <PR> --merge --subject "<PR title> (#<PR>)"` |
 
-If **Merging** says multi-issue PRs aren't used but this one closes several issues, stop and ask.
+If **Merging** says parent PRs aren't used but this one closes several issues, stop and ask.
 
 If the merge command fails, **stop and report it**, and run none of the clean-up.
 
@@ -59,7 +59,7 @@ Run each step and report its result:
 2. Confirm nothing was left behind: `git diff <default> <branch>` should be empty. If it isn't, stop and report what differs before deleting anything.
 3. Delete the local branch: `git branch -D <branch>`. The capital `-D` is needed after a squash or rebase merge: those make new commits, so git doesn't recognise the branch as merged.
 4. Prune: `git fetch --prune`. If the remote branch still exists (`git ls-remote --heads origin <branch>`), say so, and don't delete it: deleting a remote branch needs Skye's OK.
-5. Check that every issue the PR closes is now closed: `gh issue view <N> --json state`. GitHub's issue lists can lag for a few seconds, so trust `gh issue view`.
+5. Check that every issue the PR closes is now closed: `gh issue view <N> --json state`. GitHub's issue lists can lag for a few seconds, so trust `gh issue view`. For a parent PR, also list the parent's sub-issues (`gh api --paginate repos/{owner}/{repo}/issues/<parent>/sub_issues --jq '.[] | "#\(.number) \(.state)"'`) and name any still open: that child was missing from the PR's `Closes` lines.
 6. Show `git log --oneline -1`, the new commit on the default branch.
 
 ## 4. Say what to check after the deploy

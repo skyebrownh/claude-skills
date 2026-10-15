@@ -28,7 +28,7 @@ it is: the skills find facts by heading.
 ## Merging
 
 - Single-issue PR: <squash / rebase / merge commit>, subject `<issue title> (#<PR>)`
-- Multi-issue PR: <rebase / squash / merge commit / not used>
+- Parent PR: <rebase / squash / merge commit / not used>
 - Merging deploys: <yes / no>
 - Where it deploys: <e.g. Railway production and staging, from `main`; or "nowhere">
 
