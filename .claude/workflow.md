@@ -27,6 +27,6 @@ bash tests/test_install.sh
 ## Merging
 
 - Single-issue PR: squash, subject `<issue title> (#<PR>)`
-- Multi-issue PR: rebase
+- Parent PR: rebase
 - Merging deploys: no
 - Where it deploys: nowhere. But installed skills are symlinks into this folder, so once `/merge` updates `main` here, every project runs the merged version.
