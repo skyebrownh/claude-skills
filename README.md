@@ -20,6 +20,8 @@ These act outside the conversation (commit, push, merge), so typing the command 
 
 | Skill | What it does |
 | --- | --- |
+| [`grilling`](skills/guides/grilling/SKILL.md) | Interviews Skye in rounds of numbered questions with recommended answers, looking facts up itself, until every decision is settled. |
+| [`tdd`](skills/guides/tdd/SKILL.md) | Builds test-first in thin red-green slices, testing behaviour through public paths, with the behaviours to test taken from the approved plan. |
 | [`writing-skills`](skills/authoring/writing-skills/SKILL.md) | The style guide for writing and editing skills and CLAUDE.md files. |
 | [`fresh-eyes`](skills/guides/fresh-eyes/SKILL.md) | A fresh-context review that only reports. Code mode: two reviewers check the branch against the project's standards and against the issue. Document mode (given a path, such as `SPEC.md`): a cold reader looks for gaps. Findings come back sorted into Act on, Consider and Noted. |
 
@@ -54,6 +56,7 @@ When a project is behind, `/ship` and `/merge` stop and say which migrations it'
 skills/
   workflow/      the issue → PR → merge loop
   authoring/     writing and maintaining skills
+  guides/        how Claude does recurring tasks; other skills build on them
   in-progress/   drafts; never installed
 tests/           tests for install.sh
 .github/         issue and PR templates
