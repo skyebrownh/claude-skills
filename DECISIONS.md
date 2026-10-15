@@ -37,3 +37,15 @@ Not yet included, in the planned order:
 4. Switch heritage-media-availability over: give it a `workflow.md` and remove its own `ship` and `merge`.
 
 Skills specific to one project (`/pilot-feedback`, `/refresh-staging`) stay in that project.
+
+## 2026-10-15: Issues and PRs for this repo too
+
+This repo now uses the same issue → plan → PR loop as heritage-media-availability (#2), so every change to a skill has a recorded reason that later changes can look back on. It has feature, bug and parent issue templates (blank issues off), a PR template, a short CLAUDE.md, and a `.claude/workflow.md`, so `/ship` and `/merge` run here as in any other project. Merging deploys nothing in the usual sense, but see the next entry.
+
+The parent template's `Ships as:` line (one PR, or one PR per child) is what `/ship` reads to decide how a parent's children become PRs (#3). Parent issues get no label, so the repo needed no new one.
+
+## 2026-10-15: Switch back to `main` before using skills elsewhere
+
+Installed skills are symlinks into this folder, so the branch checked out here is the version every project runs. The habit: `git switch main` here before using the skills in another project, and leave `main` checked out between issues.
+
+Considered and left for now: a separate live clone, or git worktrees (a second checkout of the repo in another folder) so that feature branches never touch the installed copy. Worktrees are the fix if the habit ever causes trouble, such as a project running a half-finished skill.

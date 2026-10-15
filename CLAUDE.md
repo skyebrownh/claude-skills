@@ -1,0 +1,31 @@
+# claude-skills
+
+Skye's personal Claude Code skills. README explains what each skill does, how `install.sh` links them, and the folder layout. Read it before changing a skill.
+
+## How work happens here
+
+Every change starts from a GitHub issue, so it has a recorded reason.
+
+1. **Issue.** Draft it from a template in `.github/ISSUE_TEMPLATE/` (feature, bug, or parent for work split into child issues). Create it only once Skye approves the draft.
+2. **Plan.** Show a short plan (files to change, and why) and wait for approval. Then post it on the issue under `## Plan (approved)` with `gh issue comment --body-file`.
+3. **Build** on a branch named `<issue#>-<short-slug>` (e.g. `2-issues-and-prs`), cut from an up-to-date `main`. Ideas that come up mid-issue become a new issue, not extra scope.
+4. **Hand over** for review: what changed with file links, the test result, a suggested commit message, and steps to try the skill in a project. Then wait.
+5. **`/ship`** commits and opens the PR from `.github/pull_request_template.md`; **`/merge <PR#>`** merges it. Only Skye starts these.
+
+Project facts for these skills (checks, merge style, whether merging deploys) are in `.claude/workflow.md`; update it with `/setup-project`.
+
+## Writing skills
+
+Follow the `writing-skills` skill for every SKILL.md and for this file. Ideas borrowed from someone else's skills are credited in DECISIONS.md, along with any choice worth remembering, newest last with the date.
+
+## Tests
+
+```sh
+bash tests/test_install.sh
+```
+
+These cover `install.sh` only (they use temporary folders, never the real `~/.claude/skills`). Skills have no automated tests, so try a changed skill in a real or throwaway project.
+
+## Switch back to `main` before using skills elsewhere
+
+Installed skills are symlinks into this folder, so whatever branch is checked out here is the version every project runs. Before using skills in another project, run `git switch main` here, so they run the reviewed version rather than half-finished work. Leaving `main` checked out between issues keeps this simple.

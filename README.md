@@ -49,6 +49,8 @@ skills/
   authoring/     writing and maintaining skills
   in-progress/   drafts; never installed
 tests/           tests for install.sh
+.github/         issue and PR templates
+CLAUDE.md        how changes to this repo are made (issue → plan → PR)
 DECISIONS.md     why things are the way they are, and where ideas came from
 ```
 
