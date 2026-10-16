@@ -21,6 +21,7 @@ Each one does something that's hard to undo (building and committing, pushing, m
 
 | Skill | What it does |
 | --- | --- |
+| [`/plan-issue <N> …`](skills/workflow/plan-issue/SKILL.md) | Turns issues into plans: reads the issue, its parent, the spec and the affected code, weighs two approaches for non-trivial work, shows each plan in chat and grills Skye on what's open, then posts `## Plan (approved)` on the issue once she approves. Creates no branch. |
 | [`/handover`](skills/workflow/handover/SKILL.md) | Hands the committed work on an issue's branch over for review: runs the checks and `fresh-eyes`, and posts a `## Handover` comment on the issue recording the commit it covers, with what changed, the test results and manual test steps. |
 | [`grilling`](skills/guides/grilling/SKILL.md) | Interviews Skye in rounds of numbered questions with recommended answers, looking facts up itself, until every decision is settled. |
 | [`tdd`](skills/guides/tdd/SKILL.md) | Builds test-first in thin red-green slices, testing behaviour through public paths, with the behaviours to test taken from the approved plan. |
@@ -46,7 +47,7 @@ The script makes **symlinks** (pointers to the folders in this repo) instead of 
 2. In the project, run `/setup-project` and approve the `workflow.md` it drafts.
 3. Commit `.claude/workflow.md` with the project's next change.
 
-Then each issue goes: plan it, `/build <N>` (commits on its branch, ends with `/handover`), review the branch from the handover, `/ship <N>`, `/merge <PR#>`.
+Then each issue goes: `/plan-issue <N>`, `/build <N>` (commits on its branch, ends with `/handover`), review the branch from the handover, `/ship <N>`, `/merge <PR#>`.
 
 ### Keeping projects up to date
 
