@@ -31,7 +31,7 @@ grep -l '<command-name>/retro</command-name>' ~/.claude/projects/*/*.jsonl | xar
 
 Search every project folder, not just this folder's, because a session that moved folders stays filed under the one it started in. And match the command rather than taking the newest file, because another session may have written more recently.
 
-Show Skye the file's first message from her (`jq -r 'select(.type == "user") | .message.content | strings' <file> | head -1`, cut to a line) and when it started (the first line's `timestamp`), and wait for her to confirm it's this session.
+Show Skye the file's first message from her (`jq -r 'select(.type == "user") | .message.content | strings' <file> | head -1`, cut to a line) and when it started (the first `timestamp` in the file), and wait for her to confirm it's this session.
 
 **No file matches:** stop and say so, rather than reading another session.
 
