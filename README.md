@@ -8,7 +8,7 @@ Each skill is a folder holding a `SKILL.md`, which Claude Code reads as instruct
 
 ### Started only by Skye
 
-Each one does something that's hard to undo (creating a repo, creating issues, building and committing, pushing, merging), so typing the command is Skye's approval for it.
+Each one does something that's hard to undo (creating a repo, creating issues, building and committing, pushing, merging), or is something Skye chooses the moment for, so typing the command is Skye's approval for it.
 
 | Skill | What it does |
 | --- | --- |
@@ -17,6 +17,7 @@ Each one does something that's hard to undo (creating a repo, creating issues, b
 | [`/build <N> …`](skills/workflow/build/SKILL.md) | Builds approved issues on their own branches, committing each green slice, and hands each over with `/handover`. One issue builds in this folder; several build in parallel, one subagent each in a temporary worktree. Never pushes. |
 | [`/ship [<N> …]`](skills/workflow/ship/SKILL.md) | Pushes each issue's committed branch and opens its PR, once its latest handover covers the branch tip. Never merges. A parent issue's `Ships as:` line decides how its children ship: one PR per child, or one PR, where `/ship <child#>` folds each child's branch into the parent's branch as one commit, and `/ship <parent#>` opens the PR. |
 | [`/merge <PR#>`](skills/workflow/merge/SKILL.md) | Merges an approved PR, cleans up the branch, and lists what to check after the deploy. |
+| [`/retro`](skills/authoring/retro/SKILL.md) | Looks back over the current session in a subagent for Skye's corrections and steps that went wrong, keeps the ones that will happen again, and names each one's fix at the highest level: a check or test, then a skill change, then a CLAUDE.md line. Changes nothing: it ends with a `/draft-issue` line per repo. |
 
 ### Claude may also start
 

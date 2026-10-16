@@ -202,3 +202,25 @@ Choices worth remembering:
 - **No prototype phase.** High-level choices don't need one; a decision that does becomes an issue for `/plan-issue`.
 
 Left out: deleting GitHub's default labels, branch protection, and CI workflows.
+
+## 2026-10-16: Looking back with `/retro`
+
+`/retro` reads the current session for Skye's corrections and steps that went wrong, and turns the ones that will happen again into issues for lasting fixes (#10). The global CLAUDE.md now says "If I correct you on the same thing twice, suggest `/retro`."
+
+Borrowed, and rewritten in Skye's conventions:
+
+- **Matt Pocock's `retro`** ([mattpocock/skills](https://github.com/mattpocock/skills), MIT): a look back that only the user starts, aimed at the agent's environment rather than the code, and building a check over writing a rule.
+- **pstack's `reflect`** by Lauren Tan ([cursor/plugins](https://github.com/cursor/plugins/tree/main/pstack), MIT): "one-offs are not learnings", reading the session's own transcript file, and applying nothing without approval.
+- **pstack's `correct`**: a mistake counts once it has happened twice; the ladder of fixes, highest first; and a rule that was broken anyway moves up a rung.
+
+Choices worth remembering:
+
+- **Only Skye starts it,** though it changes nothing: the moment to look back is hers to choose, and Claude suggests it through the global line.
+- **The current session only.** It finds the transcript by the `/retro` command Skye just typed, the newest file holding it, searched across every project folder (a session that moves folders stays filed under the one it started in). Matching the command, not just taking the newest file, keeps a session running alongside in the same folder from being read by mistake.
+- **A trimmed copy, read in a subagent.** A `jq` filter keeps Skye's messages, Claude's text, tool calls in short and failed tool results, with line numbers; a 10 MB transcript came down to about 240 KB. The subagent gets no summary of the session, so it reads what happened rather than what was remembered.
+- **The ladder:** an automated check or test, then a skill change, then a CLAUDE.md line, so the CLAUDE.md files don't become a growing list of "please don't do X".
+- **What counts:** a correction that happened twice in the session, or once here and once before (a memory note or an earlier issue), or one caused by a wrong or missing instruction. A slip with no cause in the instructions is a one-off, and is dropped with a reason.
+- **It hands over to `/draft-issue`,** one line per repo, rather than creating issues itself. The rules for writing issues stay in one place, and `/draft-issue`'s duplicate search catches a finding that's already an issue.
+- **In the authoring bucket,** because its job is maintaining the skills and rules.
+
+Left out: reading other sessions or subagents' transcripts, applying fixes (pstack's `correct` does), `reflect`'s three parallel reviewers, and proving a new check fails on a past mistake (that belongs to building the issue).

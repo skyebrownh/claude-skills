@@ -26,6 +26,7 @@ My defaults. A project's own CLAUDE.md overrides anything here.
   In projects that use `/handover`, that's the handover. Then wait.
 - Ask before adding any dependency. Prefer the standard library and the
   framework's built-ins.
+- If I correct you on the same thing twice, suggest `/retro`.
 
 ## Approvals (always)
 
