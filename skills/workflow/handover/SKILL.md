@@ -48,11 +48,12 @@ This step is done when every check passes.
 
 Follow `fresh-eyes` in code mode, naming the base (and the worktree, if there is one). Then:
 
-- **Act on** findings within the approved plan: fix each one as its own commit, with a short plain message and the co-author line that this conversation's attribution instructions give. A separate commit lets Skye see each fix, and revert it on its own. Then re-run the checks from step 2.
-- **Act on** findings outside the plan (they need new behaviour): don't fix them. List them, and suggest a new issue.
-- **Consider, Noted and Dropped:** change nothing, and list them in the handover so Skye can overrule your judgement.
+- **Fix** findings within the approved plan: fix each one as its own commit, with a short plain message and the co-author line that this conversation's attribution instructions give. A separate commit lets Skye see each fix, and revert it on its own. Then re-run the checks from step 2. They go under **Fixed**.
+- **Fix** findings outside the plan (they need new behaviour): don't fix them. They go under **Needs you**, recommending a new issue.
+- **Needs you:** change nothing. They stay under **Needs you**, with fresh-eyes' recommendation.
+- **Noted and Dropped:** change nothing. They carry over as footnotes, so Skye can overrule your judgement.
 
-This step is done when every Act on finding is either fixed, with its commit's short sha, or listed with the reason it wasn't fixed, and the checks pass on the new tip.
+This step is done when every in-plan Fix finding is fixed, with its commit's short sha, and every other finding is under Needs you with a recommendation or in the footnotes, and the checks pass on the new tip.
 
 ## 4. Write the handover
 
@@ -65,13 +66,7 @@ Run `git rev-parse HEAD` for the commit it covers: the branch tip, after any fix
 
 <Only on a re-run: "Replaces the handover for `<its short sha>`." and one line on what the revisions changed.>
 
-### Review it
-
-```sh
-git switch <branch>
-git diff <base>...<branch>          # every change since the branch left <base>
-git log --oneline <base>..<branch>  # its commits
-```
+**Review it:** `git diff <base>...<branch>`
 
 ### What changed
 
@@ -86,11 +81,18 @@ git log --oneline <base>..<branch>  # its commits
 
 ### Fresh-eyes review
 
-- **Fixed:** <finding> (`<short sha>`), or "None"
-- **Not fixed:** <Act on findings outside the plan, with a suggested issue>, or "None"
-- **Consider:** …
-- **Noted:** …
-- **Dropped:** <finding>: <why>
+**Needs you**
+- <finding>. <Trade-off.> **Recommend:** <what to do; for a finding outside the plan, a new issue>.
+
+**Fixed**
+- <finding>: <how it was resolved, and why that way> (`<short sha>`).
+
+<details><summary>Footnotes: <N> noted, <M> dropped</summary>
+
+- **Noted:** <finding>.
+- **Dropped:** <finding>: <why>.
+
+</details>
 
 ### Manual test steps
 
@@ -99,7 +101,9 @@ git log --oneline <base>..<branch>  # its commits
 3. <What Manual test setup says to undo afterwards, if anything.>
 ````
 
-- **Files are plain paths in the comment,** because the branch stays local until `/ship`, so a link to it on GitHub would be broken. In chat, write them as links, so Skye can click them.
+- **What changed has one line per file,** saying what changed in it, not how. Files with the same change share a line (`` `a.md`, `b.md`: point to the new file ``). The diff holds the detail.
+- **Needs you comes first,** because it's what Skye has to act on. Write "None" under an empty Needs you or Fixed, so she can see it was checked.
+- **Files are plain paths,** in chat and in the comment alike, so the two are the same text. The branch stays local until `/ship`, so a link to it on GitHub would be broken.
 - **Manual test steps** cover what the plan says the work does, including its stop conditions and error paths, each with what Skye should see.
 - **No Manual test setup in `workflow.md`:** start the steps from what the project's README says about running it, and add a line under the steps saying the section is missing.
 
@@ -107,7 +111,7 @@ This step is done when every section is filled in, with no `<placeholders>` left
 
 ## 5. Post it, then hand back
 
-Show the handover in chat. Then post it on the issue, without asking first: it's a record of what was handed over, and Skye reviews it after it's posted.
+Write the handover to a file in the scratchpad, show that file's text in chat unchanged, then post the same file on the issue, without asking first: it's a record of what was handed over, and Skye reviews it after it's posted.
 
 ```sh
 gh issue comment <N> --body-file <file in the scratchpad>
