@@ -24,8 +24,8 @@ Follow the `writing-skills` skill for every SKILL.md and for this file. Ideas bo
 bash tests/test_install.sh
 ```
 
-These cover `install.sh` only (they use temporary folders, never the real `~/.claude/skills`). Skills have no automated tests, so try a changed skill in a real or throwaway project.
+These cover `install.sh` only (they use temporary folders, never the real `~/.claude/skills` or `~/.claude/CLAUDE.md`). Skills have no automated tests, so try a changed skill in a real or throwaway project.
 
 ## Switch back to `main` before using skills elsewhere
 
-Installed skills are symlinks into this folder, so whatever branch is checked out here is the version every project runs. Before using skills in another project, run `git switch main` here, so they run the reviewed version rather than half-finished work. Leaving `main` checked out between issues keeps this simple.
+Installed skills, and the global `~/.claude/CLAUDE.md`, are symlinks into this folder, so whatever branch is checked out here is the version every project runs. Before using skills in another project, run `git switch main` here, so they run the reviewed version rather than half-finished work. Leaving `main` checked out between issues keeps this simple.

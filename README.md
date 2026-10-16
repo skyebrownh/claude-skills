@@ -32,13 +32,17 @@ Each one does something that's hard to undo (creating issues, building and commi
 ## Install
 
 ```sh
-./install.sh                  # link every skill into ~/.claude/skills
+./install.sh                  # link every skill into ~/.claude/skills, and the global CLAUDE.md
 ./install.sh writing-skills   # link only the skills named
 ./install.sh --dry-run        # show what would happen, change nothing
 ./install.sh --uninstall      # remove every link this repo made
 ```
 
-The script makes **symlinks** (pointers to the folders in this repo) instead of copies, so editing a skill here, or running `git pull`, updates it everywhere. Re-run the script after adding, renaming or removing a skill. It never overwrites a real folder, or a link it didn't make (it stops and tells you instead).
+The script makes **symlinks** (pointers to the folders in this repo) instead of copies, so editing a skill here, or running `git pull`, updates it everywhere. Re-run the script after adding, renaming or removing a skill. It never overwrites a real folder or file, or a link it didn't make (it stops and tells you instead).
+
+**The global CLAUDE.md:** Skye's preferences for every project live in [`global/CLAUDE.md`](global/CLAUDE.md), so changing them goes through an issue and a PR like any skill. A full `./install.sh` links it to `~/.claude/CLAUDE.md`; naming skills leaves it alone. If `~/.claude/CLAUDE.md` is still a real file, the script says how to move it in: copy any changes into `global/CLAUDE.md`, remove the file, and run the script again.
+
+**Both follow the checked-out branch.** The links point into this folder, so whichever branch is checked out here is the version of the skills, and of the global CLAUDE.md, that every project uses.
 
 **Name clashes:** a personal skill overrides a project's own skill with the same name. Linking `ship` here hides a project's `.claude/skills/ship`, so switch a project over (run `/setup-project`, then remove its own copy) before linking a skill that clashes with one of its skills.
 
@@ -64,6 +68,7 @@ skills/
   authoring/     writing and maintaining skills
   guides/        how Claude does recurring tasks; other skills build on them
   in-progress/   drafts; never installed
+global/          CLAUDE.md, Skye's preferences for every project
 tests/           tests for install.sh
 .github/         issue and PR templates
 CLAUDE.md        how changes to this repo are made (issue → plan → PR)
@@ -85,4 +90,4 @@ Add a new bucket when a group of skills doesn't fit an existing one. Skill names
 bash tests/test_install.sh
 ```
 
-The tests run `install.sh` against temporary folders, never your real `~/.claude/skills`. Skills themselves have no automated tests: try a changed skill in a project before relying on it.
+The tests run `install.sh` against temporary folders, never your real `~/.claude/skills` or `~/.claude/CLAUDE.md`. Skills themselves have no automated tests: try a changed skill in a project before relying on it.

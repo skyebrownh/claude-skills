@@ -1,19 +1,23 @@
 #!/usr/bin/env bash
 # Install Skye's skills into Claude Code by symlinking each skill folder into
-# ~/.claude/skills.
+# ~/.claude/skills, and her global preferences (global/CLAUDE.md) to
+# ~/.claude/CLAUDE.md.
 #
 # A symlink is a pointer to the real folder, so the skills keep living in this
 # repo: editing a skill here, or running `git pull`, updates it everywhere at
 # once with nothing to copy. Re-run this script after adding, renaming or
-# removing a skill.
+# removing a skill. Skills and CLAUDE.md alike follow whichever branch is
+# checked out here.
 #
 # Usage:
 #   ./install.sh                     link every skill (except skills/in-progress/)
-#   ./install.sh ship merge          link only the named skills
+#                                    and the global CLAUDE.md
+#   ./install.sh ship merge          link only the named skills (not CLAUDE.md)
 #   ./install.sh --dry-run [names]   show what would happen, change nothing
 #   ./install.sh --uninstall         remove every link that points into this repo
 #
-# SKILLS_DIR=/some/folder ./install.sh   links somewhere else (used by the tests)
+# SKILLS_DIR=/some/folder ./install.sh   links skills somewhere else (used by the tests)
+# CLAUDE_MD=/some/file ./install.sh      links the global CLAUDE.md there instead
 #
 # Personal skills (the ones this links) override a project's own skill with
 # the same name, so linking `ship` hides a project's .claude/skills/ship.
@@ -24,6 +28,9 @@ set -euo pipefail
 # The repo is wherever this script lives, so it works from any folder.
 REPO="$(cd "$(dirname "$0")" && pwd)"
 SKILLS_DIR="${SKILLS_DIR:-$HOME/.claude/skills}"
+# Skye's global preferences, linked like a skill so they have history too.
+CLAUDE_MD="${CLAUDE_MD:-$HOME/.claude/CLAUDE.md}"
+GLOBAL_SRC="$REPO/global/CLAUDE.md"
 
 dry_run=false
 uninstall=false
@@ -32,7 +39,8 @@ for arg in "$@"; do
   case "$arg" in
     --dry-run) dry_run=true ;;
     --uninstall) uninstall=true ;;
-    -h|--help) sed -n '2,19p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    # Print the comment at the top, up to its first blank line, so it can grow.
+    -h|--help) sed -n '2,/^$/p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
     -*) echo "Unknown option: $arg (try --help)" >&2; exit 2 ;;
     *) wanted+=("$arg") ;;
   esac
@@ -48,6 +56,10 @@ run() {
 # SKILLS_DIR (a real folder, or a link installed by another tool, such as
 # find-skills) is left alone.
 if $uninstall; then
+  # The global CLAUDE.md first, since the skills part can stop early.
+  if [ -L "$CLAUDE_MD" ] && [[ "$(readlink "$CLAUDE_MD")" == "$REPO"/* ]]; then
+    echo "removing CLAUDE.md"; run rm "$CLAUDE_MD"
+  fi
   [ -d "$SKILLS_DIR" ] || { echo "Nothing to uninstall: $SKILLS_DIR doesn't exist."; exit 0; }
   for link in "$SKILLS_DIR"/*; do
     [ -L "$link" ] || continue
@@ -127,6 +139,35 @@ for i in "${!names[@]}"; do
   fi
 done
 
+# --- Link the global CLAUDE.md -------------------------------------------------
+# Only on a full install: naming skills means "only these", and trying a
+# branch's new skill shouldn't swap Skye's preferences in every project.
+# Whatever is in the way holds preferences not yet in the repo, so replacing it
+# could lose them. Say how to move them in instead. (diff follows a link.)
+how_to_move_in() {
+  echo "         To move it into this repo, copy any changes into global/CLAUDE.md" >&2
+  echo "         (diff \"$CLAUDE_MD\" \"$GLOBAL_SRC\"), then remove it and run this again." >&2
+  problems=$((problems + 1))
+}
+
+if [ ${#wanted[@]} -eq 0 ]; then
+  if [ -L "$CLAUDE_MD" ] && [ "$(readlink "$CLAUDE_MD")" = "$GLOBAL_SRC" ]; then
+    echo "ok       CLAUDE.md (already linked)"
+  elif [ -L "$CLAUDE_MD" ]; then
+    # Someone else's link, which another tool may rely on.
+    echo "SKIPPED  CLAUDE.md: $CLAUDE_MD already links to $(readlink "$CLAUDE_MD")" >&2
+    how_to_move_in
+  elif [ -e "$CLAUDE_MD" ]; then
+    # Skye's own file, from before it lived here.
+    echo "SKIPPED  CLAUDE.md: $CLAUDE_MD is a real file, not a link to global/CLAUDE.md." >&2
+    how_to_move_in
+  else
+    echo "link     CLAUDE.md -> $GLOBAL_SRC"
+    run mkdir -p "$(dirname "$CLAUDE_MD")"
+    run ln -s "$GLOBAL_SRC" "$CLAUDE_MD"
+  fi
+fi
+
 # Report links into this repo whose skill no longer exists (renamed or
 # deleted), so they don't linger as broken skills.
 if [ -d "$SKILLS_DIR" ]; then
@@ -138,6 +179,6 @@ if [ -d "$SKILLS_DIR" ]; then
 fi
 
 if [ $problems -gt 0 ]; then
-  echo "$problems skill(s) skipped. Move or remove what's in the way, then run this again." >&2
+  echo "$problems item(s) skipped. Move or remove what's in the way, then run this again." >&2
   exit 1
 fi

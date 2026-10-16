@@ -8,8 +8,16 @@ set -uo pipefail   # no -e: a failing check should be reported, not end the run
 
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 INSTALL="$REPO/install.sh"
+GLOBAL_SRC="$REPO/global/CLAUDE.md"
 passed=0
 failed=0
+
+# A full install also links the global CLAUDE.md. Point it at a throwaway path
+# for every test, so no test can ever replace your real ~/.claude/CLAUDE.md.
+# Tests about the global file set their own CLAUDE_MD on top of this.
+scratch="$(mktemp -d "${TMPDIR:-/tmp}/claude-md-test.XXXXXX")"
+trap 'rm -rf "$scratch"' EXIT
+export CLAUDE_MD="$scratch/CLAUDE.md"
 
 # Record one check: check "<description>" <command...>
 check() {
@@ -80,6 +88,16 @@ rmdir "$dir"                                 # it shouldn't even create the fold
 SKILLS_DIR="$dir" "$INSTALL" --dry-run >/dev/null 2>&1
 check "dry run exits 0" [ $? -eq 0 ]
 check "dry run created nothing" [ ! -e "$dir" ]
+md="$(fresh_dir)/CLAUDE.md"
+SKILLS_DIR="$dir" CLAUDE_MD="$md" "$INSTALL" --dry-run >/dev/null 2>&1
+check "global: dry run created no link" [ ! -L "$md" ]
+rm -rf "$(dirname "$md")"
+
+# --- --help shows the whole usage comment, down to its last line ----------------
+out="$("$INSTALL" --help 2>&1)"
+check "help mentions the global CLAUDE.md" grep -q "CLAUDE_MD=/some/file" <<<"$out"
+check "help reaches the last line of the usage comment" grep -q "hides a project's .claude/skills/ship" <<<"$out"
+check "help stops before the code" [ "$(grep -c "set -euo pipefail" <<<"$out")" -eq 0 ]
 
 # --- A stale link (skill renamed or deleted) is reported -------------------------
 dir="$(fresh_dir)"
@@ -87,6 +105,65 @@ ln -s "$REPO/skills/workflow/renamed-away" "$dir/renamed-away"
 out="$(SKILLS_DIR="$dir" "$INSTALL" 2>&1)"
 check "stale link reported" grep -q "stale    renamed-away" <<<"$out"
 rm -rf "$dir"
+
+# --- A full install links the global CLAUDE.md --------------------------------
+dir="$(fresh_dir)"
+md="$(fresh_dir)/CLAUDE.md"
+SKILLS_DIR="$dir" CLAUDE_MD="$md" "$INSTALL" >/dev/null 2>&1
+check "global: install exits 0" [ $? -eq 0 ]
+check "global: CLAUDE.md is a symlink" [ -L "$md" ]
+check "global: it points at global/CLAUDE.md" [ "$(readlink "$md")" = "$GLOBAL_SRC" ]
+out="$(SKILLS_DIR="$dir" CLAUDE_MD="$md" "$INSTALL" 2>&1)"
+check "global: second run exits 0" [ $? -eq 0 ]
+check "global: second run reports it already linked" grep -q "ok       CLAUDE.md (already linked)" <<<"$out"
+rm -rf "$dir" "$(dirname "$md")"
+
+# --- Naming skills leaves the global CLAUDE.md alone ----------------------------
+dir="$(fresh_dir)"
+md="$(fresh_dir)/CLAUDE.md"
+SKILLS_DIR="$dir" CLAUDE_MD="$md" "$INSTALL" writing-skills >/dev/null 2>&1
+check "global: named install exits 0" [ $? -eq 0 ]
+check "global: named install doesn't link it" [ ! -L "$md" ]
+rm -rf "$dir" "$(dirname "$md")"
+
+# --- It never replaces a real CLAUDE.md, and says how to move it in -------------
+dir="$(fresh_dir)"
+md="$(fresh_dir)/CLAUDE.md"
+printf 'my own preferences\n' >"$md"
+out="$(SKILLS_DIR="$dir" CLAUDE_MD="$md" "$INSTALL" 2>&1)"
+check "global: install exits 1 when a real CLAUDE.md is in the way" [ $? -eq 1 ]
+check "global: real CLAUDE.md untouched" [ "$(cat "$md")" = "my own preferences" ]
+check "global: it's still not a link" [ ! -L "$md" ]
+check "global: it says how to move it into the repo" grep -q "global/CLAUDE.md" <<<"$(grep SKIPPED <<<"$out")"
+check "global: the skills still got linked" [ -L "$dir/writing-skills" ]
+rm -rf "$dir" "$(dirname "$md")"
+
+# --- It never replaces another tool's CLAUDE.md link -----------------------------
+dir="$(fresh_dir)"
+md="$(fresh_dir)/CLAUDE.md"
+ln -s /somewhere/else "$md"
+out="$(SKILLS_DIR="$dir" CLAUDE_MD="$md" "$INSTALL" 2>&1)"
+check "global: install exits 1 when another link is in the way" [ $? -eq 1 ]
+check "global: other link untouched" [ "$(readlink "$md")" = "/somewhere/else" ]
+check "global: it reports the other link" grep -q "SKIPPED  CLAUDE.md: .* already links to /somewhere/else" <<<"$out"
+check "global: it says how to move the other link's file in" grep -q "copy any changes into global/CLAUDE.md" <<<"$out"
+SKILLS_DIR="$dir" CLAUDE_MD="$md" "$INSTALL" --uninstall >/dev/null 2>&1
+check "global: uninstall keeps another tool's link" [ "$(readlink "$md")" = "/somewhere/else" ]
+rm -rf "$dir" "$(dirname "$md")"
+
+# --- Uninstall removes its own CLAUDE.md link, and never a real file ------------
+dir="$(fresh_dir)"
+md="$(fresh_dir)/CLAUDE.md"
+SKILLS_DIR="$dir" CLAUDE_MD="$md" "$INSTALL" >/dev/null 2>&1
+SKILLS_DIR="$dir" CLAUDE_MD="$md" "$INSTALL" --uninstall >/dev/null 2>&1
+check "global: uninstall removed its link" [ ! -L "$md" ]
+# Clear the path first: if uninstall left the link, writing to it would
+# overwrite global/CLAUDE.md in the repo through the link.
+rm -f "$md"
+printf 'my own preferences\n' >"$md"
+SKILLS_DIR="$dir" CLAUDE_MD="$md" "$INSTALL" --uninstall >/dev/null 2>&1
+check "global: uninstall kept a real CLAUDE.md" [ "$(cat "$md")" = "my own preferences" ]
+rm -rf "$dir" "$(dirname "$md")"
 
 echo "$passed passed, $failed failed"
 [ $failed -eq 0 ]
