@@ -40,7 +40,7 @@ This step is done when Skye has confirmed the transcript.
 ## 1. Trim it
 
 ```sh
-jq -r -f <this skill's folder>/trim-transcript.jq <file> > <scratchpad>/retro-transcript.txt
+jq -r -f <this skill's base directory>/trim-transcript.jq <file> > <the scratchpad directory>/retro-transcript.txt
 ```
 
 [trim-transcript.jq](trim-transcript.jq) keeps Skye's messages, Claude's text, each tool call in short, and failed tool results, each line starting with its line number in the `.jsonl`. A transcript can run to megabytes of tool output that says nothing about corrections. The file on disk still holds everything from before any compaction, so trimming loses no conversation.
@@ -51,7 +51,7 @@ This step is done when the trimmed file exists and isn't empty.
 
 ## 2. Read it in a subagent
 
-Start one subagent with `subagent_type: Explore`, so the session's text stays out of this conversation. Give it only the paths and this brief, with no summary of the session, so it reads what happened rather than what this conversation remembers:
+Start one subagent with `subagent_type: Explore`, so the session's text stays out of this conversation. Give it only absolute paths and this brief, with no summary of the session, so it reads what happened rather than what this conversation remembers:
 
 > Read <trimmed file> in full. It's a Claude Code session: lines marked SKYE are the user, CLAUDE is the assistant, TOOL lines are its tool calls, and TOOL FAILED lines are refused or failed calls. Also read every file in <the transcript's folder>/memory/, if it exists: notes Claude saved about earlier corrections. List (a) each time Skye corrected Claude, pushed back, or asked for something to be redone, and (b) each step that went wrong without her saying so (a failed command retried blindly, a rule broken, a step skipped). For each: the line numbers, a short quote, what went wrong, whether it happened more than once in this session, and whether a memory note shows it happened before. Read only: change no files. Under 600 words.
 
