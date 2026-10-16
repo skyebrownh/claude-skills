@@ -6,12 +6,17 @@
 #
 # Usage: jq -r -f trim-transcript.jq <session>.jsonl > trimmed.txt
 
-# Long text is cut, because the reader needs the gist, not every word.
+# Long text is cut, because the reader needs the gist, not every word. Messages
+# keep the most (2000 characters), since corrections live there; a failed
+# result keeps enough for its error (300), and a tool call its target (200).
 def clip(n): if length > n then .[0:n] + " […]" else . end;
 
 input_line_number as $n
+# Each record's .type is who wrote it (user, assistant, or app bookkeeping).
+# isMeta marks text the app adds on the user's side, such as a loaded skill.
 | if .type == "user" and (.isMeta | not) then
-    # A typed message is a string; tool results and some messages are a list of blocks.
+    # A typed message is a string; tool results and some messages are a list of
+    # blocks. From here on, .type is the block's type (text, tool_result, tool_use).
     (if (.message.content | type) == "string" then [{type: "text", text: .message.content}] else .message.content end)[]
     | if .type == "text"
          # System reminders are the app's notes, not Skye's words.
