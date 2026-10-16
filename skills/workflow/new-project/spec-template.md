@@ -16,7 +16,9 @@ Remove every guidance comment once its section is filled in.
 
 ## Overview
 
-<!-- The solution from the users' point of view, in a short paragraph: what they'll do with it and what changes for them. -->
+<!-- The solution from the users' point of view: one line (it becomes the GitHub repo's description), then a short paragraph on what they'll do with it and what changes for them. -->
+
+**In one line:** <what the project does, for whom>
 
 **Today:** <how it's done now>
 

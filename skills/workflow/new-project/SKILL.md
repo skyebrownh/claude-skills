@@ -96,7 +96,7 @@ Show everything this phase will do, with the real values filled in, and run it o
 1. `git init -b main`.
 2. `.gitignore`, built from [gitignore-starters.md](gitignore-starters.md): the Common block, plus the block for each language in the stack.
 3. `.github/`, copied from this skill's [github/](github/) folder: the feature, bug and parent issue templates, `config.yml`, and the PR template.
-4. The repo, named after this folder, private, with SPEC.md's one-line overview as its description:
+4. The repo, named after this folder, private, with the "In one line" from SPEC.md's Overview as its description:
 
    ```sh
    gh repo create <folder name> --private --source . --remote origin --description "<one line>"
