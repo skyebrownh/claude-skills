@@ -19,7 +19,7 @@ it is: the skills find facts by heading.
 
 ## Checks before committing
 
-<!-- Every command must pass before /ship commits. One per line. -->
+<!-- Every command must pass before each commit during the build, and again when /ship runs. One per line. -->
 
 ```sh
 <test command, e.g. uv run --env-file .env python manage.py test>

@@ -54,11 +54,17 @@ If the merge command fails, **stop and report it**, and run none of the clean-up
 
 ## 3. Clean up after the merge
 
+The branch may never have been checked out in this folder: it could have been built in a worktree, or shipped while this folder was on another branch. So check where it is first.
+
+**This folder has uncommitted or untracked changes** (`git status --porcelain`): stop before switching branches, which would carry them along, and ask Skye what they are.
+
 Run each step and report its result:
 
-1. Update the default branch: `git checkout <default> && git pull --ff-only`.
-2. Confirm nothing was left behind: `git diff <default> <branch>` should be empty. If it isn't, stop and report what differs before deleting anything.
-3. Delete the local branch: `git branch -D <branch>`. The capital `-D` is needed after a squash or rebase merge: those make new commits, so git doesn't recognise the branch as merged.
+1. Update the default branch: `git switch <default> && git pull --ff-only`.
+2. Confirm nothing was left behind: `git diff <default> <branch>` should be empty. If there's no local branch (`git branch --list <branch>` prints nothing, because it was shipped from another clone), compare with `origin/<branch>` instead. If neither exists (GitHub deleted the branch after merging, and this clone has no copy), skip this step and the next, and say so: there's nothing here to compare or delete. If anything differs, stop and report it before deleting anything.
+3. Delete the local branch, if there is one:
+   - **A worktree still has it checked out** (`git worktree list` shows `[<branch>]`): remove that worktree first, with `git worktree remove <its path>`, because git won't delete a branch a worktree is using. If the worktree has uncommitted changes, the command refuses: stop and ask Skye about them.
+   - Then `git branch -D <branch>`. The capital `-D` is needed after a squash or rebase merge: those make new commits, so git doesn't recognise the branch as merged.
 4. Prune: `git fetch --prune`. If the remote branch still exists (`git ls-remote --heads origin <branch>`), say so, and don't delete it: deleting a remote branch needs Skye's OK.
 5. Check that every issue the PR closes is now closed: `gh issue view <N> --json state`. GitHub's issue lists can lag for a few seconds, so trust `gh issue view`. For a parent PR, also list the parent's sub-issues (`gh api --paginate repos/{owner}/{repo}/issues/<parent>/sub_issues --jq '.[] | "#\(.number) \(.state)"'`) and name any still open: that child was missing from the PR's `Closes` lines.
 6. Show `git log --oneline -1`, the new commit on the default branch.

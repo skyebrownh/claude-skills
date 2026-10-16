@@ -27,8 +27,8 @@ Run `git status --porcelain`, then for each issue `gh issue view <N> --json titl
 - **This folder has uncommitted or untracked changes.** A build switches branches or adds worktrees, and either could tangle that work up with the new branch. Ask Skye what the changes are.
 - **An issue isn't open.** Say so, and ask whether Skye meant another issue.
 - **An issue has no `## Plan (approved)` comment.** The plan is what Skye approved; building without one builds something she hasn't agreed to. Plan it first.
-- **An issue is a parent** (`gh api repos/{owner}/{repo}/issues/<N> --jq .sub_issues_summary.total` is above 0). Parents hold no work of their own: build their children.
-- **An issue is blocked by an open issue:** `gh api repos/{owner}/{repo}/issues/<N>/dependencies/blocked_by --jq '.[] | select(.state == "open") | "#\(.number) \(.title)"'`. Name each blocker. One exception, the **sibling rule**: if the issue and its blocker are both children of the same "one PR" parent (see step 2), the blocker counts as landed once its commit is on the parent's branch, which is when `git log --format=%s <default branch>..<parent's branch>` has a subject that is the blocker's title. It stays open until the parent's PR merges, so its state can't tell you.
+- **An issue is a parent** (step 1 of [finding-the-parent.md](../ship/finding-the-parent.md)). Parents hold no work of their own: build their children.
+- **An issue is blocked by an open issue:** `gh api repos/{owner}/{repo}/issues/<N>/dependencies/blocked_by --jq '.[] | select(.state == "open") | "#\(.number) \(.title)"'`. Name each blocker. One exception, the **sibling rule**: if the issue and its blocker are both children of the same "one PR" parent (see step 2), the blocker counts as landed once it's folded into the parent's branch (step 4 of [finding-the-parent.md](../ship/finding-the-parent.md)).
 - **One listed issue blocks another.** They can't be built side by side, because one needs the other's work. Say to build the blocker first, and the other once the blocker has landed (or, for siblings, been committed on the parent's branch).
 
 **An issue's branch already exists** (step 2 gives its name; check with `git branch --list <branch>`): this isn't a stop, but ask Skye, for every such branch at once, whether to carry on from it. It may hold a build that stopped part-way, or a different piece of work.
@@ -46,10 +46,8 @@ The branch is `<N>-<slug>`, where the slug is 2 to 4 lowercase words from the is
 The base is where the branch starts:
 
 - **Usually** the default branch as it is on GitHub: run `git fetch origin <default branch>` once, and use `origin/<default branch>`. Starting from GitHub's copy means the branch includes everything merged so far, even if this folder's copy is behind.
-- **A child of a "one PR" parent:** the parent's branch. Find the parent with `gh api repos/{owner}/{repo}/issues/<N>/parent --jq .number` (a 404 means it has none) and its **Ships as** line, as `/ship` does. A child of a "one PR per child" parent uses the default branch, like a single issue.
-  - The parent's branch is the local branch matching `<P>-*` (`git branch --list '<P>-*'`).
-  - **None yet:** create it first, with `git branch --no-track <P>-<slug> origin/<default branch>`, the slug coming from the parent's title.
-  - **More than one:** ask Skye which it is.
+- **A child of a "one PR" parent:** the parent's branch. Find the parent, its **Ships as** and its branch with [finding-the-parent.md](../ship/finding-the-parent.md). A child of a "one PR per child" parent uses the default branch, like a single issue.
+  - **The parent has no branch yet:** create it first, with `git branch --no-track <P>-<slug> origin/<default branch>`, the slug coming from the parent's title.
 
 Every branch is created with `--no-track`. Without it, a branch created from `origin/<default branch>` would track the default branch, so a plain `git push` could send its work there.
 

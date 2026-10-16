@@ -8,9 +8,9 @@ Every change starts from a GitHub issue, so it has a recorded reason.
 
 1. **Issue.** Draft it from a template in `.github/ISSUE_TEMPLATE/` (feature, bug, or parent for work split into child issues). Create it only once Skye approves the draft.
 2. **Plan.** Show a short plan (files to change, and why) and wait for approval. Then post it on the issue under `## Plan (approved)` with `gh issue comment --body-file`.
-3. **Build** on a branch named `<issue#>-<short-slug>` (e.g. `2-issues-and-prs`), cut from an up-to-date `main`. Ideas that come up mid-issue become a new issue, not extra scope.
-4. **Hand over** for review: what changed with file links, the test result, a suggested commit message, and steps to try the skill in a project. Then wait.
-5. **`/ship`** commits and opens the PR from `.github/pull_request_template.md`; **`/merge <PR#>`** merges it. Only Skye starts these.
+3. **Build** with `/build <N>`: it makes the branch `<issue#>-<short-slug>` (e.g. `2-issues-and-prs`) and commits on it as the work goes, never pushing. Ideas that come up mid-issue become a new issue, not extra scope.
+4. **Hand over** with `/handover`, which posts a `## Handover` comment on the issue for the commit it covers. Revisions are new commits, then a new handover. Then wait for Skye's review.
+5. **`/ship`** pushes the branch and opens the PR from `.github/pull_request_template.md`; **`/merge <PR#>`** merges it. Only Skye starts `/build`, `/ship` and `/merge`.
 
 Project facts for these skills (checks, merge style, whether merging deploys) are in `.claude/workflow.md`; update it with `/setup-project`.
 

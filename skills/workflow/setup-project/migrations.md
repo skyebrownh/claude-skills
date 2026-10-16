@@ -33,3 +33,51 @@ The process as it stood before versions existed (before #14). There's nothing to
 
    Then tell Skye that any **open** parent issue also needs a `**Ships as:**` line before `/ship` will run on its branch. `/setup-project` doesn't edit issues.
 3. **`.claude/workflow.md`**: add the `## Process version` section from [workflow-template.md](workflow-template.md) directly above `## Default branch`, holding `2`.
+
+## 3: Commit during the build
+
+**Why:** Claude now commits on the issue's branch during the build, `/handover` records each handover as a comment on the issue, and `/ship` pushes committed, handed-over branches, folding a "one PR" parent's children into its branch (#18).
+
+**Changes:**
+
+1. **`CLAUDE.md`**, if the file exists: rewrite each of these lines, matching the whole line exactly.
+   - Expected:
+
+     ```markdown
+     - Leave changes uncommitted until I've reviewed them in my editor. When the work is ready, suggest a commit message and wait for my OK (in chat, or by running `/ship` or `/ship-set`) before committing.
+     ```
+
+     Becomes:
+
+     ```markdown
+     - Claude commits on the issue's branch during the build and never pushes before `/ship`. I review the committed branch from its handover.
+     ```
+
+   - Expected:
+
+     ```markdown
+     - Committing (I review uncommitted changes first)
+     ```
+
+     Becomes:
+
+     ```markdown
+     - Pushing any branch, or committing on `main`
+     ```
+
+   - Expected:
+
+     ```markdown
+     Running `/ship` or `/ship-set` is my approval to commit, and `/merge <PR#>` is my approval to merge (#69). Saying it in chat still works. These skills only start when I type them.
+     ```
+
+     Becomes:
+
+     ```markdown
+     Running `/ship` is my approval to push and open the PR, and `/merge <PR#>` is my approval to merge (#69). Saying it in chat still works. These skills only start when I type them.
+     ```
+
+   Then list, with line numbers, every other line of CLAUDE.md that mentions `/ship-set`, "multi-issue", "uncommitted" or a suggested commit message, and tell Skye they describe the old process and need editing by hand. Don't rewrite them: each one is worded for its project.
+2. **`.claude/workflow.md`**, if it has no `## Manual test setup` section: add that section from [workflow-template.md](workflow-template.md) directly after the `## Checks before committing` section (after its closing code fence), and ask Skye what goes in it, as step 4 of `/setup-project` would. Remove the section if she says there's nothing to set up.
+3. **`.claude/skills/ship-set/`**, if it exists: tell Skye that `/ship <child#>` now folds a child into its parent's branch, which replaces it, and suggest removing the folder. Don't delete it.
+4. **`.claude/workflow.md`**: set **Process version** to `3`.
