@@ -143,3 +143,13 @@ Left out: multi-model review (pstack's reviewers run on different models; here b
 - **Migration 3 matches heritage-media-availability's exact lines,** the only project set up before it. Any other project's wording won't match, so the migration stops and asks there instead of guessing. Other lines about the old process are listed for Skye to edit, not rewritten.
 - **`writing-skills`' rule for Skye-only skills is now about what's hard to undo** (pushing, merging, publishing, deleting), not committing: a local commit can be revised before it's pushed, which is what lets `/handover` commit its fixes.
 - **#20 was built with `/build 20`.** Once its `/ship` was in the working tree, the old way (uncommitted work, handover in chat) couldn't have shipped it.
+
+## 2026-10-16: Planning issues with `/plan-issue`
+
+`/plan-issue <N> …` (#7) turns issues into plans Skye approves, and posts each as `## Plan (approved)` on its issue, where `/build` reads it.
+
+- **Claude may start it,** unlike `/build`: it only reads until Skye approves the plan, so starting it needs no approval of its own. That is also what lets `/draft-issue` (#6) hand over to it when Skye asks to plan the issues it created.
+- **The plan names no branch.** `/build` makes the branch, from the right base, when the build starts, so a name written at planning time could only disagree with it.
+- **Non-trivial work gets two approaches** with their trade-offs and a recommendation, so Skye chooses between real options rather than approving the first idea. Trivial work gets one line on why one approach is enough.
+- **A prototype is suggested, not built.** When a decision needs one, the plan recommends it and says what it would answer. Building it is separate work (a prototype skill comes later).
+- **Plans are written out in full in the chat before any question,** and again after each round of answers. Skye approves what she reads in the chat, and a plan saved only to a file had left her with nothing to approve.
