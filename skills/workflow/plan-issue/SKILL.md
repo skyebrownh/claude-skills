@@ -62,7 +62,7 @@ This step is done when Skye has approved each plan as written out in the chat.
 ## 5. The plan's format
 
 ```markdown
-## Plan (approved)
+## Plan (draft)
 
 ### Decided while planning
 
@@ -95,7 +95,7 @@ This step is done when Skye has approved each plan as written out in the chat.
 <Only if planning found an acceptance criterion to add, change or remove: each one, old and new wording, and why.>
 ```
 
-The plan names no branch, because `/build` makes it. While it's a draft in the chat, its heading is `## Plan (draft)`.
+The plan names no branch, because `/build` makes it. It's headed `## Plan (draft)` while Skye reviews it in the chat, and `## Plan (approved)` only once posted (step 6), because `/build` treats that heading as her approval.
 
 This step is done when every section is filled in, with no `<placeholders>` left.
 
