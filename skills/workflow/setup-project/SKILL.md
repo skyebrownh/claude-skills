@@ -1,15 +1,14 @@
 ---
 name: setup-project
-description: Set up a project for Skye's personal skills by interviewing her and writing .claude/workflow.md, the project facts /handover, /ship and /merge read (checks, PR template, merge style, whether merging deploys). Also updates an existing one, and brings a project set up for an older version of the process up to date. Use only when Skye types /setup-project.
-disable-model-invocation: true
+description: Set up a project for Skye's personal skills by interviewing her and writing .claude/workflow.md, the project facts /handover, /ship and /merge read (checks, PR template, merge style, whether merging deploys). Also updates an existing one, and brings a project set up for an older version of the process up to date. Use when Skye asks to set up or update a project's workflow facts, or from /new-project.
 argument-hint: "(no arguments; works on the current project)"
 ---
 
 # Set up a project's workflow facts
 
-Skye typed `/setup-project`. Your job is to write `.claude/workflow.md`: the facts about this project that her personal skills read, so that `/handover`, `/ship` and `/merge` work the same way everywhere. Its format is [workflow-template.md](workflow-template.md). Keep that template's headings exactly as they are, because the skills find facts by heading.
+Your job is to write `.claude/workflow.md`: the facts about this project that Skye's personal skills read, so that `/handover`, `/ship` and `/merge` work the same way everywhere. Its format is [workflow-template.md](workflow-template.md). Keep that template's headings exactly as they are, because the skills find facts by heading.
 
-Put each step below on the task list, and keep a step there with a reason if you skip it. Write nothing until Skye approves (the migrations in step 2, the draft in step 5), and commit nothing at all.
+Put each step below on the task list, and keep a step there with a reason if you skip it. Write nothing until Skye approves (the migrations in step 2, the draft in step 5), and commit nothing at all. Because it changes nothing without her approval, Claude may start this skill, and `/new-project` calls it.
 
 ## 1. Check where you are
 
@@ -47,6 +46,8 @@ Work out as many answers as you can yourself, so that Skye only has to confirm t
 - deploys: `railway.json`, `vercel.json`, `fly.toml`, `netlify.toml`, a `Procfile`, deploy workflows, and anything CLAUDE.md says about deploying;
 - after-deploy checks and releases: CLAUDE.md, and `gh release list --limit 3`.
 
+In a new project, merged PRs, history and releases show nothing yet, so ask about the merge style and releases instead of guessing them.
+
 This step is done when every section of the template has either a guessed answer with its source, or is marked "don't know".
 
 ## 4. Interview Skye in rounds
@@ -73,4 +74,4 @@ Show the exact change and add it only on her OK. If CLAUDE.md states the same fa
 
 ## 7. Hand back
 
-Say what was written, including which migrations were applied and the project's version now. List every changed file as a link. Say that nothing is committed: `workflow.md` gets committed with the project's next change, like any other file. Then say which skills can now be used here: `/handover`, `/ship` and `/merge`, if they're installed.
+Say what was written, including which migrations were applied and the project's version now. List every changed file as a link. Say that nothing is committed: `workflow.md` gets committed with the project's next change, like any other file (or, when `/new-project` called this skill, in its first commit). Then say which skills can now be used here: `/handover`, `/ship` and `/merge`, if they're installed.

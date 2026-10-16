@@ -178,3 +178,27 @@ Left out: multi-model review (pstack's reviewers run on different models; here b
 - **It follows the checked-out branch,** like the skills. A branch cut before #11 merged has no `global/CLAUDE.md`, so on one the link points at nothing and Claude Code runs without global preferences until she switches back.
 - **Slimmed to what's true in every project:** tighter wording, the `--body-file` line dropped (the skills do it), and the Git rules merged with "ask before deleting" into one Approvals (always) section. The plan-first line and the review list stay until their own issues replace them.
 - **`--help` prints the top comment up to its first blank line,** rather than a fixed line range, which the longer usage had outgrown.
+
+## 2026-10-16: Starting a project with `/new-project`
+
+`/new-project <idea>` sets up a brand-new project in its own folder, in nine phases that each end on Skye's approval (#9): restate, grill, compare, SPEC.md, challenge, CLAUDE.md and README.md, git and GitHub, `workflow.md` and the first commit, then the first issues. Designed in the 2026-10-15 roadmap session.
+
+Borrowed, and rewritten in Skye's conventions:
+
+- **pstack** by Lauren Tan ([cursor/plugins](https://github.com/cursor/plugins/tree/main/pstack), MIT): `in-your-own-words` (phase 1, the idea said back before anything is built on it), `architect` (phase 3, two real options side by side, without its multiple models), and `interrogate` (phase 5, a cold reader for the spec, which is `fresh-eyes` document mode).
+- **Matt Pocock's skills** ([mattpocock/skills](https://github.com/mattpocock/skills), MIT): `grilling` (phase 2), `to-spec` (the spec's Problem statement, Testing approach, and "no file paths" in Technical approach) and `to-tickets` (first issues as vertical slices, through `/draft-issue`).
+- **heritage-media-availability's** SPEC.md, CLAUDE.md and issue templates are the bases for the templates in the skill.
+
+Choices worth remembering:
+
+- **`/setup-project` is now one Claude may start.** It still writes nothing until Skye approves, so starting it needs no approval of its own, and a skill only Skye starts can't call one that only she starts.
+- **The first issues go through `/draft-issue`,** which Skye types from a ready line, rather than a copy of its rules in this skill. Its rules then live in one place, and by phase 9 the repo has the templates and labels it reads. It's also a natural place for a fresh session.
+- **It needs no `workflow.md`,** unlike the skills that act on a project, because it writes one in phase 8.
+- **The spec is the handoff point.** Phase 0 works out which phases are done from the files that exist, so a fresh session can carry on after any phase.
+- **One commit straight to `main`,** at the end of phase 8 so it includes `workflow.md`. An empty repo has no branch to start a feature branch from; every later change goes through an issue.
+- **The templates are named `*-template.md`,** never `CLAUDE.md` or `SPEC.md`, because Claude Code loads a file named `CLAUDE.md` in a folder it reads as instructions, so working in this repo would pick up the template as rules.
+- **README.md is for people, CLAUDE.md for Claude.** The README covers what the project is and how to install, run and test it. CLAUDE.md covers stack, architecture, conventions and commands. Only the test command is in both.
+- **The PR template names no command:** its checklist says "The checks in `.claude/workflow.md` pass", so it never disagrees with `workflow.md`.
+- **No prototype phase.** High-level choices don't need one; a decision that does becomes an issue for `/plan-issue`.
+
+Left out: deleting GitHub's default labels, branch protection, and CI workflows.

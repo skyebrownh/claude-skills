@@ -8,11 +8,11 @@ Each skill is a folder holding a `SKILL.md`, which Claude Code reads as instruct
 
 ### Started only by Skye
 
-Each one does something that's hard to undo (creating issues, building and committing, pushing, merging, rewriting project files), so typing the command is Skye's approval for it.
+Each one does something that's hard to undo (creating a repo, creating issues, building and committing, pushing, merging), so typing the command is Skye's approval for it.
 
 | Skill | What it does |
 | --- | --- |
-| [`/setup-project`](skills/workflow/setup-project/SKILL.md) | Interviews Skye and writes the project's `.claude/workflow.md`. Run once per project, before `/ship` and `/merge`, and again to bring a project up to date when the process changes. |
+| [`/new-project <idea>`](skills/workflow/new-project/SKILL.md) | Sets up a brand-new project from an idea, in its own folder, one approved phase at a time: restate, grill, compare the big choices, write SPEC.md, challenge it with `fresh-eyes`, write CLAUDE.md and README.md, create the private GitHub repo with its templates, labels and milestones, write `workflow.md` through `/setup-project` and push the first commit. It ends with a `/draft-issue` line for the first issues. |
 | [`/draft-issue <idea> …`](skills/workflow/draft-issue/SKILL.md) | Turns one idea, or several, into draft issues from the project's templates, after a short `grilling`: a parent with vertical-slice children for bigger work, and a suggested comment instead where an issue already exists. Creates nothing until Skye approves the drafts. |
 | [`/build <N> …`](skills/workflow/build/SKILL.md) | Builds approved issues on their own branches, committing each green slice, and hands each over with `/handover`. One issue builds in this folder; several build in parallel, one subagent each in a temporary worktree. Never pushes. |
 | [`/ship [<N> …]`](skills/workflow/ship/SKILL.md) | Pushes each issue's committed branch and opens its PR, once its latest handover covers the branch tip. Never merges. A parent issue's `Ships as:` line decides how its children ship: one PR per child, or one PR, where `/ship <child#>` folds each child's branch into the parent's branch as one commit, and `/ship <parent#>` opens the PR. |
@@ -22,6 +22,7 @@ Each one does something that's hard to undo (creating issues, building and commi
 
 | Skill | What it does |
 | --- | --- |
+| [`/setup-project`](skills/workflow/setup-project/SKILL.md) | Interviews Skye (when she asks, or from `/new-project`) and writes the project's `.claude/workflow.md`. Run once per project, before `/ship` and `/merge`, and again to bring a project up to date when the process changes. |
 | [`/plan-issue <N> …`](skills/workflow/plan-issue/SKILL.md) | Turns issues into plans: reads the issue, its parent, the spec and the affected code, weighs two approaches for non-trivial work, shows each plan in chat and grills Skye on what's open, then posts `## Plan (approved)` on the issue once she approves. Creates no branch. |
 | [`/handover`](skills/workflow/handover/SKILL.md) | Hands the committed work on an issue's branch over for review: runs the checks and `fresh-eyes`, and posts a `## Handover` comment on the issue recording the commit it covers, with what changed, the test results and manual test steps. |
 | [`grilling`](skills/guides/grilling/SKILL.md) | Interviews Skye in rounds of numbered questions with recommended answers, looking facts up itself, until every decision is settled. |
@@ -51,6 +52,8 @@ The script makes **symlinks** (pointers to the folders in this repo) instead of 
 1. `./install.sh` (once per machine, and after adding skills).
 2. In the project, run `/setup-project` and approve the `workflow.md` it drafts.
 3. Commit `.claude/workflow.md` with the project's next change.
+
+For a brand-new project, `/new-project` does steps 2 and 3, along with the spec, CLAUDE.md, README, repo and first commit.
 
 Then each issue goes: `/draft-issue`, `/plan-issue <N>`, `/build <N>` (commits on its branch, ends with `/handover`), review the branch from the handover, `/ship <N>`, `/merge <PR#>`.
 
