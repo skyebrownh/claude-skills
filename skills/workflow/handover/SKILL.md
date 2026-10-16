@@ -82,14 +82,14 @@ Run `git rev-parse HEAD` for the commit it covers: the branch tip, after any fix
 ### Fresh-eyes review
 
 **Needs you**
-- <finding>. <Trade-off.> **Recommend:** <what to do; for a finding outside the plan, a new issue>.
+- `<file:line or section>`: <finding>. <Trade-off.> **Recommend:** <what to do; for a finding outside the plan, a new issue>.
 
 **Fixed**
 - <finding>: <how it was resolved, and why that way> (`<short sha>`).
 
 <details><summary>Footnotes: <N> noted, <M> dropped</summary>
 
-- **Noted:** <finding>.
+- **Noted:** <finding>. <Reason.>
 - **Dropped:** <finding>: <why>.
 
 </details>
