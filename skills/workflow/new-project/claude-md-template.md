@@ -11,7 +11,7 @@ section is filled in.
 
 ## <Project name>
 
-<One or two sentences: what the project is and who it's for.> **SPEC.md is the source of truth** for what it does and why. **GitHub issues** hold the work. Read SPEC.md and the issue before starting any task, and cite requirement IDs and the issue number in plans and summaries.
+<One or two sentences: what the project is and who it's for.> **SPEC.md is the source of truth** for what it does and why. **GitHub issues** hold the work.
 
 @SPEC.md
 
