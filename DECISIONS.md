@@ -149,6 +149,7 @@ Left out: multi-model review (pstack's reviewers run on different models; here b
 `/plan-issue <N> …` (#7) turns issues into plans Skye approves, and posts each as `## Plan (approved)` on its issue, where `/build` reads it.
 
 - **Claude may start it,** unlike `/build`: it only reads until Skye approves the plan, so starting it needs no approval of its own. That is also what lets `/draft-issue` (#6) hand over to it when Skye asks to plan the issues it created.
+- **It runs without `workflow.md`,** unlike the skills that act: a missing fact there would make `/build` or `/ship` guess a command, but a plan only names the checks, so it says they come from `/setup-project` and carries on.
 - **The plan names no branch.** `/build` makes the branch, from the right base, when the build starts, so a name written at planning time could only disagree with it.
 - **Non-trivial work gets two approaches** with their trade-offs and a recommendation, so Skye chooses between real options rather than approving the first idea. Trivial work gets one line on why one approach is enough.
 - **A prototype is suggested, not built.** When a decision needs one, the plan recommends it and says what it would answer. Building it is separate work (a prototype skill comes later).
