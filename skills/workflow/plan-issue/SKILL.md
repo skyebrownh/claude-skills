@@ -81,6 +81,7 @@ This step is done when Skye has approved each plan as written out in the chat.
 - <Each behaviour `tdd` will build, phrased so it can be observed, e.g. "a closed month rejects new bookings".>
 - **Seams:** <the public paths each behaviour is tested through>.
 - **Checks:** <each command under Checks before committing, with the expected result>.
+- **By hand:** <what Skye will try once it's built, starting from Manual test setup, or "Nothing to try by hand">.
 
 ### Test data
 
