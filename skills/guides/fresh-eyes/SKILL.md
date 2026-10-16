@@ -21,14 +21,16 @@ This step is done when you know the mode and, for a document, its file exists.
 
 Read `.claude/workflow.md` at the repo root. You need **Default branch**. If the file is missing, or that section still holds a `<placeholder>`, stop and say to run `/setup-project` first, rather than guessing the branch.
 
-This step is done when you know the default branch's name.
+**Another skill names a base branch or a folder** (as `handover` does for a child built on its own branch, or for a worktree): compare with that base instead of the default branch, and run every command in that folder.
+
+This step is done when you know the default branch's name, and any base or folder you were given.
 
 ## 2. Gather the diff (code mode)
 
 The diff covers committed, uncommitted and untracked work alike, so the review sees everything the branch changes, whether or not it's committed yet:
 
 ```sh
-base=$(git merge-base <default branch> HEAD)
+base=$(git merge-base <base branch, or the default branch> HEAD)
 git diff "$base"                                # tracked files: the working tree against where the branch began
 git status --short --untracked-files=all        # lines starting ?? are new, untracked files
 ```
@@ -53,7 +55,7 @@ This step is done when you have each item above, or know it doesn't exist (no CL
 
 Start two subagents with `subagent_type: Explore`, **both in one message** so they run in parallel and neither sees the other's view. Explore agents can read and search but can't edit, which keeps the review read-only.
 
-Give each the diff and the untracked files' text. If the diff is too long to paste, give the commands from step 2 instead, and tell the reviewer to read their output in full. Then add:
+Give each the diff and the untracked files' text. If the diff is too long to paste, give the commands from step 2 instead (with the folder to run them in, if you were given one), and tell the reviewer to read their output in full. Then add:
 
 **Standards** gets the project's CLAUDE.md and smells.md, and this brief:
 

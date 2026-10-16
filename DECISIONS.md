@@ -118,3 +118,15 @@ Left out: multi-model review (pstack's reviewers run on different models; here b
 - **Fresh-eyes findings:** Act on findings within the approved plan are fixed before the handover, one commit each, so Skye can see each fix and revert it alone. Everything else is listed untouched, so she can overrule the judgement. This is how `fresh-eyes`, which never changes a file, fits a step that does.
 - **Files are plain paths in the comment,** not links, because the branch stays local until `/ship`, so a GitHub link would be broken.
 - **A `Manual test setup` section in `workflow.md`** holds what Skye does before trying a change by hand, so each handover's steps don't have to work it out again. Projects set up earlier get it through migration 3 (#20).
+
+## 2026-10-15: Building on branches, in parallel
+
+`/build <N> …` (#19) builds approved issues on their own branches, committing each green slice, and ends with `/handover`. Several issues build at once, one subagent each in a worktree.
+
+- **Handovers run in the main session,** not in the subagents. Subagents can't start subagents, and `fresh-eyes` needs two, so a subagent's own review would lose the fresh context that makes it worth having. Each subagent builds and commits; the main session hands each branch over, from its worktree.
+- **`/build` makes the worktrees itself** with `git worktree add`, rather than through the Agent tool's `isolation: worktree`. That option picks its own branch name and base, and `/build` needs `<N>-<slug>` from the right base (the parent's branch, for a child of a "one PR" parent), and a worktree that lasts until its handover is posted.
+- **Worktrees live in `.claude/worktrees/<N>`,** listed in `.git/info/exclude` (this clone's own ignore file, never committed), so they never show up as untracked files in Skye's folder.
+- **Branches are created with `--no-track`.** A branch made from `origin/main` otherwise tracks `main`, so a plain `git push` could send its work there; `/ship` sets the real upstream when it pushes.
+- **Build order follows blockers:** `/build` stops if one listed issue blocks another, rather than ordering them itself, because the blocked one needs the other's work to have landed (or, for siblings, been committed on the parent's branch) before it starts.
+- **The sibling rule:** a child blocked by a sibling under the same "one PR" parent can be built once that sibling's commit is on the parent's branch, found by its title, because the sibling stays open until the parent's PR merges.
+- **Revisions on another branch** go to a subagent in a worktree, so Skye's folder never switches branch under her while she reviews.
