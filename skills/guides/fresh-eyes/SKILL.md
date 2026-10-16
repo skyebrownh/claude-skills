@@ -25,7 +25,7 @@ This step is done when you know the default branch's name.
 
 ## 2. Gather the diff (code mode)
 
-Review usually runs before the handover, when nothing is committed yet, so the diff covers committed, uncommitted and untracked work alike:
+The diff covers committed, uncommitted and untracked work alike, so the review sees everything the branch changes, whether or not it's committed yet:
 
 ```sh
 base=$(git merge-base <default branch> HEAD)

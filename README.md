@@ -20,6 +20,7 @@ These act outside the conversation (commit, push, merge), so typing the command 
 
 | Skill | What it does |
 | --- | --- |
+| [`/handover`](skills/workflow/handover/SKILL.md) | Hands the committed work on an issue's branch over for review: runs the checks and `fresh-eyes`, and posts a `## Handover` comment on the issue recording the commit it covers, with what changed, the test results and manual test steps. |
 | [`grilling`](skills/guides/grilling/SKILL.md) | Interviews Skye in rounds of numbered questions with recommended answers, looking facts up itself, until every decision is settled. |
 | [`tdd`](skills/guides/tdd/SKILL.md) | Builds test-first in thin red-green slices, testing behaviour through public paths, with the behaviours to test taken from the approved plan. |
 | [`writing-skills`](skills/authoring/writing-skills/SKILL.md) | The style guide for writing and editing skills and CLAUDE.md files. |

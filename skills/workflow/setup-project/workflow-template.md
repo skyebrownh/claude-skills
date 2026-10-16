@@ -1,7 +1,7 @@
 # Workflow facts
 
 <!--
-Facts about this project that Skye's personal skills (/ship, /merge) read,
+Facts about this project that Skye's personal skills (/handover, /ship, /merge) read,
 so the skills themselves stay the same in every project. Written by
 /setup-project; edit by hand any time. Keep each section's heading exactly as
 it is: the skills find facts by heading.
@@ -25,6 +25,13 @@ it is: the skills find facts by heading.
 <test command, e.g. uv run --env-file .env python manage.py test>
 <any other check, e.g. a production-readiness or lint command>
 ```
+
+## Manual test setup
+
+<!-- What Skye does before trying a change by hand, and anything to undo afterwards. /handover starts its manual test steps from here. -->
+
+- <e.g. start the dev server: uv run --env-file .env python manage.py runserver>
+- <e.g. log in as the seeded admin user from the fixtures>
 
 ## Pull requests
 
