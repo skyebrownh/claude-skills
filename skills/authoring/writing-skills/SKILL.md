@@ -5,7 +5,7 @@ description: Skye's style guide for writing Claude Code skills and CLAUDE.md fil
 
 # Writing skills (and CLAUDE.md)
 
-Skye's rules for anything an agent reads: a skill, a CLAUDE.md, or a doc a skill points to. They come from building her first project's workflow, and from Matt Pocock's `writing-for-agents` (MIT; see DECISIONS.md in the skills repo). The goal is that the agent takes the **same process** every run.
+Skye's rules for anything an agent reads: a skill, a CLAUDE.md, or a doc a skill points to. They come from building her first project's workflow, and from Matt Pocock's `writing-for-agents` (MIT; see `decisions/2026-10-15-130818-start-a-personal-skills-repo.md` in the skills repo). The goal is that the agent takes the **same process** every run.
 
 For a new skill, start from [skill-template.md](skill-template.md).
 
@@ -60,6 +60,6 @@ These came out of `/ship` and `/merge` and are worth keeping in every skill that
 - The description says who starts it, and passes the "Who starts the skill" rules above.
 - Every step has a completion criterion, and every stop condition says what to do next.
 - Project facts are read from `workflow.md`, not written into the skill.
-- The README lists it, and DECISIONS.md credits any idea taken from someone else's skill.
+- The README lists it, and a file in `decisions/` credits any idea taken from someone else's skill.
 - If projects set up earlier need changing to match (a heading in `workflow.md`, a line in an issue template), a new migration in `setup-project/migrations.md` does it.
 - `./install.sh <name>` links it, and you've tried it once in a real or throwaway project.

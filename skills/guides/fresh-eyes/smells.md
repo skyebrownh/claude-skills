@@ -1,6 +1,6 @@
 # Code smells
 
-A fixed list of code smells from Martin Fowler's _Refactoring_ (chapter 3), adapted from Matt Pocock's `code-review` (MIT; see DECISIONS.md in the skills repo). The review skill pastes this whole file into the Standards reviewer's prompt, because a subagent can't open the skill's files.
+A fixed list of code smells from Martin Fowler's _Refactoring_ (chapter 3), adapted from Matt Pocock's `code-review` (MIT; see `decisions/2026-10-15-190045-review-skill-only-reports.md` in the skills repo). The review skill pastes this whole file into the Standards reviewer's prompt, because a subagent can't open the skill's files.
 
 Two rules apply to every smell:
 

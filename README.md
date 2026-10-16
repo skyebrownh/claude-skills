@@ -76,7 +76,7 @@ global/          CLAUDE.md, Skye's preferences for every project
 tests/           tests for install.sh
 .github/         issue and PR templates
 CLAUDE.md        how changes to this repo are made (issue → plan → PR)
-DECISIONS.md     why things are the way they are, and where ideas came from
+decisions/       why things are the way they are, and where ideas came from
 ```
 
 Add a new bucket when a group of skills doesn't fit an existing one. Skill names must be unique across buckets, because Claude Code finds a skill by its folder name.
@@ -86,7 +86,7 @@ Add a new bucket when a group of skills doesn't fit an existing one. Skill names
 1. Start a draft in `skills/in-progress/<name>/` from [the template](skills/authoring/writing-skills/skill-template.md), following [`writing-skills`](skills/authoring/writing-skills/SKILL.md).
 2. Try it in a real or throwaway project. A draft can be tried by copying its folder into that project's `.claude/skills/`.
 3. Move it into a bucket, list it in this README, and run `./install.sh <name>`.
-4. Record anything worth remembering (a choice made, an idea borrowed) in [DECISIONS.md](DECISIONS.md).
+4. Record anything worth remembering (a choice made, an idea borrowed) in a new file in [`decisions/`](decisions/README.md).
 
 ## Tests
 
