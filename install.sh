@@ -142,20 +142,25 @@ done
 # --- Link the global CLAUDE.md -------------------------------------------------
 # Only on a full install: naming skills means "only these", and trying a
 # branch's new skill shouldn't swap Skye's preferences in every project.
+# Whatever is in the way holds preferences not yet in the repo, so replacing it
+# could lose them. Say how to move them in instead. (diff follows a link.)
+how_to_move_in() {
+  echo "         To move it into this repo, copy any changes into global/CLAUDE.md" >&2
+  echo "         (diff \"$CLAUDE_MD\" \"$GLOBAL_SRC\"), then remove it and run this again." >&2
+  problems=$((problems + 1))
+}
+
 if [ ${#wanted[@]} -eq 0 ]; then
   if [ -L "$CLAUDE_MD" ] && [ "$(readlink "$CLAUDE_MD")" = "$GLOBAL_SRC" ]; then
     echo "ok       CLAUDE.md (already linked)"
   elif [ -L "$CLAUDE_MD" ]; then
-    # Someone else's link. Replacing it could break another tool, so ask a human.
+    # Someone else's link, which another tool may rely on.
     echo "SKIPPED  CLAUDE.md: $CLAUDE_MD already links to $(readlink "$CLAUDE_MD")" >&2
-    problems=$((problems + 1))
+    how_to_move_in
   elif [ -e "$CLAUDE_MD" ]; then
-    # Skye's own file, from before it lived here. Replacing it would lose any
-    # change not yet copied into the repo, so say how to move it in instead.
+    # Skye's own file, from before it lived here.
     echo "SKIPPED  CLAUDE.md: $CLAUDE_MD is a real file, not a link to global/CLAUDE.md." >&2
-    echo "         To move it into this repo, copy any changes into global/CLAUDE.md" >&2
-    echo "         (diff \"$CLAUDE_MD\" \"$GLOBAL_SRC\"), then remove it and run this again." >&2
-    problems=$((problems + 1))
+    how_to_move_in
   else
     echo "link     CLAUDE.md -> $GLOBAL_SRC"
     run mkdir -p "$(dirname "$CLAUDE_MD")"

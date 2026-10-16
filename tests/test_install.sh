@@ -146,6 +146,7 @@ out="$(SKILLS_DIR="$dir" CLAUDE_MD="$md" "$INSTALL" 2>&1)"
 check "global: install exits 1 when another link is in the way" [ $? -eq 1 ]
 check "global: other link untouched" [ "$(readlink "$md")" = "/somewhere/else" ]
 check "global: it reports the other link" grep -q "SKIPPED  CLAUDE.md: .* already links to /somewhere/else" <<<"$out"
+check "global: it says how to move the other link's file in" grep -q "copy any changes into global/CLAUDE.md" <<<"$out"
 SKILLS_DIR="$dir" CLAUDE_MD="$md" "$INSTALL" --uninstall >/dev/null 2>&1
 check "global: uninstall keeps another tool's link" [ "$(readlink "$md")" = "/somewhere/else" ]
 rm -rf "$dir" "$(dirname "$md")"
