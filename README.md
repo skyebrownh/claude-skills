@@ -13,6 +13,7 @@ These act outside the conversation (commit, push, merge), so typing the command 
 | Skill | What it does |
 | --- | --- |
 | [`/setup-project`](skills/workflow/setup-project/SKILL.md) | Interviews Skye and writes the project's `.claude/workflow.md`. Run once per project, before `/ship` and `/merge`, and again to bring a project up to date when the process changes. |
+| [`/build <N> …`](skills/workflow/build/SKILL.md) | Builds approved issues on their own branches, committing each green slice, and hands each over with `/handover`. One issue builds in this folder; several build in parallel, one subagent each in a temporary worktree. Never pushes. |
 | [`/ship`](skills/workflow/ship/SKILL.md) | Commits the reviewed work on an issue's branch, pushes it, and opens the PR. Never merges. A parent issue's `Ships as:` line decides how its children ship: one PR per child (each from its own branch), or one PR, where `/ship <child#>` commits each child on the parent's branch and a final `/ship` opens the PR. |
 | [`/merge <PR#>`](skills/workflow/merge/SKILL.md) | Merges an approved PR, cleans up the branch, and lists what to check after the deploy. |
 
