@@ -104,7 +104,7 @@ Creating an issue can't be undone quietly: it's public at once, and can only be 
    gh issue create --title "<title>" --body-file <file> --label <label> --milestone "<milestone>" --parent <P> --blocked-by <numbers>
    ```
 
-   Leave out `--parent`, `--blocked-by` or `--milestone` when the draft has none. A child's blockers are the numbers of children created just before it.
+   Leave out `--parent`, `--blocked-by` or `--milestone` when the draft has none. Each child's `--blocked-by` is the real numbers of the children its draft names as blockers, which were created before it because of the order above.
 3. Fill the real numbers into each parent's Children list, with `gh issue edit <P> --body-file <file>`:
    - **A new parent:** replace each `# (<title>)` with its child's number (`1. #23`).
    - **An existing parent:** re-read its body (`gh issue view <P> --json body`), add the approved line, and write it back. If its Children list changed since you drafted, show the new version and ask before writing.
