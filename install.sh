@@ -24,6 +24,9 @@ set -euo pipefail
 # The repo is wherever this script lives, so it works from any folder.
 REPO="$(cd "$(dirname "$0")" && pwd)"
 SKILLS_DIR="${SKILLS_DIR:-$HOME/.claude/skills}"
+# Skye's global preferences, linked like a skill so they have history too.
+CLAUDE_MD="${CLAUDE_MD:-$HOME/.claude/CLAUDE.md}"
+GLOBAL_SRC="$REPO/global/CLAUDE.md"
 
 dry_run=false
 uninstall=false
@@ -126,6 +129,15 @@ for i in "${!names[@]}"; do
     run ln -s "$src" "$target"
   fi
 done
+
+# --- Link the global CLAUDE.md -------------------------------------------------
+if [ -L "$CLAUDE_MD" ] && [ "$(readlink "$CLAUDE_MD")" = "$GLOBAL_SRC" ]; then
+  echo "ok       CLAUDE.md (already linked)"
+else
+  echo "link     CLAUDE.md -> $GLOBAL_SRC"
+  run mkdir -p "$(dirname "$CLAUDE_MD")"
+  run ln -s "$GLOBAL_SRC" "$CLAUDE_MD"
+fi
 
 # Report links into this repo whose skill no longer exists (renamed or
 # deleted), so they don't linger as broken skills.

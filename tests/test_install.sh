@@ -8,8 +8,16 @@ set -uo pipefail   # no -e: a failing check should be reported, not end the run
 
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 INSTALL="$REPO/install.sh"
+GLOBAL_SRC="$REPO/global/CLAUDE.md"
 passed=0
 failed=0
+
+# A full install also links the global CLAUDE.md. Point it at a throwaway path
+# for every test, so no test can ever replace your real ~/.claude/CLAUDE.md.
+# Tests about the global file set their own CLAUDE_MD on top of this.
+scratch="$(mktemp -d "${TMPDIR:-/tmp}/claude-md-test.XXXXXX")"
+trap 'rm -rf "$scratch"' EXIT
+export CLAUDE_MD="$scratch/CLAUDE.md"
 
 # Record one check: check "<description>" <command...>
 check() {
@@ -87,6 +95,18 @@ ln -s "$REPO/skills/workflow/renamed-away" "$dir/renamed-away"
 out="$(SKILLS_DIR="$dir" "$INSTALL" 2>&1)"
 check "stale link reported" grep -q "stale    renamed-away" <<<"$out"
 rm -rf "$dir"
+
+# --- A full install links the global CLAUDE.md --------------------------------
+dir="$(fresh_dir)"
+md="$(fresh_dir)/CLAUDE.md"
+SKILLS_DIR="$dir" CLAUDE_MD="$md" "$INSTALL" >/dev/null 2>&1
+check "global: install exits 0" [ $? -eq 0 ]
+check "global: CLAUDE.md is a symlink" [ -L "$md" ]
+check "global: it points at global/CLAUDE.md" [ "$(readlink "$md")" = "$GLOBAL_SRC" ]
+out="$(SKILLS_DIR="$dir" CLAUDE_MD="$md" "$INSTALL" 2>&1)"
+check "global: second run exits 0" [ $? -eq 0 ]
+check "global: second run reports it already linked" grep -q "ok       CLAUDE.md (already linked)" <<<"$out"
+rm -rf "$dir" "$(dirname "$md")"
 
 echo "$passed passed, $failed failed"
 [ $failed -eq 0 ]
