@@ -1,6 +1,6 @@
 # Finding an issue's parent and its branch
 
-`/ship`, `/build` and `/handover` all need to know whether an issue belongs to a parent, how that parent ships, which branch is the parent's, and which children are already folded into it. The steps are here once, so the three skills can't drift apart.
+`/ship`, `/build` and `/handover` all need to know whether an issue belongs to a parent, how that parent ships, which branch is the parent's, and which children are already folded into it, and `/plan-issue` needs the first of these. The steps are here once, so the skills can't drift apart.
 
 ## 1. Is it a parent, a child, or neither?
 
