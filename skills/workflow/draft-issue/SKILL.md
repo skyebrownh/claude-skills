@@ -71,7 +71,6 @@ This step is done when `grilling` ends with Skye confirming nothing is left open
 One issue is one sitting, one branch, one PR.
 
 - **Bigger work** becomes a parent, from the parent template, whose children are **vertical slices**: each a thin piece that works end to end on its own, so it can be built, tried and shipped alone.
-- **Ships as:** Skye's answer from step 4.
 - **Blocked-by links** go only where order matters: a child that needs another child's work first is blocked by it. Children that could be built in any order have none.
 - **Independent ideas** get no links between them.
 - **It fits an existing open parent:** propose it as a child of that parent, and draft the line to add to the parent's Children list, so both are approved together.
@@ -85,6 +84,7 @@ For each issue, write:
 - **Title,** template, milestone and labels. The labels are the template's default labels plus any suggested ones, because `--body-file` skips the template's frontmatter, so its labels have to be passed by hand.
 - **Parent and blocked-by,** if any.
 - **Body:** every heading of the matching template, filled in, with its `<!-- … -->` guidance comments removed. Requirement IDs go where the template asks for them (such as a Delivers section). Acceptance criteria are checkboxes that someone can check by running the work or a test. Out of scope is a list.
+- **A new parent's `**Ships as:**` line:** exactly `one PR` or `one PR per child`, from Skye's answer in step 4, because `/ship` reads that line and stops on anything else.
 - **A new parent's Children list:** each child as `#` and its title in brackets, in order (`1. # (Add the form)`), because the numbers come only when the children are created in step 7.
 - **A child of an existing parent:** the line to add to that parent's Children list, written the same way.
 - **A duplicate:** the comment to post on the existing issue, in place of a new issue.
