@@ -137,7 +137,11 @@ if [ ${#wanted[@]} -gt 0 ]; then
   :
 elif [ -L "$CLAUDE_MD" ] && [ "$(readlink "$CLAUDE_MD")" = "$GLOBAL_SRC" ]; then
   echo "ok       CLAUDE.md (already linked)"
-elif [ -e "$CLAUDE_MD" ] && [ ! -L "$CLAUDE_MD" ]; then
+elif [ -L "$CLAUDE_MD" ]; then
+  # Someone else's link. Replacing it could break another tool, so ask a human.
+  echo "SKIPPED  CLAUDE.md: $CLAUDE_MD already links to $(readlink "$CLAUDE_MD")" >&2
+  problems=$((problems + 1))
+elif [ -e "$CLAUDE_MD" ]; then
   # Skye's own file, from before it lived here. Replacing it would lose any
   # change not yet copied into the repo, so say how to move it in instead.
   echo "SKIPPED  CLAUDE.md: $CLAUDE_MD is a real file, not a link to global/CLAUDE.md." >&2

@@ -128,5 +128,15 @@ check "global: it says how to move it into the repo" grep -q "global/CLAUDE.md" 
 check "global: the skills still got linked" [ -L "$dir/writing-skills" ]
 rm -rf "$dir" "$(dirname "$md")"
 
+# --- It never replaces another tool's CLAUDE.md link -----------------------------
+dir="$(fresh_dir)"
+md="$(fresh_dir)/CLAUDE.md"
+ln -s /somewhere/else "$md"
+out="$(SKILLS_DIR="$dir" CLAUDE_MD="$md" "$INSTALL" 2>&1)"
+check "global: install exits 1 when another link is in the way" [ $? -eq 1 ]
+check "global: other link untouched" [ "$(readlink "$md")" = "/somewhere/else" ]
+check "global: it reports the other link" grep -q "SKIPPED  CLAUDE.md: .* already links to /somewhere/else" <<<"$out"
+rm -rf "$dir" "$(dirname "$md")"
+
 echo "$passed passed, $failed failed"
 [ $failed -eq 0 ]
