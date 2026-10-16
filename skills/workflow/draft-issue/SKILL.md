@@ -120,3 +120,5 @@ Report the link to every issue created and comment posted, and anything Skye tur
 
 - **Skye asked to plan some of them** (such as "create and plan"): follow `plan-issue` for the issues she named.
 - **Otherwise:** suggest planning them with `plan-issue`, naming the issues, and stop.
+
+This step is done when Skye has every link, and either the issues she named are being planned or she has the suggestion to plan them.
