@@ -51,6 +51,10 @@ run() {
 # SKILLS_DIR (a real folder, or a link installed by another tool, such as
 # find-skills) is left alone.
 if $uninstall; then
+  # The global CLAUDE.md first, since the skills part can stop early.
+  if [ -L "$CLAUDE_MD" ] && [[ "$(readlink "$CLAUDE_MD")" == "$REPO"/* ]]; then
+    echo "removing CLAUDE.md"; run rm "$CLAUDE_MD"
+  fi
   [ -d "$SKILLS_DIR" ] || { echo "Nothing to uninstall: $SKILLS_DIR doesn't exist."; exit 0; }
   for link in "$SKILLS_DIR"/*; do
     [ -L "$link" ] || continue
