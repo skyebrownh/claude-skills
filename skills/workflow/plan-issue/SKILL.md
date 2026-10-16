@@ -98,7 +98,7 @@ This step is done when Skye has approved each plan as written out in the chat.
 
 The plan names no branch, because `/build` makes it. It's headed `## Plan (draft)` while Skye reviews it in the chat, and `## Plan (approved)` only once posted (step 6), because `/build` treats that heading as her approval.
 
-This step is done when every section is filled in, with no `<placeholders>` left.
+This step is done when every section that applies is filled in (Approach and Proposed criterion edits only when there's something to say), with no `<placeholders>` left.
 
 ## 6. On approval, post it
 
