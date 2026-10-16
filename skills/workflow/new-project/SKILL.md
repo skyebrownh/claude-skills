@@ -103,7 +103,7 @@ Show everything this phase will do, with the real values filled in, and run it o
    ```
 
    Creating a repo can't be quietly undone: deleting one later needs a `gh` scope Skye grants herself, or the repo's Settings page.
-5. The labels the templates use (`feature`, `bug`) that don't exist yet (`gh label list`): `gh label create <name>`. GitHub's default labels stay.
+5. The labels named in the issue templates' frontmatter (`labels:`) that don't exist yet (`gh label list`): `gh label create <name>`. GitHub's default labels stay.
 6. A milestone for each row of SPEC.md's timeline: `gh api 'repos/{owner}/{repo}/milestones' -f title='<name>' -f due_on='<last date>T23:59:59Z'` (leave out `due_on` for a row with no date).
 
 Nothing is committed in this phase, so the first commit (phase 8) can include `workflow.md`.
