@@ -115,7 +115,7 @@ This phase is done when the repo exists with `origin` pointing at it, and every 
 ## 8. Write workflow.md, then make the first commit
 
 1. Follow `setup-project`. In a project this new it finds no merged PRs, history or releases, so it asks about those instead of guessing.
-2. Show the first commit: `git status --short`, which should list `SPEC.md`, `CLAUDE.md`, `README.md`, `.gitignore`, `.github/` and `.claude/workflow.md`. Ask about anything else listed before including it.
+2. Show the first commit: `git status --short --untracked-files=all`, which lists every new file rather than only its folder, and should show `SPEC.md`, `CLAUDE.md`, `README.md`, `.gitignore`, `.github/` and `.claude/workflow.md`. Ask about anything else listed before including it.
 3. Once Skye approves, commit those files, staged by name, with the message "Set up the project" and the co-author line that this conversation's attribution instructions give. Then push: `git push -u origin main`.
 
 This is the one commit made straight to `main`, because an empty repo has no branch to start a feature branch from. Every later change goes through an issue's branch and a PR.
