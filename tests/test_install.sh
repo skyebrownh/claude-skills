@@ -116,5 +116,17 @@ check "global: named install exits 0" [ $? -eq 0 ]
 check "global: named install doesn't link it" [ ! -L "$md" ]
 rm -rf "$dir" "$(dirname "$md")"
 
+# --- It never replaces a real CLAUDE.md, and says how to move it in -------------
+dir="$(fresh_dir)"
+md="$(fresh_dir)/CLAUDE.md"
+printf 'my own preferences\n' >"$md"
+out="$(SKILLS_DIR="$dir" CLAUDE_MD="$md" "$INSTALL" 2>&1)"
+check "global: install exits 1 when a real CLAUDE.md is in the way" [ $? -eq 1 ]
+check "global: real CLAUDE.md untouched" [ "$(cat "$md")" = "my own preferences" ]
+check "global: it's still not a link" [ ! -L "$md" ]
+check "global: it says how to move it into the repo" grep -q "global/CLAUDE.md" <<<"$(grep SKIPPED <<<"$out")"
+check "global: the skills still got linked" [ -L "$dir/writing-skills" ]
+rm -rf "$dir" "$(dirname "$md")"
+
 echo "$passed passed, $failed failed"
 [ $failed -eq 0 ]

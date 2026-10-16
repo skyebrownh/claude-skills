@@ -137,6 +137,13 @@ if [ ${#wanted[@]} -gt 0 ]; then
   :
 elif [ -L "$CLAUDE_MD" ] && [ "$(readlink "$CLAUDE_MD")" = "$GLOBAL_SRC" ]; then
   echo "ok       CLAUDE.md (already linked)"
+elif [ -e "$CLAUDE_MD" ] && [ ! -L "$CLAUDE_MD" ]; then
+  # Skye's own file, from before it lived here. Replacing it would lose any
+  # change not yet copied into the repo, so say how to move it in instead.
+  echo "SKIPPED  CLAUDE.md: $CLAUDE_MD is a real file, not a link to global/CLAUDE.md." >&2
+  echo "         To move it into this repo, copy any changes into global/CLAUDE.md" >&2
+  echo "         (diff \"$CLAUDE_MD\" \"$GLOBAL_SRC\"), then remove it and run this again." >&2
+  problems=$((problems + 1))
 else
   echo "link     CLAUDE.md -> $GLOBAL_SRC"
   run mkdir -p "$(dirname "$CLAUDE_MD")"
@@ -154,6 +161,6 @@ if [ -d "$SKILLS_DIR" ]; then
 fi
 
 if [ $problems -gt 0 ]; then
-  echo "$problems skill(s) skipped. Move or remove what's in the way, then run this again." >&2
+  echo "$problems item(s) skipped. Move or remove what's in the way, then run this again." >&2
   exit 1
 fi
