@@ -6,7 +6,7 @@ argument-hint: "(no arguments; works on the current project)"
 
 # Set up a project's workflow facts
 
-Your job is to write `.claude/workflow.md`: the facts about this project that her personal skills read, so that `/handover`, `/ship` and `/merge` work the same way everywhere. Its format is [workflow-template.md](workflow-template.md). Keep that template's headings exactly as they are, because the skills find facts by heading.
+Your job is to write `.claude/workflow.md`: the facts about this project that Skye's personal skills read, so that `/handover`, `/ship` and `/merge` work the same way everywhere. Its format is [workflow-template.md](workflow-template.md). Keep that template's headings exactly as they are, because the skills find facts by heading.
 
 Put each step below on the task list, and keep a step there with a reason if you skip it. Write nothing until Skye approves (the migrations in step 2, the draft in step 5), and commit nothing at all. Because it changes nothing without her approval, Claude may start this skill, and `/new-project` calls it.
 
