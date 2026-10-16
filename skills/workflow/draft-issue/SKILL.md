@@ -33,7 +33,7 @@ Read these before drafting anything:
 - **`SPEC.md`,** if it exists: the requirement IDs, and any out-of-scope lists (such as Later or Non-goals).
 - **The project's CLAUDE.md:** its conventions for issues, labels and milestones.
 - **The labels and milestones that exist:** `gh label list --json name,description` and `gh api 'repos/{owner}/{repo}/milestones?state=open' --jq '.[].title'`.
-- **The open parents** (issues with children): `gh api 'repos/{owner}/{repo}/issues?state=open&per_page=100' --jq '.[] | select(.sub_issues_summary.total > 0) | "#\(.number) \(.title)"'`.
+- **The open parents** (issues with children): `gh api --paginate 'repos/{owner}/{repo}/issues?state=open&per_page=100' --jq '.[] | select(.pull_request | not) | select(.sub_issues_summary.total > 0) | "#\(.number) \(.title)"'`. `--paginate` reads every page, and the `pull_request` filter drops PRs, which this endpoint also returns.
 - **The code each idea touches:** one read-only Explore subagent per idea, all started in one message so they run in parallel. They report which files are involved and how big the change looks.
 
 This step is done when every source above is read or known to be missing, and every Explore subagent has reported.
