@@ -126,7 +126,7 @@ This phase is done when `origin/main` holds the first commit.
 
 Turn SPEC.md's **In v1** list into one `/draft-issue` line for Skye to type: the ideas in build order, one per item or small group, starting with a thin slice that runs and deploys end to end, so hosting surprises show up before the real features exist. Show it in a code block.
 
-`/draft-issue` is a skill only Skye starts, so this skill can't run it. Typing the line is her approval to draft, and `/draft-issue` sizes the ideas into a parent with vertical-slice children, sets blocked-by links where order matters, and creates nothing until she approves. Saying "create and plan" there hands the new issues to `/plan-issue`.
+`/draft-issue` is a skill only Skye starts, so this skill can't run it. Typing the line is her approval to draft, and `/draft-issue` takes it from there.
 
 This phase is done when Skye has the line.
 
