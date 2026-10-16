@@ -16,7 +16,7 @@ This skill needs no `.claude/workflow.md`: it writes one in phase 8, through `/s
 ## 0. Check, and find where the project is
 
 1. Run `gh auth status`. **It fails:** stop, and say to run `gh auth login`, because phase 7 creates the repo with `gh`.
-2. Run `git rev-parse --show-toplevel`. **It prints a folder other than this one:** stop. This folder is inside another repo, so a new repo here would be nested in it. Say to make the project's folder somewhere else (such as `~/Developer/<name>`) and start there.
+2. Run `git rev-parse --show-toplevel`. **It prints a folder other than this one** (compare it with `pwd -P`, which resolves symlinks the same way): stop. This folder is inside another repo, so a new repo here would be nested in it. Say to make the project's folder somewhere else (such as `~/Developer/<name>`) and start there.
 3. Work out which phases are already done, from what exists:
 
    | What exists | Start at |
