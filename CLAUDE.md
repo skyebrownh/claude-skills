@@ -28,4 +28,4 @@ These cover `install.sh` only (they use temporary folders, never the real `~/.cl
 
 ## Switch back to `main` before using skills elsewhere
 
-Installed skills are symlinks into this folder, so whatever branch is checked out here is the version every project runs. Before using skills in another project, run `git switch main` here, so they run the reviewed version rather than half-finished work. Leaving `main` checked out between issues keeps this simple.
+Installed skills, and the global `~/.claude/CLAUDE.md`, are symlinks into this folder, so whatever branch is checked out here is the version every project runs. Before using skills in another project, run `git switch main` here, so they run the reviewed version rather than half-finished work. Leaving `main` checked out between issues keeps this simple.

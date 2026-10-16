@@ -167,3 +167,14 @@ Left out: multi-model review (pstack's reviewers run on different models; here b
 - **Non-trivial work gets two approaches** with their trade-offs and a recommendation, so Skye chooses between real options rather than approving the first idea. Trivial work gets one line on why one approach is enough.
 - **A prototype is suggested, not built.** When a decision needs one, the plan recommends it and says what it would answer. Building it is separate work (a prototype skill comes later).
 - **Plans are written out in full in the chat before any question,** and again after each round of answers. Skye approves what she reads in the chat, and a plan saved only to a file had left her with nothing to approve.
+
+## 2026-10-16: The global CLAUDE.md lives here
+
+`~/.claude/CLAUDE.md`, Skye's preferences for every project, moved into `global/CLAUDE.md` (#11), and `install.sh` links it like a skill.
+
+- **It gets history and review,** like any skill. Before, it was edited by hand, so a change had no issue, no diff and no way back.
+- **`install.sh` never replaces a real file there,** or another tool's link. It says how to move the file in instead (copy any changes across, remove it, run again), because replacing it could lose a change not yet copied into the repo.
+- **Only a full install links it.** Naming skills means "only these", and the Manual test setup has Skye run `./install.sh <name>` to try a branch's new skill, which shouldn't also swap her preferences.
+- **It follows the checked-out branch,** like the skills. A branch cut before #11 merged has no `global/CLAUDE.md`, so on one the link points at nothing and Claude Code runs without global preferences until she switches back.
+- **Slimmed to what's true in every project:** tighter wording, the `--body-file` line dropped (the skills do it), and the Git rules merged with "ask before deleting" into one Approvals (always) section. The plan-first line and the review list stay until their own issues replace them.
+- **`--help` prints the top comment up to its first blank line,** rather than a fixed line range, which the longer usage had outgrown.
