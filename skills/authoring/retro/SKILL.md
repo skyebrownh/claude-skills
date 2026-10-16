@@ -26,10 +26,10 @@ Every finding is fixed at the highest rung that would have prevented it, because
 Claude Code saves each session as a `.jsonl` file under `~/.claude/projects/`. The current one is the newest that holds the `/retro` Skye just typed:
 
 ```sh
-grep -l '<command-name>/retro</command-name>' ~/.claude/projects/*/*.jsonl | xargs ls -t | head -1
+grep -l '"content":"<command-message>retro</command-message>' ~/.claude/projects/*/*.jsonl | xargs ls -t | head -1
 ```
 
-Search every project folder, not just this folder's, because a session that moved folders stays filed under the one it started in. And match the command rather than taking the newest file, because another session may have written more recently.
+Search every project folder, not just this folder's, because a session that moved folders stays filed under the one it started in. And match the command rather than taking the newest file, because another session may have written more recently. The pattern is the typed command as the transcript stores it, with plain quotes: a session that only read this skill holds the command inside a tool result, where the quotes are escaped, so it doesn't match.
 
 Show Skye the file's first message from her (`jq -r 'select(.type == "user") | .message.content | strings' <file> | head -1`, cut to a line) and when it started (the first `timestamp` in the file), and wait for her to confirm it's this session.
 
