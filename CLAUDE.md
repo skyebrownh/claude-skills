@@ -24,7 +24,7 @@ Follow the `writing-skills` skill for every SKILL.md and for this file. Ideas bo
 bash tests/test_install.sh
 ```
 
-These cover `install.sh` only (they use temporary folders, never the real `~/.claude/skills`). Skills have no automated tests, so try a changed skill in a real or throwaway project.
+These cover `install.sh` only (they use temporary folders, never the real `~/.claude/skills` or `~/.claude/CLAUDE.md`). Skills have no automated tests, so try a changed skill in a real or throwaway project.
 
 ## Switch back to `main` before using skills elsewhere
 
