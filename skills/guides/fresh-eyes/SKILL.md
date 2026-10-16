@@ -84,7 +84,7 @@ You are the lead reviewer, not a messenger: reviewers working from a diff or a s
 - **Check the context.** A finding about code the change didn't touch, or about a pattern the rest of the project uses on purpose, is a reviewer missing context.
 - **All nits means the work is fine.** Reviewers fill their reports; when nothing serious turns up, say so.
 
-Sort every finding you keep into one bucket, each with `file:line` or a section reference and which reviewer raised it:
+Sort every finding you keep into one bucket, each with `file:line` or a section reference, which reviewer raised it, and a one-line reason:
 
 - **Fix:** a real problem with correctness, a breach of CLAUDE.md, or a missing or wrong criterion. It would block the PR. Give it a **Suggested fix:** what to change, so whoever acts on it doesn't have to work that out again.
 - **Needs you:** a fair point, but it may not be worth fixing now, so it's Skye's call. Say the trade-off, and give a **Recommend:** line with what you'd do.
@@ -104,14 +104,14 @@ Report in this shape. Fix and Needs you are what Skye acts on, so they come firs
 <Mode, the reviewers that ran, and anything missing (no CLAUDE.md, no approved plan, no SPEC.md).>
 
 ### Fix
-- `<file:line or section>`: <finding> (<reviewer>). **Suggested fix:** <what to change>.
+- `<file:line or section>`: <finding> (<reviewer>). <Reason.> **Suggested fix:** <what to change>.
 
 ### Needs you
 - `<file:line or section>`: <finding> (<reviewer>). <Trade-off.> **Recommend:** <what you'd do>.
 
 <details><summary>Footnotes: <N> noted, <M> dropped</summary>
 
-- **Noted:** <finding> (<reviewer>).
+- **Noted:** `<file:line or section>`: <finding> (<reviewer>). <Reason.>
 - **Dropped:** <finding> (<reviewer>): <why it's wrong>.
 
 </details>
