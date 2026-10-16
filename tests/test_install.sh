@@ -88,6 +88,10 @@ rmdir "$dir"                                 # it shouldn't even create the fold
 SKILLS_DIR="$dir" "$INSTALL" --dry-run >/dev/null 2>&1
 check "dry run exits 0" [ $? -eq 0 ]
 check "dry run created nothing" [ ! -e "$dir" ]
+md="$(fresh_dir)/CLAUDE.md"
+SKILLS_DIR="$dir" CLAUDE_MD="$md" "$INSTALL" --dry-run >/dev/null 2>&1
+check "global: dry run created no link" [ ! -L "$md" ]
+rm -rf "$(dirname "$md")"
 
 # --- A stale link (skill renamed or deleted) is reported -------------------------
 dir="$(fresh_dir)"
