@@ -8,11 +8,12 @@ Each skill is a folder holding a `SKILL.md`, which Claude Code reads as instruct
 
 ### Started only by Skye
 
-Each one does something that's hard to undo (building and committing, pushing, merging, rewriting project files), so typing the command is Skye's approval for it.
+Each one does something that's hard to undo (creating issues, building and committing, pushing, merging, rewriting project files), so typing the command is Skye's approval for it.
 
 | Skill | What it does |
 | --- | --- |
 | [`/setup-project`](skills/workflow/setup-project/SKILL.md) | Interviews Skye and writes the project's `.claude/workflow.md`. Run once per project, before `/ship` and `/merge`, and again to bring a project up to date when the process changes. |
+| [`/draft-issue <idea> …`](skills/workflow/draft-issue/SKILL.md) | Turns one idea, or several, into draft issues from the project's templates, after a short `grilling`: a parent with vertical-slice children for bigger work, and a suggested comment instead where an issue already exists. Creates nothing until Skye approves the drafts. |
 | [`/build <N> …`](skills/workflow/build/SKILL.md) | Builds approved issues on their own branches, committing each green slice, and hands each over with `/handover`. One issue builds in this folder; several build in parallel, one subagent each in a temporary worktree. Never pushes. |
 | [`/ship [<N> …]`](skills/workflow/ship/SKILL.md) | Pushes each issue's committed branch and opens its PR, once its latest handover covers the branch tip. Never merges. A parent issue's `Ships as:` line decides how its children ship: one PR per child, or one PR, where `/ship <child#>` folds each child's branch into the parent's branch as one commit, and `/ship <parent#>` opens the PR. |
 | [`/merge <PR#>`](skills/workflow/merge/SKILL.md) | Merges an approved PR, cleans up the branch, and lists what to check after the deploy. |
@@ -47,7 +48,7 @@ The script makes **symlinks** (pointers to the folders in this repo) instead of 
 2. In the project, run `/setup-project` and approve the `workflow.md` it drafts.
 3. Commit `.claude/workflow.md` with the project's next change.
 
-Then each issue goes: `/plan-issue <N>`, `/build <N>` (commits on its branch, ends with `/handover`), review the branch from the handover, `/ship <N>`, `/merge <PR#>`.
+Then each issue goes: `/draft-issue`, `/plan-issue <N>`, `/build <N>` (commits on its branch, ends with `/handover`), review the branch from the handover, `/ship <N>`, `/merge <PR#>`.
 
 ### Keeping projects up to date
 
