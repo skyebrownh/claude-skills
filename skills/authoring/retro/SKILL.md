@@ -33,7 +33,7 @@ Search every project folder, not just this folder's, because a session that move
 
 Show Skye the file's first message from her (`jq -r 'select(.type == "user") | .message.content | strings | select(startswith("<") | not)' <file> | head -1`, cut to a line; messages starting with `<` are commands and app notes, not her words) and when it started (the first `timestamp` in the file), and wait for her to confirm it's this session.
 
-**No file matches:** stop and say so, rather than reading another session.
+**No file matches,** or Skye says it isn't this session: stop, rather than reading another session. Say to check this is the session she typed `/retro` in, and to type it again there.
 
 This step is done when Skye has confirmed the transcript.
 
@@ -44,6 +44,8 @@ jq -r -f <this skill's folder>/trim-transcript.jq <file> > <scratchpad>/retro-tr
 ```
 
 [trim-transcript.jq](trim-transcript.jq) keeps Skye's messages, Claude's text, each tool call in short, and failed tool results, each line starting with its line number in the `.jsonl`. A transcript can run to megabytes of tool output that says nothing about corrections. The file on disk still holds everything from before any compaction, so trimming loses no conversation.
+
+**The trimmed file is empty, or `jq` fails:** stop, and show the error. The transcript's format may have changed, so the filter needs updating before a retro can run.
 
 This step is done when the trimmed file exists and isn't empty.
 
