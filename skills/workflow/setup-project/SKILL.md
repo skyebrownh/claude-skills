@@ -73,4 +73,4 @@ Show the exact change and add it only on her OK. If CLAUDE.md states the same fa
 
 ## 7. Hand back
 
-Say what was written, including which migrations were applied and the project's version now. List every changed file as a link. Say that nothing is committed: `workflow.md` gets committed with the project's next reviewed change, like any other file. Then say which skills can now be used here: `/handover`, `/ship` and `/merge`, if they're installed.
+Say what was written, including which migrations were applied and the project's version now. List every changed file as a link. Say that nothing is committed: `workflow.md` gets committed with the project's next change, like any other file. Then say which skills can now be used here: `/handover`, `/ship` and `/merge`, if they're installed.

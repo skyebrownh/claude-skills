@@ -24,7 +24,7 @@ This step is done when you know the default branch, the checks, and the manual s
 
 ## 1. Check before doing anything
 
-First work out the **base**, the branch this work is compared with. It's the default branch, except for a child of a "one PR" parent built on its own branch: then it's the parent's branch, so the comparison leaves out siblings already committed there. Find the parent and its **Ships as** line as `/build` does (`gh api repos/{owner}/{repo}/issues/<N>/parent --jq .number`, a 404 meaning none), and its branch with `git branch --list '<P>-*'`. If this branch *is* the parent's branch, the base is the default branch. Stop and ask Skye if the parent's **Ships as** line is missing or isn't `one PR` or `one PR per child`, or if `<P>-*` matches no branch or more than one: the base would be a guess.
+First work out the **base**, the branch this work is compared with. It's the default branch, except for a child of a "one PR" parent built on its own branch: then it's the parent's branch, so the comparison leaves out siblings already committed there. Find the parent, its **Ships as** and its branch with [finding-the-parent.md](../ship/finding-the-parent.md), stopping where it says to: the base would otherwise be a guess. If this branch *is* the parent's branch, the base is the default branch.
 
 Then run `git branch --show-current` and `git status --porcelain`. Stop if:
 

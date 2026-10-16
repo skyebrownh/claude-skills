@@ -43,7 +43,7 @@ Then go back to step 2 with the next behaviour, until the list from step 1 is do
 
 ## 5. Run the project's checks
 
-Read `.claude/workflow.md` and run every command under **Checks before committing**, because those are the checks `/ship` runs before committing. If the file or the section is missing, say so and suggest `/setup-project`.
+Read `.claude/workflow.md` and run every command under **Checks before committing**, because every commit, and `/ship`, rely on them passing. If the file or the section is missing, say so and suggest `/setup-project`.
 
 This step is done when every check passes, and the handover lists the test results and any tests the plan didn't foresee.
 

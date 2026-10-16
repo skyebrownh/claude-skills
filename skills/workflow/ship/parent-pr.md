@@ -1,34 +1,29 @@
-# Ship on a parent's branch
+# Ship a parent that ships as one PR
 
-Step 1 of [SKILL.md](SKILL.md) sends you here when the branch belongs to a parent #P whose **Ships as** is `one PR`. Each child is committed on this branch, one `/ship <child#>` at a time. Then a plain `/ship` pushes the branch and opens one PR that closes the parent and every child. The checks in step 0 and the start of step 1 have already passed. Put each step below on the task list.
+[SKILL.md](SKILL.md) sends you here for a parent #P whose **Ships as** is `one PR`. Its children are built on their own branches, cut from #P's branch. `/ship <C>` **folds** each child's branch into #P's branch as one commit. Then `/ship <P>` (or a plain `/ship` on #P's branch) pushes #P's branch and opens one PR that closes #P and every child. Steps 0 to 3 of SKILL.md have already passed. Put each step below on the task list.
 
-## 1. Find the children and their commits
+Find #P's branch, and whether a child is folded, with [finding-the-parent.md](finding-the-parent.md).
+
+## Fold a child (`/ship <C>`)
+
+Step 2 of SKILL.md has already checked that #C isn't folded yet. Fold, starting from the branch this folder is on:
 
 ```sh
-gh api --paginate repos/{owner}/{repo}/issues/<P>/sub_issues --jq '.[] | "#\(.number)\t\(.state)\t\(.title)"'
-git log --format=%s <default>..HEAD
+git switch <P's branch>
+git merge --squash <C's branch>
 ```
 
-A child **has a commit** when one of those subjects is its title exactly, or its title followed by ` (follow-up)`. Matching by title works because the commit message rule makes every child's first commit its title.
+`--squash` stages every change on #C's branch as one set, without committing, so the parent's branch gets one commit per child however many commits the child's build made.
 
-- A child number was given (`/ship <C>`): go to step 2.
-- No number: go to step 3.
+**It reports a conflict:** stop before committing. A sibling folded since #C's branch was cut changed the same lines. Resolve each conflicted file, keeping both sides where both are wanted, and show Skye each resolution (`git diff --cached` on those files). **Commit the fold only after her OK, and after the checks below pass on it.** If she'd rather not go on, `git reset --merge` puts the parent's branch back as it was. (`git merge --abort` doesn't work here: a squash merge leaves no merge in progress for it to abort.)
 
-## 2. Commit one child (`/ship <C>`)
+Run every command under **Checks before committing** on the staged result, before committing. Step 3 of SKILL.md checked #C's branch alone, but the parent's branch may hold siblings folded since #C's branch was cut, and a merge can combine cleanly yet still break. **A check fails:** stop, show Skye the failure, and leave the fold uncommitted for her to decide (fix it, or undo it as above).
 
-Stop at the first of these:
-
-- **#C isn't in the sub-issue list.** It isn't a child of #P, so it doesn't belong on this branch.
-- **#C isn't open.**
-- **#C is blocked by an open issue.** List them with `gh api repos/{owner}/{repo}/issues/<C>/dependencies/blocked_by --jq '.[] | select(.state == "open") | "#\(.number) \(.title)"'`. Ignore a blocker that is a child of #P and already has a commit here: it stays open until this branch's PR merges, so it can't close sooner. Stop for any other open blocker, and name it.
-- **There's nothing to commit.**
-- **This conversation has no handover for #C.** Offer to give it, then wait for Skye to review it and run `/ship <C>` again. (For now the handover lives in the conversation. `/handover`, #8, will move it to a comment on the issue.)
-
-Then follow steps 2 and 3 of [SKILL.md](SKILL.md) (stage only the files in #C's handover, re-run the checks), and commit:
+Commit:
 
 ```sh
 git commit -F - <<'EOF'
-<child title>
+<C's title>
 
 Part of #<P>
 
@@ -36,31 +31,35 @@ Co-Authored-By: <the co-author line>
 EOF
 ```
 
-**If #C already has a commit here,** this one is a follow-up, for example a fix found while working on a later child. Use the subject `<child title> (follow-up)`, and put one line on what changed and why before `Part of #<P>`. Always make a new commit, and leave the earlier one as it is: committed history is never rewritten.
+Then delete #C's branch, and switch back:
 
-Run `git log --oneline -1` and `git status --short` to show the commit and confirm nothing reviewed was left behind.
+```sh
+git branch -D <C's branch>     # -D, because git doesn't count a squashed branch as merged
+git switch <the branch you started on>
+```
 
-**Don't push.** The branch is pushed once, with every child, when the PR opens. Report the commit, and list each child that still has no commit. Then stop.
+Deleting it is safe: its work is now the fold commit, and it was never pushed, so no copy exists on GitHub. If the branch you started on was #C's, switch to #P's branch instead.
 
-## 3. Open the parent PR (`/ship` with no number)
+**Don't push.** #P's branch is pushed once, with every child, when its PR opens.
 
-Stop if:
+This step is done when `git log --oneline -1 <P's branch>` shows the fold, and #C's branch is gone. Report it, and list each child that still has no fold.
 
-- **A child has no commit.** List each one, with `/ship <C>` to run for it. If one is already closed (shipped some other way, or dropped), ask whether to leave it out of this PR.
-- **There are uncommitted changes** (`git status --short`). Ask which child they belong to: they need a `/ship <C>` first, or they don't belong on this branch.
+## Open the parent PR (`/ship <P>`)
 
-Then follow these steps of [SKILL.md](SKILL.md):
+Step 2 of SKILL.md has already checked that every child is folded, or is folded earlier in this run. Then:
 
-1. Step 3: re-run the checks on the whole branch.
-2. Step 5: push.
-3. Step 6: open the PR, with the changes below.
-4. Step 7: check it and hand back. Say that merging closes #P and every child.
+1. Re-run the checks on the whole branch: `git switch <P's branch>`, every command under **Checks before committing**, then switch back. Stop if any fails.
+2. Push: `git push -u origin <P's branch>`.
+3. Open the PR, following step 5 of [SKILL.md](SKILL.md), with the changes below.
+4. Check it and hand back, following step 6 of SKILL.md. Say that merging closes #P and every child.
 
-Changes to step 6 for a parent PR:
+This step is done when #P's PR is open and its link is reported.
+
+Changes to step 5 for a parent PR:
 
 - **First lines:** `Closes #P`, then a `Closes #C` line for each child, so merging closes all of them.
-- **What changed:** one sentence on the parent's directive. Then a `### #C <child title>` heading for each child, with its files and a short note on each. Take these from #C's handover, or from `git show --stat` of its commits if this conversation doesn't have it.
+- **What changed:** one sentence on the parent's directive. Then a `### #C <child title>` heading for each child, with its files and a short note on each, from that child's latest `## Handover` comment.
 - **Differences from the approved plan:** for each child that has a plan comment.
 - **Acceptance criteria:** a `### #C <child title>` heading for each child, with its checklist copied word for word and ticked where done.
-- **How to test:** a `### #C <child title>` heading for each child, with its handover's numbered steps. If this conversation doesn't have #C's handover, write "See the handover for #C."
+- **How to test:** a `### #C <child title>` heading for each child, with the manual test steps from its latest handover comment.
 - **Title:** the parent's title. If **Pull requests** says to copy the milestone and labels, use the parent's milestone, and every label from the parent and its children.

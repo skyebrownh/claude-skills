@@ -11,7 +11,7 @@ it is: the skills find facts by heading.
 
 <!-- Which version of Skye's process this project is set up for. Change it only through /setup-project, which applies the migrations that bring a project up to date. -->
 
-2
+3
 
 ## Default branch
 
@@ -24,6 +24,13 @@ it is: the skills find facts by heading.
 ```sh
 bash tests/test_install.sh
 ```
+
+## Manual test setup
+
+<!-- What Skye does before trying a change by hand, and anything to undo afterwards. /handover starts its manual test steps from here. -->
+
+- Installed skills run from whichever branch is checked out here. To try a branch, switch to it here (`git switch <branch>`), and run `./install.sh <name>` for any skill it adds.
+- Afterwards, switch back to `main` (`git switch main`), so other projects run the reviewed version.
 
 ## Pull requests
 

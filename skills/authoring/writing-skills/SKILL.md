@@ -13,7 +13,7 @@ For a new skill, start from [skill-template.md](skill-template.md).
 
 | Kind of knowledge | Where it goes |
 | --- | --- |
-| How Skye works in every project (approve before committing, stage only reviewed files, never rewrite history) | A skill in her skills repo |
+| How Skye works in every project (commit on feature branches, push only on approval, never rewrite history) | A skill in her skills repo |
 | Facts about one project (test command, deploy target, merge style) | That project's `.claude/workflow.md`, read by the skills; written by `/setup-project` |
 | A project's own standards and architecture | That project's CLAUDE.md |
 | What the app does and why | That project's spec |
@@ -24,7 +24,7 @@ A fact lives in **one** place. A copy of it elsewhere goes stale. When a skill n
 
 Decide this first. It sets the frontmatter.
 
-- **Only Skye** (`disable-model-invocation: true`): any skill that commits, pushes, merges, publishes, deletes, or otherwise acts outside the conversation. **Typing the command is her approval**, so the skill opens by saying so ("Skye typed `/ship`. That is her approval to commit."). The description is a one-line summary for her and ends with "Use only when Skye types /name." It costs no context, but she has to remember it exists, so list it in the README.
+- **Only Skye** (`disable-model-invocation: true`): any skill that pushes, merges, publishes, deletes, or otherwise acts where it's hard to undo. **Typing the command is her approval**, so the skill opens by saying so ("Skye typed `/ship`. That is her approval to push and open the PR."). Committing on a feature branch and posting a record (such as a handover comment) don't count: a local commit can be revised with a new one before anything is pushed, and a record is reviewed after it's posted. The description is a one-line summary for her and ends with "Use only when Skye types /name." It costs no context, but she has to remember it exists, so list it in the README.
 - **Claude, too** (no flag): a guide or reference that Claude should reach for on its own, like this one. Its description is always loaded, so make every word count. Start with what it is, then list each **distinct** situation that should trigger it, one phrase each, with no synonyms for the same situation.
 - A skill Claude can start may be called by other skills. A skill only Skye starts can't be, so material that two Skye-only skills share goes in a plain file they both point to.
 
