@@ -143,3 +143,16 @@ Left out: multi-model review (pstack's reviewers run on different models; here b
 - **Migration 3 matches heritage-media-availability's exact lines,** the only project set up before it. Any other project's wording won't match, so the migration stops and asks there instead of guessing. Other lines about the old process are listed for Skye to edit, not rewritten.
 - **`writing-skills`' rule for Skye-only skills is now about what's hard to undo** (pushing, merging, publishing, deleting), not committing: a local commit can be revised before it's pushed, which is what lets `/handover` commit its fixes.
 - **#20 was built with `/build 20`.** Once its `/ship` was in the working tree, the old way (uncommitted work, handover in chat) couldn't have shipped it.
+
+## 2026-10-16: Drafting issues from ideas
+
+`/draft-issue` (#6) turns ideas into issues from the project's own templates, after a short `grilling`, and creates them only once Skye approves the drafts.
+
+- **Only Skye starts it,** because creating an issue publishes it: it's public at once and notifies anyone watching. Typing the command approves drafting only; creating needs her approval of the drafts in chat.
+- **Drafts are shown together, and nothing is created before approval.** Anything she doesn't mention counts as not approved, so Claude asks rather than assuming.
+- **Several ideas in one run** become separate drafts, each approved on its own, with one grilling for all of them (questions numbered per idea, such as 1.1 and 2.1) so she answers in one reply. Combining two related ideas is suggested, never done for her.
+- **Ships as is never guessed.** For a new parent it's recommended with a reason, as a question, the same rule `/ship` follows.
+- **The duplicate check and the multi-item split** come from heritage-media-availability's `pilot-feedback`: open and closed issues are searched for each idea, and a match becomes a suggested comment instead of a new issue.
+- **Existing labels and milestones only.** A label that doesn't exist yet is a separate question, because creating one changes the repo for every issue after it.
+- **It needs no `workflow.md`:** templates, labels and SPEC.md are found by looking, so it works in a new project before `/setup-project`.
+- **Planning is handed to `plan-issue`** (#7). If Skye asks to plan what was created, it follows `plan-issue` for those issues; otherwise it suggests it.
