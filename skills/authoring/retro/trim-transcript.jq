@@ -1,0 +1,29 @@
+# Trims a Claude Code session transcript (.jsonl) to what /retro's reader needs:
+# Skye's messages, Claude's text, each tool call in short, and failed tool
+# results (a refused or failed call is often where something went wrong).
+# Each output line starts with its line number in the .jsonl, so a finding can
+# point back to the full record.
+#
+# Usage: jq -r -f trim-transcript.jq <session>.jsonl > trimmed.txt
+
+# Long text is cut, because the reader needs the gist, not every word.
+def clip(n): if length > n then .[0:n] + " […]" else . end;
+
+input_line_number as $n
+| if .type == "user" and (.isMeta | not) then
+    # A typed message is a string; tool results and some messages are a list of blocks.
+    (if (.message.content | type) == "string" then [{type: "text", text: .message.content}] else .message.content end)[]
+    | if .type == "text"
+         # System reminders are the app's notes, not Skye's words.
+         and (.text | startswith("<system-reminder>") | not)
+         # A compaction summary repeats lines that are already earlier in the file.
+         and (.text | startswith("This session is being continued") | not)
+      then "\($n) SKYE: \(.text | clip(2000))"
+      elif .type == "tool_result" and .is_error == true then "\($n) TOOL FAILED: \(.content | tostring | clip(300))"
+      else empty end
+  elif .type == "assistant" then
+    .message.content[]
+    | if .type == "text" then "\($n) CLAUDE: \(.text | clip(2000))"
+      elif .type == "tool_use" then "\($n) TOOL \(.name): \(.input | tostring | clip(200))"
+      else empty end
+  else empty end
