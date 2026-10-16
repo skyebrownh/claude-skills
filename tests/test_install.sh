@@ -93,6 +93,12 @@ SKILLS_DIR="$dir" CLAUDE_MD="$md" "$INSTALL" --dry-run >/dev/null 2>&1
 check "global: dry run created no link" [ ! -L "$md" ]
 rm -rf "$(dirname "$md")"
 
+# --- --help shows the whole usage comment, down to its last line ----------------
+out="$("$INSTALL" --help 2>&1)"
+check "help mentions the global CLAUDE.md" grep -q "CLAUDE_MD=/some/file" <<<"$out"
+check "help reaches the last line of the usage comment" grep -q "hides a project's .claude/skills/ship" <<<"$out"
+check "help stops before the code" [ "$(grep -c "set -euo pipefail" <<<"$out")" -eq 0 ]
+
 # --- A stale link (skill renamed or deleted) is reported -------------------------
 dir="$(fresh_dir)"
 ln -s "$REPO/skills/workflow/renamed-away" "$dir/renamed-away"
@@ -150,6 +156,9 @@ md="$(fresh_dir)/CLAUDE.md"
 SKILLS_DIR="$dir" CLAUDE_MD="$md" "$INSTALL" >/dev/null 2>&1
 SKILLS_DIR="$dir" CLAUDE_MD="$md" "$INSTALL" --uninstall >/dev/null 2>&1
 check "global: uninstall removed its link" [ ! -L "$md" ]
+# Clear the path first: if uninstall left the link, writing to it would
+# overwrite global/CLAUDE.md in the repo through the link.
+rm -f "$md"
 printf 'my own preferences\n' >"$md"
 SKILLS_DIR="$dir" CLAUDE_MD="$md" "$INSTALL" --uninstall >/dev/null 2>&1
 check "global: uninstall kept a real CLAUDE.md" [ "$(cat "$md")" = "my own preferences" ]

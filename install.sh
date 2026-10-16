@@ -1,19 +1,23 @@
 #!/usr/bin/env bash
 # Install Skye's skills into Claude Code by symlinking each skill folder into
-# ~/.claude/skills.
+# ~/.claude/skills, and her global preferences (global/CLAUDE.md) to
+# ~/.claude/CLAUDE.md.
 #
 # A symlink is a pointer to the real folder, so the skills keep living in this
 # repo: editing a skill here, or running `git pull`, updates it everywhere at
 # once with nothing to copy. Re-run this script after adding, renaming or
-# removing a skill.
+# removing a skill. Skills and CLAUDE.md alike follow whichever branch is
+# checked out here.
 #
 # Usage:
 #   ./install.sh                     link every skill (except skills/in-progress/)
-#   ./install.sh ship merge          link only the named skills
+#                                    and the global CLAUDE.md
+#   ./install.sh ship merge          link only the named skills (not CLAUDE.md)
 #   ./install.sh --dry-run [names]   show what would happen, change nothing
 #   ./install.sh --uninstall         remove every link that points into this repo
 #
-# SKILLS_DIR=/some/folder ./install.sh   links somewhere else (used by the tests)
+# SKILLS_DIR=/some/folder ./install.sh   links skills somewhere else (used by the tests)
+# CLAUDE_MD=/some/file ./install.sh      links the global CLAUDE.md there instead
 #
 # Personal skills (the ones this links) override a project's own skill with
 # the same name, so linking `ship` hides a project's .claude/skills/ship.
@@ -35,7 +39,8 @@ for arg in "$@"; do
   case "$arg" in
     --dry-run) dry_run=true ;;
     --uninstall) uninstall=true ;;
-    -h|--help) sed -n '2,19p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    # Print the comment at the top, up to its first blank line, so it can grow.
+    -h|--help) sed -n '2,/^$/p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
     -*) echo "Unknown option: $arg (try --help)" >&2; exit 2 ;;
     *) wanted+=("$arg") ;;
   esac
@@ -137,25 +142,25 @@ done
 # --- Link the global CLAUDE.md -------------------------------------------------
 # Only on a full install: naming skills means "only these", and trying a
 # branch's new skill shouldn't swap Skye's preferences in every project.
-if [ ${#wanted[@]} -gt 0 ]; then
-  :
-elif [ -L "$CLAUDE_MD" ] && [ "$(readlink "$CLAUDE_MD")" = "$GLOBAL_SRC" ]; then
-  echo "ok       CLAUDE.md (already linked)"
-elif [ -L "$CLAUDE_MD" ]; then
-  # Someone else's link. Replacing it could break another tool, so ask a human.
-  echo "SKIPPED  CLAUDE.md: $CLAUDE_MD already links to $(readlink "$CLAUDE_MD")" >&2
-  problems=$((problems + 1))
-elif [ -e "$CLAUDE_MD" ]; then
-  # Skye's own file, from before it lived here. Replacing it would lose any
-  # change not yet copied into the repo, so say how to move it in instead.
-  echo "SKIPPED  CLAUDE.md: $CLAUDE_MD is a real file, not a link to global/CLAUDE.md." >&2
-  echo "         To move it into this repo, copy any changes into global/CLAUDE.md" >&2
-  echo "         (diff \"$CLAUDE_MD\" \"$GLOBAL_SRC\"), then remove it and run this again." >&2
-  problems=$((problems + 1))
-else
-  echo "link     CLAUDE.md -> $GLOBAL_SRC"
-  run mkdir -p "$(dirname "$CLAUDE_MD")"
-  run ln -s "$GLOBAL_SRC" "$CLAUDE_MD"
+if [ ${#wanted[@]} -eq 0 ]; then
+  if [ -L "$CLAUDE_MD" ] && [ "$(readlink "$CLAUDE_MD")" = "$GLOBAL_SRC" ]; then
+    echo "ok       CLAUDE.md (already linked)"
+  elif [ -L "$CLAUDE_MD" ]; then
+    # Someone else's link. Replacing it could break another tool, so ask a human.
+    echo "SKIPPED  CLAUDE.md: $CLAUDE_MD already links to $(readlink "$CLAUDE_MD")" >&2
+    problems=$((problems + 1))
+  elif [ -e "$CLAUDE_MD" ]; then
+    # Skye's own file, from before it lived here. Replacing it would lose any
+    # change not yet copied into the repo, so say how to move it in instead.
+    echo "SKIPPED  CLAUDE.md: $CLAUDE_MD is a real file, not a link to global/CLAUDE.md." >&2
+    echo "         To move it into this repo, copy any changes into global/CLAUDE.md" >&2
+    echo "         (diff \"$CLAUDE_MD\" \"$GLOBAL_SRC\"), then remove it and run this again." >&2
+    problems=$((problems + 1))
+  else
+    echo "link     CLAUDE.md -> $GLOBAL_SRC"
+    run mkdir -p "$(dirname "$CLAUDE_MD")"
+    run ln -s "$GLOBAL_SRC" "$CLAUDE_MD"
+  fi
 fi
 
 # Report links into this repo whose skill no longer exists (renamed or
