@@ -108,5 +108,13 @@ check "global: second run exits 0" [ $? -eq 0 ]
 check "global: second run reports it already linked" grep -q "ok       CLAUDE.md (already linked)" <<<"$out"
 rm -rf "$dir" "$(dirname "$md")"
 
+# --- Naming skills leaves the global CLAUDE.md alone ----------------------------
+dir="$(fresh_dir)"
+md="$(fresh_dir)/CLAUDE.md"
+SKILLS_DIR="$dir" CLAUDE_MD="$md" "$INSTALL" writing-skills >/dev/null 2>&1
+check "global: named install exits 0" [ $? -eq 0 ]
+check "global: named install doesn't link it" [ ! -L "$md" ]
+rm -rf "$dir" "$(dirname "$md")"
+
 echo "$passed passed, $failed failed"
 [ $failed -eq 0 ]

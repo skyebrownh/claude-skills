@@ -131,7 +131,11 @@ for i in "${!names[@]}"; do
 done
 
 # --- Link the global CLAUDE.md -------------------------------------------------
-if [ -L "$CLAUDE_MD" ] && [ "$(readlink "$CLAUDE_MD")" = "$GLOBAL_SRC" ]; then
+# Only on a full install: naming skills means "only these", and trying a
+# branch's new skill shouldn't swap Skye's preferences in every project.
+if [ ${#wanted[@]} -gt 0 ]; then
+  :
+elif [ -L "$CLAUDE_MD" ] && [ "$(readlink "$CLAUDE_MD")" = "$GLOBAL_SRC" ]; then
   echo "ok       CLAUDE.md (already linked)"
 else
   echo "link     CLAUDE.md -> $GLOBAL_SRC"
