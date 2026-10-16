@@ -16,7 +16,7 @@ Project facts for these skills (checks, merge style, whether merging deploys) ar
 
 ## Writing skills
 
-Follow the `writing-skills` skill for every SKILL.md and for this file. Ideas borrowed from someone else's skills are credited in DECISIONS.md, along with any choice worth remembering, newest last with the date.
+Follow the `writing-skills` skill for every SKILL.md and for this file. Ideas borrowed from someone else's skills are credited in a file of their own in `decisions/` (see `decisions/README.md`), along with any choice worth remembering.
 
 ## Tests
 
