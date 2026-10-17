@@ -51,22 +51,22 @@ Follow `fresh-eyes` in code mode, naming the base (and the worktree, if there is
 - **Fix** findings within the approved plan: fix each one as its own commit, with a short plain message and the co-author line that this conversation's attribution instructions give. A separate commit lets Skye see each fix, and revert it on its own. Then re-run the checks from step 2. They go under **Fixed**.
 - **Fix** findings outside the plan (they need new behaviour): don't fix them. They go under **Needs you**, recommending a new issue.
 - **Needs you:** change nothing. They stay under **Needs you**, with fresh-eyes' recommendation.
-- **Noted and Dropped:** change nothing. They carry over as footnotes, so Skye can overrule your judgement.
+- **Dropped:** change nothing. They carry over under **Dropped**, so Skye can overrule your judgement.
 
-This step is done when every in-plan Fix finding is fixed, with its commit's short sha, and every other finding is under Needs you with a recommendation or in the footnotes, and the checks pass on the new tip.
+This step is done when every in-plan Fix finding is fixed, with its commit's short sha, every other finding is under Needs you with a recommendation or under Dropped, and the checks pass on the new tip.
 
 ## 4. Write the handover
 
-Run `git rev-parse HEAD` for the commit it covers: the branch tip, after any fixes. Fill in this format:
+Run `git rev-parse --short HEAD` for the commit it covers: the branch tip, after any fixes. `/ship` expands it to the full id and compares that with the branch, so a later commit makes this handover stale. Fill in this format:
 
 ````markdown
 ## Handover
 
-**Branch:** `<branch>` · **Covers:** `<short sha>` (`<full sha>`), the branch tip · **Compared with:** `<base>`
+- **Branch:** `<branch>`
+- **Covers:** `<short sha>`
+- **Compared with:** `<base>`
 
 <Only on a re-run: "Replaces the handover for `<its short sha>`." and one line on what the revisions changed.>
-
-**Review it:** `git diff <base>...<branch>`
 
 ### What changed
 
@@ -82,17 +82,19 @@ Run `git rev-parse HEAD` for the commit it covers: the branch tip, after any fix
 ### Fresh-eyes review
 
 **Needs you**
-- `<file:line or section>`: <finding>. <Trade-off.> **Recommend:** <what to do; for a finding outside the plan, a new issue>.
+
+1. **Finding:** <finding> (`<file:line or section>`). <Trade-off.>
+   - **Recommend:** <what to do; for a finding outside the plan, a new issue>.
 
 **Fixed**
-- <finding>: <how it was resolved, and why that way> (`<short sha>`).
 
-<details><summary>Footnotes: <N> noted, <M> dropped</summary>
+1. **Finding:** <finding>.
+   - **Fix:** <how it was resolved, and why that way> (`<short sha>`).
 
-- **Noted:** <finding>. <Reason.>
-- **Dropped:** <finding>: <why>.
+**Dropped**
 
-</details>
+- **<Reviewer>:** <finding>.
+  - **Why:** <why it's wrong>.
 
 ### Manual test steps
 
@@ -102,7 +104,8 @@ Run `git rev-parse HEAD` for the commit it covers: the branch tip, after any fix
 ````
 
 - **What changed has one line per file,** saying what changed in it, not how. Files with the same change share a line (`` `a.md`, `b.md`: point to the new file ``). The diff holds the detail.
-- **Needs you comes first,** because it's what Skye has to act on. Write "None" under an empty Needs you or Fixed, so she can see it was checked.
+- **Needs you comes first,** because it's what Skye has to act on. Write "None" under an empty Needs you, Fixed or Dropped, so she can see it was checked.
+- **Plain Markdown only,** with each finding's answer on its own indented line, because chat shows HTML such as `<details>` as raw tags.
 - **Files are plain paths,** in chat and in the comment alike, so the two are the same text. The branch stays local until `/ship`, so a link to it on GitHub would be broken.
 - **Manual test steps** cover what the plan says the work does, including its stop conditions and error paths, each with what Skye should see.
 - **No Manual test setup in `workflow.md`:** start the steps from what the project's README says about running it, and add a line under the steps saying the section is missing.
