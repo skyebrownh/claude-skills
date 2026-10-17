@@ -25,11 +25,11 @@ Each one does something that's hard to undo (creating a repo, creating issues, b
 | --- | --- |
 | [`/setup-project`](skills/workflow/setup-project/SKILL.md) | Interviews Skye (when she asks, or from `/new-project`) and writes the project's `.claude/workflow.md`. Run once per project, before `/ship` and `/merge`, and again to bring a project up to date when the process changes. |
 | [`/plan-issue <N> …`](skills/workflow/plan-issue/SKILL.md) | Turns issues into plans: reads the issue, its parent, the spec and the affected code, weighs two approaches for non-trivial work, shows each plan in chat and grills Skye on what's open, then posts `## Plan (approved)` on the issue once she approves. Creates no branch. |
-| [`/handover`](skills/workflow/handover/SKILL.md) | Hands the committed work on an issue's branch over for review: runs the checks and `fresh-eyes`, and posts a `## Handover` comment on the issue recording the commit it covers, with what changed, the test results and manual test steps. |
+| [`/handover`](skills/workflow/handover/SKILL.md) | Hands the committed work on an issue's branch over for review: runs the checks and `fresh-eyes`, and posts a `## Handover` comment on the issue recording the commit it covers: a line per changed file, the test results, the review (what needs Skye's decision, what was fixed and how, and what was dropped and why) and manual test steps. Chat shows the same text. |
 | [`grilling`](skills/guides/grilling/SKILL.md) | Interviews Skye in rounds of numbered questions with recommended answers, looking facts up itself, until every decision is settled. |
 | [`tdd`](skills/guides/tdd/SKILL.md) | Builds test-first in thin red-green slices, testing behaviour through public paths, with the behaviours to test taken from the approved plan. |
 | [`writing-skills`](skills/authoring/writing-skills/SKILL.md) | The style guide for writing and editing skills and CLAUDE.md files. |
-| [`fresh-eyes`](skills/guides/fresh-eyes/SKILL.md) | A fresh-context review that only reports. Code mode: two reviewers check the branch against the project's standards and against the issue. Document mode (given a path, such as `SPEC.md`): a cold reader looks for gaps. Findings come back sorted into Act on, Consider and Noted. |
+| [`fresh-eyes`](skills/guides/fresh-eyes/SKILL.md) | A fresh-context review that only reports. Code mode: two reviewers check the branch against the project's standards and against the issue. Document mode (given a path, such as `SPEC.md`): a cold reader looks for gaps. Findings come back as Fix (each with a suggested fix), Needs you (each with a recommendation), and Dropped (each with why). |
 
 ## Install
 
