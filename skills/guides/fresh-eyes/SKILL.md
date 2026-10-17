@@ -88,15 +88,16 @@ Sort every finding you keep into one bucket, each with `file:line` or a section 
 
 - **Fix:** a real problem with correctness, a breach of CLAUDE.md, or a missing or wrong criterion. It would block the PR. Give it a **Suggested fix:** what to change, so whoever acts on it doesn't have to work that out again.
 - **Needs you:** a fair point, but it may not be worth fixing now, so it's Skye's call. Say the trade-off, and give a **Recommend:** line with what you'd do.
-- **Noted:** true, but nothing to do at this stage.
+
+A finding that's true but needs nothing from Skye isn't reported: if it's worth her attention, it's Needs you.
 
 Drop findings you judge wrong, with a one-line note each on why, so Skye can overrule you.
 
-This step is done when every finding is either in a bucket or in the dropped list, and every Fix and Needs you has its suggested fix or recommendation.
+This step is done when every finding is in a bucket, dropped, or left out as needing nothing, and every Fix and Needs you has its suggested fix or recommendation.
 
 ## 7. Hand back
 
-Report in this shape. Fix and Needs you are what Skye acts on, so they come first and stay short; Noted and Dropped are there to check your judgement, so they fold away as footnotes.
+Report in this shape, in plain Markdown, because it's read in chat (and the handover carries it onto GitHub), and chat shows HTML such as `<details>` as raw tags. Each finding's answer sits on its own indented line, so the problem and what to do about it read apart.
 
 ```markdown
 ## Review of <branch, or document path>
@@ -104,17 +105,19 @@ Report in this shape. Fix and Needs you are what Skye acts on, so they come firs
 <Mode, the reviewers that ran, and anything missing (no CLAUDE.md, no approved plan, no SPEC.md).>
 
 ### Fix
-- `<file:line or section>`: <finding> (<reviewer>). <Reason.> **Suggested fix:** <what to change>.
+
+1. **Finding:** <finding> (`<file:line or section>`, <reviewer>). <Reason.>
+   - **Suggested fix:** <what to change>.
 
 ### Needs you
-- `<file:line or section>`: <finding> (<reviewer>). <Trade-off.> **Recommend:** <what you'd do>.
 
-<details><summary>Footnotes: <N> noted, <M> dropped</summary>
+1. **Finding:** <finding> (`<file:line or section>`, <reviewer>). <Trade-off.>
+   - **Recommend:** <what you'd do>.
 
-- **Noted:** `<file:line or section>`: <finding> (<reviewer>). <Reason.>
-- **Dropped:** <finding> (<reviewer>): <why it's wrong>.
+### Dropped
 
-</details>
+- **<Reviewer>:** <finding>.
+  - **Why:** <why it's wrong>.
 ```
 
-Write "None" under an empty Fix or Needs you, so Skye can see it was checked. Then say plainly that **nothing has changed**: no file was edited, staged or committed. Which findings to act on is Skye's decision, so stop and wait for her.
+Write "None" under an empty bucket, so Skye can see it was checked. Then say plainly that **nothing has changed**: no file was edited, staged or committed. Which findings to act on is Skye's decision, so stop and wait for her.
