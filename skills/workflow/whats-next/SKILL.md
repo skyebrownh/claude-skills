@@ -47,12 +47,12 @@ Start one subagent with `subagent_type: Explore`, so the issues' bodies and comm
 >
 > **Shortlist about 5 issues,** in this order:
 >
-> 1. Work already started: an issue with a branch, an open PR, or a plan.
+> 1. Work already started: an issue with a branch, an open PR, a handover, or a plan.
 > 2. Bugs (a `bug` label).
 > 3. The first open child of each open parent, in the parent's order.
 > 4. Your judgement from the titles and labels, such as an issue others depend on.
 >
-> An issue with blocked_by above 0 goes after its open blockers (`gh api repos/{owner}/{repo}/issues/<N>/dependencies/blocked_by --jq '.[] | select(.state == "open") | "#\(.number) \(.title)"'`). If a blocker isn't on the shortlist, it takes the blocked issue's place.
+> An issue with blocked_by above 0 goes after its open blockers (`gh api repos/{owner}/{repo}/issues/<N>/dependencies/blocked_by --jq '.[] | select(.state == "open") | "#\(.number) \(.title)"'`). If a blocker isn't on the shortlist, it takes the blocked issue's place. Children of the same parent always keep the parent's order between them, even when a later one is already started, because the parent's order is the plan for that work.
 >
 > **Pass 2, shortlist only.** Read each one's comments (`gh issue view <N> --json comments`), and give it a stage. The latest `## Plan (approved)` or `## Handover` comment is the one that counts. A handover's **Covers** line names a commit (older handovers give a short and a full id; use the full one): expand it with `git rev-parse --verify --quiet '<id>^{commit}'` and compare with `git rev-parse <branch>`.
 >
