@@ -57,7 +57,7 @@ This step is done when every in-plan Fix finding is fixed, with its commit's sho
 
 ## 4. Write the handover
 
-Run `git rev-parse --short HEAD` for the commit it covers: the branch tip, after any fixes. `/ship` expands it to the full id and compares that with the branch, so a later commit makes this handover stale. Fill in this format:
+Run `git rev-parse --short HEAD` for the commit it covers: the branch tip, after any fixes. `/ship` checks it against the branch, so a later commit makes this handover stale. Fill in this format:
 
 ````markdown
 ## Handover
