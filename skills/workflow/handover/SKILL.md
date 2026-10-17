@@ -49,7 +49,7 @@ This step is done when every check passes.
 Follow `fresh-eyes` in code mode, naming the base (and the worktree, if there is one). Then:
 
 - **Fix** findings within the approved plan: fix each one as its own commit, with a short plain message and the co-author line that this conversation's attribution instructions give. A separate commit lets Skye see each fix, and revert it on its own. Then re-run the checks from step 2. They go under **Fixed**.
-- **Fix** findings outside the plan (they need new behaviour): don't fix them. They go under **Needs you**, recommending a new issue.
+- **Fix** findings outside the plan (they need new behaviour): don't fix them. They go under **Needs you**, recommending a new issue that carries fresh-eyes' suggested fix, so that work isn't lost.
 - **Needs you:** change nothing. They stay under **Needs you**, with fresh-eyes' recommendation.
 - **Dropped:** change nothing. They carry over under **Dropped**, so Skye can overrule your judgement.
 
@@ -83,8 +83,8 @@ Run `git rev-parse --short HEAD` for the commit it covers: the branch tip, after
 
 **Needs you**
 
-1. **Finding:** <finding> (`<file:line or section>`, <reviewer>). <Trade-off.>
-   - ➡️ **Recommend:** <what to do; for a finding outside the plan, a new issue>.
+1. **Finding:** <finding> (`<file:line or section>`, <reviewer>). <Trade-off, or for a finding outside the plan, why it needs new behaviour.>
+   - ➡️ **Recommend:** <what to do; for a finding outside the plan, a new issue, with the suggested fix>.
 
 **Fixed**
 
