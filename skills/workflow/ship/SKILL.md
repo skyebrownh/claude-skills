@@ -57,7 +57,8 @@ Then, before looking for any branch:
 ### For every issue that isn't a parent
 
 - **Its branch:** the local branch matching `<N>-*` (`git branch --list '<N>-*'`). **None:** stop, because there's nothing committed to ship. **More than one:** ask which.
-- **Its handover:** the issue's latest comment that starts `## Handover`. Its **Covers** line names a full commit id. Compare it with `git rev-parse <branch>`.
+- **Its handover:** the issue's latest comment that starts `## Handover`. Its **Covers** line names a commit id (older handovers give a short and a full one; use the first). Expand it with `git rev-parse --verify --quiet '<id>^{commit}'`, and compare the result with `git rev-parse <branch>`.
+  - **It doesn't expand** (no output: the commit isn't here, or the short id matches several): stop, and offer to run `/handover` again, so the new comment names a commit git can find.
   - **No handover comment:** stop. Without one there's no sign Skye reviewed the work. Offer to run `/handover`, and wait for her to review it and run `/ship` again.
   - **It covers another commit:** stop. The branch has moved on since the handover, so Skye may not have seen the newest commits. Offer to run `/handover` again.
 
