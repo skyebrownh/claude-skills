@@ -54,7 +54,7 @@ Start one subagent with `subagent_type: Explore`, so the issues' bodies and comm
 >
 > An issue with blocked_by above 0 goes after its open blockers (`gh api repos/{owner}/{repo}/issues/<N>/dependencies/blocked_by --jq '.[] | select(.state == "open") | "#\(.number) \(.title)"'`). If a blocker isn't on the shortlist, it takes the blocked issue's place.
 >
-> **Pass 2, shortlist only.** Read each one's comments (`gh issue view <N> --json comments`), and give it a stage. The latest `## Plan (approved)` or `## Handover` comment is the one that counts. A handover's **Covers** line names a commit: expand it with `git rev-parse --verify --quiet '<id>^{commit}'` and compare with `git rev-parse <branch>`.
+> **Pass 2, shortlist only.** Read each one's comments (`gh issue view <N> --json comments`), and give it a stage. The latest `## Plan (approved)` or `## Handover` comment is the one that counts. A handover's **Covers** line names a commit (older handovers give a short and a full id; use the full one): expand it with `git rev-parse --verify --quiet '<id>^{commit}'` and compare with `git rev-parse <branch>`.
 >
 > | Stage | How it's recognised | Command |
 > |---|---|---|
