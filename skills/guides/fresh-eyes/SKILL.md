@@ -97,7 +97,7 @@ This step is done when every finding is in a bucket, dropped, or left out as nee
 
 ## 7. Hand back
 
-Report in this shape, using only headings, bold and lists, so it reads the same in chat as in the handover built from it on GitHub. Each finding's answer sits on its own indented line, so the problem and what to do about it read apart.
+Report in this shape, using only headings, bold and lists, so it reads the same in chat as in the handover built from it on GitHub. Each finding's answer sits on its own indented line, so the problem and what to do about it read apart. The emoji mark the lines Skye acts on, so she can find them at a glance: 🔧 for a fix still to make, ➡️ for a recommendation. Dropped's Why gets none, because it needs nothing from her.
 
 ```markdown
 ## Review of <branch, or document path>
@@ -107,12 +107,12 @@ Report in this shape, using only headings, bold and lists, so it reads the same 
 ### Fix
 
 1. **Finding:** <finding> (`<file:line or section>`, <reviewer>). <Reason.>
-   - **Suggested fix:** <what to change>.
+   - 🔧 **Suggested fix:** <what to change>.
 
 ### Needs you
 
 1. **Finding:** <finding> (`<file:line or section>`, <reviewer>). <Trade-off.>
-   - **Recommend:** <what you'd do>.
+   - ➡️ **Recommend:** <what you'd do>.
 
 ### Dropped
 
