@@ -105,7 +105,7 @@ Run `git rev-parse --short HEAD` for the commit it covers: the branch tip, after
 
 - **What changed has one line per file,** saying what changed in it, not how. Files with the same change share a line (`` `a.md`, `b.md`: point to the new file ``). The diff holds the detail.
 - **Needs you comes first,** because it's what Skye has to act on. Write "None" under an empty Needs you, Fixed or Dropped, so she can see it was checked.
-- **Plain Markdown only,** with each finding's answer on its own indented line, because chat shows HTML such as `<details>` as raw tags.
+- **Headings, bold and lists only,** with each finding's answer on its own indented line, so the text reads the same in chat as on GitHub.
 - **Files are plain paths,** in chat and in the comment alike, so the two are the same text. The branch stays local until `/ship`, so a link to it on GitHub would be broken.
 - **Manual test steps** cover what the plan says the work does, including its stop conditions and error paths, each with what Skye should see.
 - **No Manual test setup in `workflow.md`:** start the steps from what the project's README says about running it, and add a line under the steps saying the section is missing.

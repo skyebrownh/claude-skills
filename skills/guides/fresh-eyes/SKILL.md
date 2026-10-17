@@ -97,7 +97,7 @@ This step is done when every finding is in a bucket, dropped, or left out as nee
 
 ## 7. Hand back
 
-Report in this shape, in plain Markdown, because it's read in chat (and the handover carries it onto GitHub), and chat shows HTML such as `<details>` as raw tags. Each finding's answer sits on its own indented line, so the problem and what to do about it read apart.
+Report in this shape, using only headings, bold and lists, so it reads the same in chat as in the handover built from it on GitHub. Each finding's answer sits on its own indented line, so the problem and what to do about it read apart.
 
 ```markdown
 ## Review of <branch, or document path>
