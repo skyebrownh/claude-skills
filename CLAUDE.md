@@ -10,7 +10,7 @@ Every change starts from a GitHub issue, so it has a recorded reason.
 2. **Plan** with `/plan-issue <N>`: it shows the plan in chat, grills Skye on the open decisions, and posts it on the issue under `## Plan (approved)` once she approves.
 3. **Build** with `/build <N>`: it makes the branch `<issue#>-<short-slug>` (e.g. `2-issues-and-prs`) and commits on it as the work goes, never pushing. Ideas that come up mid-issue become a new issue, not extra scope.
 4. **Hand over** with `/handover`, which posts a `## Handover` comment on the issue for the commit it covers. Revisions are new commits, then a new handover. Then wait for Skye's review.
-5. **`/ship`** pushes the branch and opens the PR from `.github/pull_request_template.md`; **`/merge <PR#>`** merges it. Only Skye starts `/new-project`, `/draft-issue`, `/build`, `/ship`, `/merge` and `/retro`.
+5. **`/ship`** pushes the branch and opens the PR from `.github/pull_request_template.md`; **`/merge <PR#>`** merges it. Only Skye starts `/new-project`, `/draft-issue`, `/build`, `/ship`, `/merge`, `/retro` and `/whats-next`.
 
 Project facts for these skills (checks, merge style, whether merging deploys) are in `.claude/workflow.md`; update it with `/setup-project`.
 
