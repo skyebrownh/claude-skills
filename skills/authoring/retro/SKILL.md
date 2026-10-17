@@ -31,7 +31,7 @@ grep -l '"content":"<command-message>retro</command-message>' ~/.claude/projects
 
 Search every project folder, not just this folder's, because a session that moved folders stays filed under the one it started in. And match the command rather than taking the newest file, because another session may have written more recently. The pattern is the typed command as the transcript stores it, with plain quotes: a session that only read this skill holds the command inside a tool result, where the quotes are escaped, so it doesn't match.
 
-Show Skye the file's first message from her (`jq -r 'select(.type == "user") | .message.content | strings | select(startswith("<") | not)' <file> | head -1`, cut to a line; messages starting with `<` are commands and app notes, not her words) and when it started (the first `timestamp` in the file), and wait for her to confirm it's this session.
+Show Skye the file's first message from her (`jq -r 'select(.type == "user" and (.isMeta | not)) | .message.content | strings | select(startswith("<") | not)' <file> | head -1`, cut to a line; messages starting with `<` are commands and app notes, and `isMeta` records are text the app adds, such as a loaded skill or a subagent's report: none of these are her words) and when it started (the first `timestamp` in the file), and wait for her to confirm it's this session.
 
 **No file matches,** or Skye says it isn't this session: stop, rather than reading another session. Say to check this is the session she typed `/retro` in, and to type it again there.
 
