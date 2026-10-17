@@ -37,7 +37,7 @@ Show Skye the file's first message from her, shortened to one line, and when it 
 jq -r -f <this skill's base directory>/trim-transcript.jq <file> | grep -m1 -E '^[0-9]+ SKYE: [^<]'
 ```
 
-The filter already skips text the app adds on her side (`isMeta` records, such as a loaded skill or a subagent's report). The `grep` also skips lines starting with `<`, which are her commands (`/retro` itself), not words she typed.
+The filter already skips text the app adds on her side (`isMeta` records, such as a loaded skill or a subagent's report). The `grep` also skips lines starting with `<`, which are commands and app notes, not words she typed.
 
 **No file matches,** or Skye says it isn't this session: stop, rather than reading another session. Say to check this is the session she typed `/retro` in, and to type it again there.
 
