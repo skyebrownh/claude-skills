@@ -15,7 +15,7 @@ This skill needs no `.claude/workflow.md`, so it works in any project with GitHu
 
 ## 0. Read the project's facts
 
-The default branch is under **Default branch** in `.claude/workflow.md`. If there's no such file or section, ask GitHub: `gh repo view --json defaultBranchRef --jq .defaultBranchRef.name`.
+The default branch is under **Default branch** in `.claude/workflow.md`. If there's no such file or section, or it still holds a `<placeholder>`, ask GitHub: `gh repo view --json defaultBranchRef --jq .defaultBranchRef.name`.
 
 This step is done when you know the default branch.
 
