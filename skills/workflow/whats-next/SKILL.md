@@ -72,7 +72,7 @@ Start one subagent with `subagent_type: Explore`, so the issues' bodies and comm
 > UNRANKED: <number of open issues, parents included, not listed above>
 > ```
 >
-> with 0 to 4 THEN lines. With no open issues, report only `NEXT: none`. Read only: change no files, and never edit, label or comment on an issue. Under 300 words.
+> with 0 to 4 THEN lines. With no issue to recommend, report `NEXT: none` and the UNRANKED line. Read only: change no files, and never edit, label or comment on an issue. Under 300 words.
 
 This step is done when the report is back in that form. If it isn't, or it lists more than 5 issues, ask the same subagent to fix it.
 
@@ -84,6 +84,9 @@ Show Skye:
 - **Then:** each THEN line, one line each, in order.
 - **The rest:** "<UNRANKED> other open issues not ranked", left out when it's 0.
 
-With `NEXT: none`, say there are no open issues, and that the next step is `/draft-issue` with an idea.
+With `NEXT: none`:
+
+- **UNRANKED is 0:** say there are no open issues, and that the next step is `/draft-issue` with an idea.
+- **UNRANKED is above 0:** say none of the open issues can be picked (for example, only parents whose children are all closed), and suggest Skye look at them on GitHub.
 
 This step is done when Skye has the recommendation. Then stop: she types the command herself.
