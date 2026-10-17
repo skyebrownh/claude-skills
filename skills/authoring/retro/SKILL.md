@@ -39,6 +39,8 @@ jq -r -f <this skill's base directory>/trim-transcript.jq <file> | grep -m1 -E '
 
 The filter already skips text the app adds on her side (`isMeta` records, such as a loaded skill or a subagent's report). The `grep` also skips lines starting with `<`, which are commands and app notes, not words she typed.
 
+**Nothing prints** (she has typed only commands so far): show her first command instead, the first line `grep -m1 -E '^[0-9]+ SKYE: '` prints, so she can still recognise the session.
+
 **No file matches,** or Skye says it isn't this session: stop, rather than reading another session. Say to check this is the session she typed `/retro` in, and to type it again there.
 
 This step is done when Skye has confirmed the transcript.
