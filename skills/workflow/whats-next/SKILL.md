@@ -21,7 +21,7 @@ This step is done when you know the default branch.
 
 ## 1. Check the start
 
-Run `gh auth status`, then `git fetch --quiet origin <default branch>`. Fetching only updates git's copy of GitHub's branch, never Skye's files, and without it "behind" would be measured against a stale copy. Stop if:
+Run `gh auth status`, then `git fetch --quiet --prune origin`. Fetching only updates git's copy of GitHub's branches, never Skye's files. Without it, "behind" would be measured against a stale copy, and the subagent would see branches deleted on GitHub but miss ones pushed from elsewhere. Stop if:
 
 - **`gh` isn't signed in, or the repo has no GitHub remote:** the issues can't be read. Say to run `gh auth login`, or that this skill needs a GitHub repo.
 - **The current branch isn't the default branch** (`git branch --show-current`): say to `git switch <default branch>`. A recommendation made from a feature branch would start the next piece of work from the wrong place.
