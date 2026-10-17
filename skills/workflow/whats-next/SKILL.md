@@ -43,7 +43,16 @@ Start one subagent with `subagent_type: Explore`, so the issues' bodies and comm
 > - `gh pr list --state open --json number,headRefName`
 > - `gh issue list --state open --limit 200 --search '"Plan (approved)" in:comments' --json number`: issues that probably have a plan.
 >
-> An issue with children above 0 is a parent: it holds no work, so never list it, but list its children (`gh api repos/{owner}/{repo}/issues/<N>/sub_issues --jq '.[] | "#\(.number) \(.state)"'`) in their listed order.
+> An issue with children above 0 is a parent: it holds no work of its own. List its children (`gh api repos/{owner}/{repo}/issues/<N>/sub_issues --jq '.[] | "#\(.number) \(.state) \(.title)"'`) in their listed order, and read the line in its body that starts `**Ships as:**` (`gh issue view <N> --json body`).
+>
+> - **Ships as `one PR per child`, or it has no `<N>-*` branch:** never list the parent. Its children are ranked like any other issue.
+> - **Ships as `one PR`, with a `<N>-*` branch:** the parent is started work. Each child is built on its own branch and then **folded** into the parent's branch by `/ship`, which deletes the child's branch but leaves the child open until the parent's PR merges. A child is folded when `git log --format=%s <default branch>..<parent's branch> | grep -Fx '<child title>'` prints its title. Never list a folded child: its work is done. Then the parent's own stage is:
+>
+> | Parent's stage | How it's recognised | Command |
+> |---|---|---|
+> | children to finish | an open child isn't folded yet | list that child in its place, staged as usual |
+> | ready for its PR | every open child is folded, and no PR from the parent's branch | `/ship <N>` |
+> | ready to merge | an open PR from the parent's branch | `/merge <PR#>` |
 >
 > **Shortlist about 5 issues,** in this order:
 >
