@@ -83,7 +83,7 @@ Run `git rev-parse --short HEAD` for the commit it covers: the branch tip, after
 
 **Needs you**
 
-1. **Finding:** <finding> (`<file:line or section>`). <Trade-off.>
+1. **Finding:** <finding> (`<file:line or section>`, <reviewer>). <Trade-off.>
    - **Recommend:** <what to do; for a finding outside the plan, a new issue>.
 
 **Fixed**
