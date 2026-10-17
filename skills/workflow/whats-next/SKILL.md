@@ -32,7 +32,7 @@ This step is done when every check passes.
 
 ## 2. Ask one subagent
 
-Start one subagent with `subagent_type: Explore`, so the issues' bodies and comments stay out of this conversation. Subagents can't open this skill's files, so paste this brief into its prompt, filled in:
+Start one subagent with `subagent_type: Explore`, so the issues' bodies and comments stay out of this conversation. Subagents can't open this skill's files, so paste into its prompt this brief, filled in, followed by the whole of [finding-the-parent.md](../ship/finding-the-parent.md), which the brief calls "the parent steps". Pasting it, rather than restating it, keeps parents read exactly as `/ship` and `/build` read them.
 
 > In the git repo at <absolute path of the repo root>, whose default branch is <default branch>, recommend which open issue to work on next. Run every command from that folder.
 >
@@ -43,25 +43,26 @@ Start one subagent with `subagent_type: Explore`, so the issues' bodies and comm
 > - `gh pr list --state open --json number,headRefName`
 > - `gh issue list --state open --limit 200 --search '"Plan (approved)" in:comments' --json number`: issues that probably have a plan.
 >
-> An issue with children above 0 is a parent: it holds no work of its own. List its children (`gh api repos/{owner}/{repo}/issues/<N>/sub_issues --jq '.[] | "#\(.number) \(.state) \(.title)"'`) in their listed order, and read the line in its body that starts `**Ships as:**` (`gh issue view <N> --json body`).
+> An issue with children above 0 is a parent. It holds no work of its own, so pass 2's stage table never applies to it. For each parent, list its children in their listed order (`gh api --paginate repos/{owner}/{repo}/issues/<N>/sub_issues --jq '.[] | "#\(.number) \(.state) \(.title)"'`), and follow steps 2 to 4 of the parent steps pasted below. Step 3 finding no branch only means the parent isn't started yet. Anywhere else they say to stop or ask Skye, list the parent instead, with the stage `needs your look`, the command `look at #<N> on GitHub`, and the reason.
 >
-> - **Ships as `one PR per child`, or it has no `<N>-*` branch:** never list the parent. Its children are ranked like any other issue.
-> - **Ships as `one PR`, with a `<N>-*` branch:** the parent is started work. Each child is built on its own branch and then **folded** into the parent's branch by `/ship`, which deletes the child's branch but leaves the child open until the parent's PR merges. A child is folded when `git log --format=%s <default branch>..<parent's branch> | grep -Fx '<child title>'` prints its title. Never list a folded child: its work is done. Then the parent's own stage is:
+> A parent that ships as `one PR` is started work once it has an open PR from a `<N>-*` branch, or a local `<N>-*` branch. Its stage is the first row that fits:
 >
 > | Parent's stage | How it's recognised | Command |
 > |---|---|---|
-> | children to finish | an open child isn't folded yet | list that child in its place, staged as usual |
-> | ready for its PR | every open child is folded, and no PR from the parent's branch | `/ship <N>` |
-> | ready to merge | an open PR from the parent's branch | `/merge <PR#>` |
+> | ready to merge | an open PR from a `<N>-*` branch | `/merge <PR#>` |
+> | children to finish | an open child isn't folded yet | none: list that child instead, staged as usual |
+> | ready for its PR | every open child is folded | `/ship <N>`, naming any child closed without a fold, which `/ship` will ask about |
+>
+> Skip folded children, because their work is already on the parent's branch, and count a folded child as landed when it blocks a sibling. Any other parent (shipping as `one PR per child`, or with no branch or PR yet) isn't listed: its children are ranked like any other issue.
 >
 > **Shortlist about 5 issues,** in this order:
 >
 > 1. Work already started: an issue with a branch, an open PR, a handover, or a plan.
 > 2. Bugs (a `bug` label).
-> 3. The first open child of each open parent, in the parent's order.
+> 3. The first child of each open parent that is open and not folded, in the parent's order.
 > 4. Your judgement from the titles and labels, such as an issue others depend on.
 >
-> An issue with blocked_by above 0 goes after its open blockers (`gh api repos/{owner}/{repo}/issues/<N>/dependencies/blocked_by --jq '.[] | select(.state == "open") | "#\(.number) \(.title)"'`). If a blocker isn't on the shortlist, it takes the blocked issue's place. Children of the same parent always keep the parent's order between them, even when a later one is already started, because the parent's order is the plan for that work.
+> An issue with blocked_by above 0 goes after its open blockers, apart from folded siblings (`gh api repos/{owner}/{repo}/issues/<N>/dependencies/blocked_by --jq '.[] | select(.state == "open") | "#\(.number) \(.title)"'`). If a blocker isn't on the shortlist, it takes the blocked issue's place. Children of the same parent always keep the parent's order between them, even when a later one is already started, because the parent's order is the plan for that work.
 >
 > **Pass 2, shortlist only.** Read each one's comments (`gh issue view <N> --json comments`), and give it a stage. The latest `## Plan (approved)` or `## Handover` comment is the one that counts. A handover's **Covers** line names a commit (older handovers give a short and a full id; use the full one): expand it with `git rev-parse --verify --quiet '<id>^{commit}'` and compare with `git rev-parse <branch>`.
 >
