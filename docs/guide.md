@@ -36,7 +36,7 @@ Every change starts from an issue, so it has a recorded reason. Claude waits for
 
 ## Along the way
 
-Claude starts these itself, from inside the skills above. You can also ask for them by name.
+Claude starts these itself when the work calls for them, mostly from inside the skills above. You can also ask for them by name.
 
 - [`grilling`](../skills/guides/grilling/SKILL.md): rounds of numbered questions, each with a recommended answer, until every decision is yours and settled. Used by `/new-project`, `/setup-project`, `/draft-issue` and `/plan-issue`.
 - [`tdd`](../skills/guides/tdd/SKILL.md): builds test-first in thin red-green slices, testing behaviour from the plan. Used by `/build`, and for bug fixes.
