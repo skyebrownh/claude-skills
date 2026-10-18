@@ -57,7 +57,7 @@ The script makes **symlinks** (pointers to the folders in this repo) instead of 
 
 For a brand-new project, `/new-project` does steps 2 and 3, along with the spec, CLAUDE.md, README, repo and first commit.
 
-Then each issue goes: `/draft-issue`, `/plan-issue <N>`, `/build <N>` (commits on its branch, ends with `/handover`), review the branch from the handover, `/ship <N>`, `/merge <PR#>`.
+Then each issue goes from draft to merge: the [user guide](docs/guide.md) walks through which skill to use when.
 
 ### Keeping projects up to date
 
@@ -74,6 +74,7 @@ skills/
   guides/        how Claude does recurring tasks; other skills build on them
   in-progress/   drafts; never installed
 global/          CLAUDE.md, Skye's preferences for every project
+docs/            the user guide, and a page per skill; for people, never installed
 tests/           tests for install.sh
 .github/         issue and PR templates
 CLAUDE.md        how changes to this repo are made (issue → plan → PR)
@@ -86,7 +87,7 @@ Add a new bucket when a group of skills doesn't fit an existing one. Skill names
 
 1. Start a draft in `skills/in-progress/<name>/` from [the template](skills/authoring/writing-skills/skill-template.md), following [`writing-skills`](skills/authoring/writing-skills/SKILL.md).
 2. Try it in a real or throwaway project. A draft can be tried by copying its folder into that project's `.claude/skills/`.
-3. Move it into a bucket, list it in this README, and run `./install.sh <name>`.
+3. Move it into a bucket, list it in this README and give it a line in [the user guide](docs/guide.md), and run `./install.sh <name>`. A change to what a skill does updates both.
 4. Record anything worth remembering (a choice made, an idea borrowed) in a new file in [`decisions/`](decisions/README.md).
 
 ## Tests
