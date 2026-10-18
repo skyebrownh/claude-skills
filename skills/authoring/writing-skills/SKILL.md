@@ -60,6 +60,6 @@ These came out of `/ship` and `/merge` and are worth keeping in every skill that
 - The description says who starts it, and passes the "Who starts the skill" rules above.
 - Every step has a completion criterion, and every stop condition says what to do next.
 - Project facts are read from `workflow.md`, not written into the skill.
-- The README lists it, and a file in `decisions/` credits any idea taken from someone else's skill.
+- The README lists it, `docs/guide.md` has its line, and a file in `decisions/` credits any idea taken from someone else's skill.
 - If projects set up earlier need changing to match (a heading in `workflow.md`, a line in an issue template), a new migration in `setup-project/migrations.md` does it.
 - `./install.sh <name>` links it, and you've tried it once in a real or throwaway project.
