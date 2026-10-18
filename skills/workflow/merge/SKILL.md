@@ -80,6 +80,8 @@ Run each step and report its result:
      ```
 
      This needs no separate approval: it follows from how Skye chose to ship the parent, and a closed issue can be reopened. Then repeat this item from the parent you closed, because it may have finished its own parent.
+
+   This item is done when every chain upwards has ended: at no parent, a skipped parent, or one with children still open.
 7. Show `git log --oneline -1`, the new commit on the default branch.
 
 ## 4. Say what to check after the deploy
