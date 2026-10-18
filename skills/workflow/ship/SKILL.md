@@ -126,6 +126,6 @@ Report briefly, for each issue:
 - **a PR:** the branch pushed, the PR link, its milestone and labels, whether GitHub says it can merge, and any criterion left unticked, with why;
 - **a fold:** the fold commit (short id and title) on the parent's branch, and which children still have no fold.
 
-Then say what merging will do, from **Merging**. For a child of a `one PR per child` parent, add that merging closes #C, and that #P closes once its last child merges. If merging deploys, say so plainly, even when a PR doesn't change the running app. Skye approves with `/merge <PR#>` or by saying so in chat.
+Then say what merging will do, from **Merging**. For a child of a `one PR per child` parent, add that merging closes the child, and that its parent closes once its last child merges. If merging deploys, say so plainly, even when a PR doesn't change the running app. Skye approves with `/merge <PR#>` or by saying so in chat.
 
 This step is done when every issue is reported. Then stop. Don't merge.
