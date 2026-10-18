@@ -71,6 +71,7 @@ Run each step and report its result:
    - **Find it** with step 1 of [finding-the-parent.md](../ship/finding-the-parent.md). No parent (a 404): nothing to do.
    - **Read its Ships as** the way step 2 of that file does, but don't follow its stop. Anything but `one PR per child`, or no line at all: skip this parent, and say why in one line, because the merge has already happened. (A `one PR` parent is closed by its own PR.)
    - **List its children:** `gh api --paginate repos/{owner}/{repo}/issues/<P>/sub_issues --jq '.[] | "#\(.number) \(.state) \(.state_reason) children=\(.sub_issues_summary.total) \(.title)"'`.
+   - **Count the issues this PR closes as closed,** whatever the list says: like the issue lists, it can lag for a few seconds after the merge.
    - **Some are still open:** report its progress, e.g. "#27: 2 of 4 children still open (#30, #31)", and go no further up.
    - **All are closed:** close it as completed. A child closed as not planned counts as done, so a dropped child can't keep its parent open forever. Write a comment to a file in the scratchpad saying every child is closed, and listing each as `#C <title> (PR #X)`, with the PR from `gh issue view <C> --json closedByPullRequestsReferences`. Where a child has no PR, say instead "its own children all closed" (children above 0) or "closed by hand", and add "not planned" where its `state_reason` says so. Then:
 
