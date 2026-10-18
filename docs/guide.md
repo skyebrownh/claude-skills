@@ -1,6 +1,6 @@
 # User guide
 
-How to work with these skills: which to use, in what order, and what each does. Each skill gets one line here. Its docs page has the finer points, and its `SKILL.md` has the exact steps.
+How to work with these skills: which to use, in what order, and what each does. Each skill gets one line here. Its `SKILL.md` has the exact steps, and its page in `docs/skills/`, as each is written, has the finer points.
 
 ```mermaid
 flowchart LR
