@@ -24,7 +24,7 @@ Once per machine, run `./install.sh` (see the [README](../README.md#install)). T
 
 ## Each issue
 
-Every change starts from an issue, so it has a recorded reason. Each step below ends by waiting for you.
+Every change starts from an issue, so it has a recorded reason. Claude waits for you between steps, except that `/build` runs `/handover` itself.
 
 1. [`/draft-issue <idea>`](../skills/workflow/draft-issue/SKILL.md): turns ideas into draft issues from the project's templates, splitting bigger work into a parent with children. Creates nothing until you approve.
 2. [`/plan-issue <N>`](../skills/workflow/plan-issue/SKILL.md): shows a plan in chat, settles what's open with you, and posts it on the issue as `## Plan (approved)`.
