@@ -1,6 +1,6 @@
 ---
 name: merge
-description: Merge an approved pull request (which may deploy), run the after-merge clean-up, and list what to check after the deploy. Running /merge is Skye's approval to merge. Reads the merge style and deploy facts from .claude/workflow.md. Use only when Skye types /merge.
+description: Merge an approved pull request (which may deploy), run the after-merge clean-up (closing any parent issue the merge finished), and list what to check after the deploy. Running /merge is Skye's approval to merge. Reads the merge style and deploy facts from .claude/workflow.md. Use only when Skye types /merge.
 disable-model-invocation: true
 argument-hint: "<PR#>"
 ---
@@ -67,7 +67,19 @@ Run each step and report its result:
    - Then `git branch -D <branch>`. The capital `-D` is needed after a squash or rebase merge: those make new commits, so git doesn't recognise the branch as merged.
 4. Prune: `git fetch --prune`. If the remote branch still exists (`git ls-remote --heads origin <branch>`), say so, and don't delete it: deleting a remote branch needs Skye's OK.
 5. Check that every issue the PR closes is now closed: `gh issue view <N> --json state`. GitHub's issue lists can lag for a few seconds, so trust `gh issue view`. For a parent PR, also list the parent's sub-issues (`gh api --paginate repos/{owner}/{repo}/issues/<parent>/sub_issues --jq '.[] | "#\(.number) \(.state)"'`) and name any still open: that child was missing from the PR's `Closes` lines.
-6. Show `git log --oneline -1`, the new commit on the default branch.
+6. Close any parent this merge finished. A child's PR only says `Part of #P`, which isn't a closing keyword, so GitHub leaves the parent open after its last child merges. Start from each issue the PR closes (for a parent PR, from the parent), and for its parent:
+   - **Find it** with step 1 of [finding-the-parent.md](../ship/finding-the-parent.md). No parent (a 404): nothing to do.
+   - **Read its Ships as** with step 2 of that file. Anything but `one PR per child`: skip it, and say why in one line. Don't stop, because the merge has already happened. (A `one PR` parent is closed by its own PR.)
+   - **List its children:** `gh api --paginate repos/{owner}/{repo}/issues/<P>/sub_issues --jq '.[] | "#\(.number) \(.state) \(.state_reason) children=\(.sub_issues_summary.total) \(.title)"'`.
+   - **Some are still open:** report its progress, e.g. "#27: 2 of 4 children still open (#30, #31)", and go no further up.
+   - **All are closed:** close it as completed. A child closed as not planned counts as done, so a dropped child can't keep its parent open forever. Write a comment to a file in the scratchpad saying every child is closed, and listing each as `#C <title> (PR #X)`, with the PR from `gh issue view <C> --json closedByPullRequestsReferences`. Where a child has no PR, say instead "its own children all closed" (children above 0) or "closed by hand", and add "not planned" where its `state_reason` says so. Then:
+
+     ```sh
+     gh issue close <P> --reason completed --comment "$(cat <file>)"
+     ```
+
+     This needs no separate approval: it follows from how Skye chose to ship the parent, and a closed issue can be reopened. Then repeat this item from the parent you closed, because it may have finished its own parent.
+7. Show `git log --oneline -1`, the new commit on the default branch.
 
 ## 4. Say what to check after the deploy
 
@@ -77,6 +89,6 @@ Skip this step if **Merging deploys** is no.
 
 ## 5. Wrap up
 
-Report briefly: the merge (commit and subject), each clean-up result, and the deploy checklist.
+Report briefly: the merge (commit and subject), each clean-up result (including each parent closed, or its progress), and the deploy checklist.
 
 Then mention what's next, if it's clear. For example, if this merge leaves the PR's milestone with no open issues, say so (`gh issue list --milestone "<milestone>" --state open`). If **Releases** describes a point like this one, suggest a release and draft its title, but **never create one**: a release publishes a tag and needs Skye's separate approval.
