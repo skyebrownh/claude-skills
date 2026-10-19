@@ -11,12 +11,18 @@ Once a PR from `/ship` is ready and you want it in. Only you start it: typing `/
 ## What you'll see
 
 1. It reads `.claude/workflow.md`. If merging deploys, it says where, in one line, before merging.
-2. It checks the PR is open, not a draft, aimed at the default branch, and closes at least one issue.
+2. It checks the PR is open, not a draft, and aimed at the default branch, and that it closes an issue.
 3. It merges in the style **Merging** gives: one style for a single-issue PR, and one for a parent PR, which closes several issues.
 4. It cleans up: updates the default branch, confirms nothing was left behind on the branch, deletes the local branch (and any worktree still using it), and checks each closed issue really closed.
 5. It closes any `one PR per child` parent whose last child just closed, with a comment listing each child and its PR. If children are still open, it reports the parent's progress, such as "2 of 4 children still open".
 6. It checks every other open PR. Any the merge left `CONFLICTING` it fixes on that PR's branch, in this folder, and hands over.
 7. If merging deploys, it lists what to check after the deploy, from `workflow.md`. It suggests a release if `workflow.md` describes one. It never creates one.
+
+## Decisions it asks you about
+
+- **Which PR,** when you don't give a number.
+- **How to proceed** when the PR closes no issue, or closes several when `workflow.md` says parent PRs aren't used.
+- **What uncommitted changes in this folder are,** before it switches branches to clean up.
 
 ## Gotchas
 
@@ -24,7 +30,6 @@ Once a PR from `/ship` is ready and you want it in. Only you start it: typing `/
 - **A PR that's already `CONFLICTING`** isn't merged. It gets fixed, then `/merge` stops: review the new handover, run `/ship <N>` to push the fix, then `/merge` again.
 - **After fixing other PRs,** each needs your review and `/ship <N>` before it can merge. The wrap-up gives each handover link.
 - **The remote branch is left alone** if GitHub didn't delete it. Deleting a remote branch needs your OK.
-- **Uncommitted changes in this folder** stop the clean-up before it switches branches.
 
 ## Why it works this way
 
