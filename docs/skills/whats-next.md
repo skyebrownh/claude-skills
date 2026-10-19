@@ -27,7 +27,7 @@ It shortlists about five, in this order:
 
 A blocked issue goes after its open blockers. Children of one parent keep the parent's order, even when a later one is already started.
 
-Each one's **stage** sets its command: needs a plan (`/plan-issue`), ready to build (`/build`), being built (finish, then `/handover`), in review (review, then `/ship`), or ready to merge (`/merge`). A parent that ships as one PR can be listed too, once its children are folded or its PR is open.
+Each one's **stage** sets its command: needs a plan (`/plan-issue`), ready to build (`/build`), being built (finish, then `/handover`), in review (review, then `/ship`), or ready to merge (`/merge`). A parent that ships as one PR can be listed too, once its children are folded or its PR is open. A parent it can't place (no `Ships as:` line, say) is listed as `needs your look`, with the reason.
 
 ## Gotchas
 
