@@ -12,7 +12,7 @@ Once a PR from `/ship` is ready and you want it in. Only you start it: typing `/
 
 1. It reads `.claude/workflow.md`. If merging deploys, it says where, in one line, before merging.
 2. It checks the PR is open, not a draft, and aimed at the default branch, and that it closes an issue.
-3. It merges in the style **Merging** gives: one style for a single-issue PR, and one for a parent PR, which closes several issues.
+3. It merges in the style `workflow.md`'s **Merging** section gives (squash, rebase or a merge commit): one style for a single-issue PR, and one for a parent PR, which closes several issues.
 4. It cleans up: updates the default branch, confirms nothing was left behind on the branch, deletes the local branch (and any worktree still using it), and checks each closed issue really closed.
 5. It closes any `one PR per child` parent whose last child just closed, with a comment listing each child and its PR. If children are still open, it reports the parent's progress, such as "2 of 4 children still open".
 6. It checks every other open PR. Any the merge left `CONFLICTING` it fixes on that PR's branch, in this folder, and hands over.
