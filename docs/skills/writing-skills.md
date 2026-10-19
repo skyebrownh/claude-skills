@@ -10,7 +10,7 @@ For the rules themselves, see its [SKILL.md](../../skills/authoring/writing-skil
 - This repo's CLAUDE.md asks for it on every SKILL.md and on that CLAUDE.md itself.
 - You can ask for it by name to review a skill you've written.
 
-## What it covers
+### What it covers
 
 - **Where each piece of knowledge belongs:** how you work everywhere goes in a skill; one project's facts go in its `.claude/workflow.md`; its standards in its CLAUDE.md; what the app does in its spec.
 - **Who starts a skill:** only you, or Claude too. This is decided first, because it sets the skill's frontmatter and how its description is written.
