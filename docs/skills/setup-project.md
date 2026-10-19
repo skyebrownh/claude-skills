@@ -28,7 +28,7 @@ It commits nothing. `workflow.md` goes in with the project's next commit.
 
 ## Process versions and migrations
 
-When this skills repo changes something that older projects also need (a renamed heading, a line in an issue template), it adds a numbered migration to [migrations.md](../../skills/workflow/setup-project/migrations.md). A project that's behind gets every migration above its version, in order, like database migrations. It shows them all together as before and after, applies them once you approve, and sets the new version last, so a run that stops partway still reads as behind.
+When this skills repo changes something that older projects also need (a renamed heading, a line in an issue template), it adds a numbered migration to [migrations.md](../../skills/workflow/setup-project/migrations.md). A project that's behind gets every migration above its version, like database migrations, shown to you before anything changes. The file says exactly how they're applied.
 
 ## Gotchas
 
