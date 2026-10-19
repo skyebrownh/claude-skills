@@ -28,11 +28,11 @@ Every change starts from an issue, so it has a recorded reason. Claude waits for
 
 1. [`/draft-issue <idea>`](../skills/workflow/draft-issue/SKILL.md): turns ideas into draft issues from the project's templates, splitting bigger work into a parent with children. Creates nothing until you approve.
 2. [`/plan-issue <N>`](../skills/workflow/plan-issue/SKILL.md): shows a plan in chat, settles what's open with you, and posts it on the issue as `## Plan (approved)`.
-3. [`/build <N>`](../skills/workflow/build/SKILL.md): makes the issue's branch and builds the plan, committing as it goes. Never pushes. Several issues build in parallel, each told where the others share a file.
-4. [`/handover`](../skills/workflow/handover/SKILL.md): runs the checks and a review, then posts a `## Handover` comment: what changed, test results, the review's findings and manual test steps. `/build` runs it for you.
+3. [`/build <N>`](skills/build.md): makes the issue's branch and builds the plan, committing as it goes. Never pushes. Several issues build in parallel, each told where the others share a file.
+4. [`/handover`](skills/handover.md): runs the checks and a review, then posts a `## Handover` comment: what changed, test results, the review's findings and manual test steps. `/build` runs it for you.
 5. **You review** the branch from the handover. For changes, ask for them: they become new commits and a new handover, made in this folder even on another branch.
-6. [`/ship <N>`](../skills/workflow/ship/SKILL.md): pushes the branch and opens its PR, or only pushes when its PR is already open. With several branches, it warns which pairs will conflict once the first merges. A parent's `Ships as:` line decides whether its children ship as one PR or one each.
-7. [`/merge <PR#>`](../skills/workflow/merge/SKILL.md): merges the PR, cleans up the branch, closes a finished parent, and lists what to check after a deploy. It also fixes any other open PR the merge left conflicting, on that PR's branch, ready for you to review and `/ship`.
+6. [`/ship <N>`](skills/ship.md): pushes the branch and opens its PR, or only pushes when its PR is already open. With several branches, it warns which pairs will conflict once the first merges. A parent's `Ships as:` line decides whether its children ship as one PR or one each.
+7. [`/merge <PR#>`](skills/merge.md): merges the PR, cleans up the branch, closes a finished parent, and lists what to check after a deploy. It also fixes any other open PR the merge left conflicting, on that PR's branch, ready for you to review and `/ship`.
 
 ## Along the way
 
@@ -45,6 +45,6 @@ Claude starts these itself when the work calls for them, mostly from inside the 
 
 ## Housekeeping
 
-- [`/whats-next`](../skills/workflow/whats-next/SKILL.md): recommends the next issue to work on, finishing started work first, with the command to run. Changes nothing.
+- [`/whats-next`](skills/whats-next.md): recommends the next issue to work on, finishing started work first, with the command to run. Changes nothing.
 - [`/retro`](../skills/authoring/retro/SKILL.md): looks back over the session for corrections and steps that went wrong, and ends with a `/draft-issue` line for each fix worth making. Changes nothing.
 - **Switch this repo back to `main`** (`git switch main`) when you're done with a branch here. Installed skills are links into this folder, so whatever branch is checked out is the version every project runs.
