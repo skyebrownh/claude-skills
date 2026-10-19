@@ -69,6 +69,6 @@ Co-Authored-By: <the co-author line>
 
 Then follow `handover` on this branch. It posts a new `## Handover` comment covering the merge commit, which replaces the old one.
 
-Switch back: `git switch <the branch you noted>`. In Skye's skills repo this matters more than elsewhere, because installed skills run from whatever branch is checked out there.
+Switch back: `git switch <the branch you noted>`, so the folder ends where Skye left it.
 
 This step is done when the handover is posted and the folder is back on the branch you noted. Tell Skye the handover's link and to run `/ship <N>` once she's reviewed it.
