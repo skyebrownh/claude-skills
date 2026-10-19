@@ -87,7 +87,7 @@ Add a new bucket when a group of skills doesn't fit an existing one. Skill names
 
 1. Start a draft in `skills/in-progress/<name>/` from [the template](skills/authoring/writing-skills/skill-template.md), following [`writing-skills`](skills/authoring/writing-skills/SKILL.md).
 2. Try it in a real or throwaway project. A draft can be tried by copying its folder into that project's `.claude/skills/`.
-3. Move it into a bucket, list it in this README and give it a line in [the user guide](docs/guide.md), and run `./install.sh <name>`. A change to what a skill does updates both.
+3. Move it into a bucket, list it in this README and give it a line in [the user guide](docs/guide.md) and a page in [`docs/skills/`](docs/skills/TEMPLATE.md), and run `./install.sh <name>`. A change to what a skill does updates all three.
 4. Record anything worth remembering (a choice made, an idea borrowed) in a new file in [`decisions/`](decisions/README.md).
 
 ## Tests
