@@ -23,7 +23,7 @@ The handover has a fixed shape: **Branch**, **Covers** (the commit), **Compared 
 
 ### The review's findings
 
-`fresh-eyes` sorts what it finds into three buckets, and the handover keeps them:
+`fresh-eyes` reports Fix, Needs you and Dropped. The handover regroups them, fixing the Fix findings inside the plan and moving the rest to Needs you:
 
 - **Needs you** comes first, because it's what you act on. Each has a ➡️ **Recommend** line.
 - **Fixed:** in-plan findings Claude fixed, each as its own commit, with a ✅ line saying how and why, and the commit's short id. A separate commit lets you revert one fix on its own.
