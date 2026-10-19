@@ -2,7 +2,7 @@
 
 Issue: #3
 
-Replaced in part by: [2026-10-16-001711-shipping-committed-branches](2026-10-16-001711-shipping-committed-branches.md): a fix to a folded child is a new child issue, not a `(follow-up)` commit.
+Replaced in part by: [2026-10-16-001711-shipping-committed-branches](2026-10-16-001711-shipping-committed-branches.md): `/build` commits each child and `/ship <child#>` squash-folds it into the parent's branch, and a fix to a folded child is a new child issue, not a `(follow-up)` commit.
 
 heritage-media-availability's `/ship-set` shipped a branch for several issues. GitHub now records parent/child (sub-issue) and blocked-by links as data, so `/ship` reads those instead (#3). A parent's `**Ships as:**` line decides how its children become PRs:
 
