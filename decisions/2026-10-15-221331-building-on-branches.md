@@ -2,7 +2,7 @@
 
 Issue: #19
 
-Replaced in part by: [2026-10-18-232724-fixing-conflicts-on-the-branch](2026-10-18-232724-fixing-conflicts-on-the-branch.md): revisions on another branch are made in this folder, not by a subagent in a worktree.
+Replaced in part by: [2026-10-18-232724-fixing-conflicts-on-the-branch](2026-10-18-232724-fixing-conflicts-on-the-branch.md): revisions on another branch are made in Skye's own folder, not by a subagent in a worktree.
 
 `/build <N> …` (#19) builds approved issues on their own branches, committing each green slice, and ends with `/handover`. Several issues build at once, one subagent each in a worktree.
 
