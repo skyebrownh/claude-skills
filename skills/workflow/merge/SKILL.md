@@ -35,7 +35,7 @@ Stop if:
 **Wait out `UNKNOWN`.** Just after a push or another merge, GitHub often reports `mergeable` as `UNKNOWN` while it recalculates. Check again every few seconds for up to about a minute, and don't merge while it's `UNKNOWN`.
 
 - **`MERGEABLE`:** carry on.
-- **`CONFLICTING`:** don't merge. Fix the PR's branch with [fixing-conflicts.md](fixing-conflicts.md), then stop: Skye reviews the new handover, runs `/ship <N>` to push the fix, then `/merge <PR>` again.
+- **`CONFLICTING`:** don't merge. Fix the PR's branch with [fixing-conflicts.md](fixing-conflicts.md), then stop: Skye reviews the new handover, runs `/ship <N>` to push the fix (`<N>` is the issue its branch name starts with), then `/merge <PR>` again.
 - **Still `UNKNOWN` after a minute,** or a `mergeStateStatus` that blocks merging: stop and report it.
 
 ## 2. Merge
@@ -106,6 +106,6 @@ Skip this step if **Merging deploys** is no.
 
 ## 6. Wrap up
 
-Report briefly: the merge (commit and subject), each clean-up result (including each parent closed, or its progress), and the deploy checklist. For each PR step 4 fixed, give its handover link and "`/ship <N>`", which pushes the fix to that PR once Skye has reviewed it, and name any it couldn't fix, with why.
+Report briefly: the merge (commit and subject), each clean-up result (including each parent closed, or its progress), and the deploy checklist. For each PR step 4 fixed, give its handover link and "`/ship <N>`", with `<N>` the issue its branch name starts with, which pushes the fix to that PR once Skye has reviewed it, and name any it couldn't fix, with why.
 
 Then mention what's next, if it's clear. For example, if this merge leaves the PR's milestone with no open issues, say so (`gh issue list --milestone "<milestone>" --state open`). If **Releases** describes a point like this one, suggest a release and draft its title, but **never create one**: a release publishes a tag and needs Skye's separate approval.
