@@ -39,6 +39,6 @@ With several issues, Claude starts one subagent per issue. The subagents only bu
 ## Why it works this way
 
 - **It never pushes,** so every commit can still be reviewed, and revised with a new commit, before anyone else sees it. Pushing is `/ship`'s job: [shipping committed branches](../../decisions/2026-10-16-001711-shipping-committed-branches.md).
-- **Handovers run in the main session,** because subagents can't start the reviewers `fresh-eyes` needs. The same file covers why `/build` makes its own worktrees and creates branches with `--no-track`: [building on branches](../../decisions/2026-10-15-221331-building-on-branches.md).
+- **Handovers run in the main session,** because subagents can't start the reviewers `fresh-eyes` needs. The same file covers why `/build` makes its own worktrees and creates branches with `--no-track`: [building on branches](../../decisions/2026-10-15-221331-building-on-branches.md). Its rule that revisions go to a worktree was later replaced, as the next line says.
 - **Parallel builds are briefed about shared files,** rather than stopped or run one at a time, so two branches rarely change the same lines: [briefing parallel builds](../../decisions/2026-10-19-030107-briefing-parallel-builds.md).
 - **Revisions happen in this folder, not a worktree,** so every commit happens where you can see it: [fixing conflicts on the branch](../../decisions/2026-10-18-232724-fixing-conflicts-on-the-branch.md).
