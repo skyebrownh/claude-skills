@@ -13,7 +13,7 @@ For the exact steps, see its [SKILL.md](../../skills/workflow/setup-project/SKIL
 
 ## What `workflow.md` holds
 
-The default branch, the checks before committing, what to set up before trying a change by hand, the PR template, the merge style, whether merging deploys, what to check after a deploy, when to suggest a release, and the project's **Process version**. The skills find each fact by its heading, so the headings stay as the [template](../../skills/workflow/setup-project/workflow-template.md) has them.
+Facts such as the checks to run, the merge style and whether merging deploys, plus the project's **Process version**. The [template](../../skills/workflow/setup-project/workflow-template.md) has the full list. The skills find each fact by its heading, so the headings stay as the template has them.
 
 ## What you'll see
 
