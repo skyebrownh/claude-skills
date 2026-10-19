@@ -42,3 +42,4 @@ While you review it in the chat, the plan is headed `## Plan (draft)`. It become
 
 - [Why Claude may start it, why plans are written out in full, and why it runs without `workflow.md`](../../decisions/2026-10-16-014625-planning-issues.md).
 - [How parent and child issues work](../../decisions/2026-10-15-172511-parent-and-child-issues.md).
+- [Why its code reading runs on a cheaper model](../../decisions/2026-10-19-154955-cheaper-lookup-subagents.md).
