@@ -37,7 +37,14 @@ Run `git status --porcelain`, then for each issue `gh issue view <N> --json titl
 
 **An existing branch is checked out in this folder** and more than one issue is listed: git won't check one branch out in two folders, so ask Skye to switch this folder to another branch first.
 
-This step is done when every issue passes, and Skye has answered about any branch or worktree that already exists.
+**Several issues' plans change the same file:** this isn't a stop either, because the issues still build in parallel. Compare the approved plans' `### Files` lists, and for each path in more than one:
+
+- **Name the section each plan changes there,** from the file's headings and the plan's entry. When the entry's wording matches no heading, say "section not clear from the plan".
+- **Where two plans add to the same list or table, give each issue a spot**, e.g. the first listed adds at the end, and the next right after a named entry nearer the top. Git combines two changes only when at least one unchanged line sits between them, and the subagents can't see each other's work, so they can't keep apart on their own.
+
+Show Skye each shared file, with its sections and spots, before starting the build, so she can stop it if she'd rather build them one at a time. Step 3 tells each subagent about them.
+
+This step is done when every issue passes, Skye has answered about any branch or worktree that already exists, and she's been shown any shared files.
 
 ## 2. Work out each branch and its base
 
@@ -83,6 +90,10 @@ When the plan is done, follow `handover`, then go to step 5.
 
    > Build issue #<N> (<title>) in the git worktree at <absolute path of the worktree>, on branch <branch>. Work only in that folder: run every command there, and edit only files inside it. Here is the issue and its approved plan: <issue body and the `## Plan (approved)` comment>. Read <absolute path of tdd's SKILL.md> and follow it to build the plan. The checks are: <the commands under Checks before committing>. After each green slice, once its refactor is done and the tests pass, commit it, staging files by name, with a short plain message and this last line: <the co-author line>. Never push, never rewrite a commit, and don't write a handover. Anything the plan doesn't cover is out of scope: note it rather than build it. When you're done, report the branch tip (`git rev-parse HEAD`), each check's result with the test count, any tests the plan didn't foresee, and anything you noted as out of scope.
 
+   For an issue whose plan shares a file with another's (step 1), add this to its brief, once per shared file:
+
+   > #<other N> (<its title>) is being built at the same time and also changes <path>, in <its section, or its whole `### Files` entry when the section isn't clear>. Make your changes in <this issue's section>, and leave every line you aren't changing exactly as it is: don't reflow, reorder or reformat it. Add new entries <this issue's spot>, so at least one unchanged line sits between yours and the sibling's. In your report, say where in <path> you made each change, and anything you couldn't keep apart.
+
    `tdd`'s SKILL.md is at `../../guides/tdd/SKILL.md` from this skill's folder. Give its absolute path, because the subagent can't open this skill's files by name.
 
 This step is done when every issue's work is committed on its branch, or you know why it stopped.
@@ -103,7 +114,7 @@ This step is done when every finished branch has a posted handover and its workt
 
 ## 5. Report
 
-For each issue: its branch, the commit at its tip, and the link to its `## Handover` comment, or why it stopped and what to do. Then stop: Skye reviews each branch, asks for revisions, or runs `/ship`.
+For each issue: its branch, the commit at its tip, and the link to its `## Handover` comment, or why it stopped and what to do. With several issues, also list each shared file from step 1: the section each plan named, where each subagent says it made its changes, and anything it couldn't keep apart. If no file was shared, say so. Then stop: Skye reviews each branch, asks for revisions, or runs `/ship`.
 
 ## Revisions
 
