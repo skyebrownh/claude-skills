@@ -27,7 +27,7 @@ None while it runs. You decided what the work should do when you approved the pl
 - **Tests go through public paths:** views and URLs, commands and public functions. A good test would still pass if the code behind it were rewritten.
 - **Only what you don't control is mocked:** external services (payment, email, other APIs), time and randomness. Your own code and a test database run for real, because a mock happily accepts mistakes the real thing would catch.
 - **Three kinds of test to avoid,** each explained in SKILL.md: tests coupled to how the code is built, tautological tests that work out the answer the way the code does, and writing all the tests before any code.
-- **No checks set up?** If `.claude/workflow.md` is missing, Claude says so and suggests `/setup-project`.
+- **No checks set up?** If `.claude/workflow.md`, or its "Checks before committing" section, is missing, Claude says so and suggests `/setup-project`.
 
 ## Why it works this way
 
