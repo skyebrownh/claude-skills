@@ -11,10 +11,6 @@ For the exact steps, see its [SKILL.md](../../skills/workflow/setup-project/SKIL
 - **When a fact changes,** such as a new test command or a new deploy target.
 - You don't need to run it for a brand-new project: `/new-project` runs it for you. Claude may also start it, since it writes nothing without your approval.
 
-## What `workflow.md` holds
-
-Facts such as the checks to run, the merge style and whether merging deploys, plus the project's **Process version**. The [template](../../skills/workflow/setup-project/workflow-template.md) has the full list. The skills find each fact by its heading, so the headings stay as the template has them.
-
 ## What you'll see
 
 1. It checks the folder is a git repo, and whether `workflow.md` already exists. If it does, this is an update, and it only asks about what's missing or changed.
@@ -26,7 +22,11 @@ Facts such as the checks to run, the merge style and whether merging deploys, pl
 
 It commits nothing. `workflow.md` goes in with the project's next commit.
 
-## Process versions and migrations
+### What `workflow.md` holds
+
+Facts such as the checks to run, the merge style and whether merging deploys, plus the project's **Process version**. The [template](../../skills/workflow/setup-project/workflow-template.md) has the full list. The skills find each fact by its heading, so the headings stay as the template has them.
+
+### Process versions and migrations
 
 When this skills repo changes something that older projects also need (a renamed heading, a line in an issue template), it adds a numbered migration to [migrations.md](../../skills/workflow/setup-project/migrations.md). A project that's behind gets every migration above its version, like database migrations, shown to you before anything changes. The file says exactly how they're applied.
 

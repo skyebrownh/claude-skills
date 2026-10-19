@@ -20,7 +20,7 @@ For the exact steps, see its [SKILL.md](../../skills/workflow/plan-issue/SKILL.m
 
 The plan's sections are set out in step 5 of its [SKILL.md](../../skills/workflow/plan-issue/SKILL.md): mainly the decisions made, the files that change and why, and how it will be tested.
 
-## Draft and approved plans
+### Draft and approved plans
 
 While you review it in the chat, the plan is headed `## Plan (draft)`. It becomes `## Plan (approved)` only when it's posted, because `/build` treats that heading as your approval. If an issue already has an approved plan, it asks whether to replan it. The latest plan comment is the one that counts.
 
