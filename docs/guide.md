@@ -38,13 +38,13 @@ Every change starts from an issue, so it has a recorded reason. Claude waits for
 
 Claude starts these itself when the work calls for them, mostly from inside the skills above. You can also ask for them by name.
 
-- [`grilling`](../skills/guides/grilling/SKILL.md): rounds of numbered questions, each with a recommended answer, until every decision is yours and settled. Used by `/new-project`, `/setup-project`, `/draft-issue` and `/plan-issue`.
-- [`tdd`](../skills/guides/tdd/SKILL.md): builds test-first in thin red-green slices, testing behaviour from the plan. Used by `/build`, and for bug fixes.
-- [`fresh-eyes`](../skills/guides/fresh-eyes/SKILL.md): a review by readers with fresh context, which only reports. Used by `/handover` on a branch, and by `/new-project` on the spec.
-- [`writing-skills`](../skills/authoring/writing-skills/SKILL.md): the style guide for skills and CLAUDE.md files. Used whenever one is written or changed.
+- [`grilling`](skills/grilling.md): rounds of numbered questions, each with a recommended answer, until every decision is yours and settled. Used by `/new-project`, `/setup-project`, `/draft-issue` and `/plan-issue`.
+- [`tdd`](skills/tdd.md): builds test-first in thin red-green slices, testing behaviour from the plan. Used by `/build`, and for bug fixes.
+- [`fresh-eyes`](skills/fresh-eyes.md): a review by readers with fresh context, which only reports. Used by `/handover` on a branch, and by `/new-project` on the spec.
+- [`writing-skills`](skills/writing-skills.md): the style guide for skills and CLAUDE.md files. Used whenever one is written or changed.
 
 ## Housekeeping
 
 - [`/whats-next`](../skills/workflow/whats-next/SKILL.md): recommends the next issue to work on, finishing started work first, with the command to run. Changes nothing.
-- [`/retro`](../skills/authoring/retro/SKILL.md): looks back over the session for corrections and steps that went wrong, and ends with a `/draft-issue` line for each fix worth making. Changes nothing.
+- [`/retro`](skills/retro.md): looks back over the session for corrections and steps that went wrong, and ends with a `/draft-issue` line for each fix worth making. Changes nothing.
 - **Switch this repo back to `main`** (`git switch main`) when you're done with a branch here. Installed skills are links into this folder, so whatever branch is checked out is the version every project runs.
