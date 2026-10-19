@@ -30,7 +30,7 @@ Bigger work is a **parent** issue with **children**. The parent holds no work of
 **`one PR`:** all the children end up in one PR, on the parent's branch. It takes two kinds of `/ship`:
 
 1. **`/ship <child>` folds the child.** Each child was built on its own branch, cut from the parent's branch. Folding squashes that branch into **one commit** on the parent's branch, titled with the child's title, however many commits the build made. It then deletes the child's branch, and pushes nothing.
-2. **`/ship <parent>` opens the PR,** once every child is folded. It pushes the parent's branch once and opens one PR that closes the parent and every child, with a section per child.
+2. **`/ship <parent>` opens the PR,** once every child is folded or comes earlier in the same `/ship`. It pushes the parent's branch once and opens one PR that closes the parent and every child, with a section per child.
 
 How it knows a child is folded: it looks for a commit on the parent's branch whose subject is the child's title. The child's own state can't tell it, because the child stays open until the parent's PR merges.
 
