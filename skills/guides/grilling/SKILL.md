@@ -19,7 +19,7 @@ This step is done when every decision you can see is on the tree, and you know w
 
 A **fact** is anything you could find by looking (the test command, whether a file exists, how recent PRs were merged). Look facts up yourself, because asking Skye for something the repo already shows wastes her time. A **decision** is a choice only Skye can make, so it goes to her.
 
-For each frontier question that needs a fact, start a read-only **Explore** subagent to find it. Subagents run alongside you, so the interview keeps moving. A running lookup counts as an open parent: only the questions that depend on it wait for it, and the rest are asked now.
+For each frontier question that needs a fact, start a read-only **Explore** subagent on the `haiku` model to find it, because a lookup only reports what it found and you check that against the question. Subagents run alongside you, so the interview keeps moving. A running lookup counts as an open parent: only the questions that depend on it wait for it, and the rest are asked now.
 
 This step is done when every fact the frontier needs has been found, or has a lookup running.
 

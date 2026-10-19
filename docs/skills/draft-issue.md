@@ -44,3 +44,4 @@ When it's done, it suggests planning the new issues with `/plan-issue`. If you a
 
 - [Why only you start it, why drafts are shown together, and why it never creates labels](../../decisions/2026-10-16-014310-drafting-issues.md).
 - [How parents, children and Ships as work](../../decisions/2026-10-15-172511-parent-and-child-issues.md).
+- [Why its code lookups run on a cheaper model](../../decisions/2026-10-19-154955-cheaper-lookup-subagents.md).

@@ -33,6 +33,6 @@ These choices are recorded in [the grilling and tdd decision](../../decisions/20
 
 - **Questions form a tree.** Some decisions hang off others, so a round only asks the ones whose parents are settled. That way no question guesses at an answer you haven't given yet.
 - **No limit on questions per round,** because holding them back only adds rounds. This replaced an older "at most four questions" rule in `/setup-project`.
-- **Facts are looked up, not asked,** because asking you for something the repo already shows wastes your time.
+- **Facts are looked up, not asked,** because asking you for something the repo already shows wastes your time. The lookups run on a cheaper model, as [this decision](../../decisions/2026-10-19-154955-cheaper-lookup-subagents.md) explains.
 - **Each recommendation names its source,** so you can judge how far to trust it.
 - **It ends only when you confirm,** so nothing is silently assumed.
