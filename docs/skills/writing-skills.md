@@ -22,7 +22,7 @@ For the rules themselves, see its [SKILL.md](../../skills/authoring/writing-skil
 
 - **One fact, one place.** If a fact can be found by looking (a script in `package.json`, a config file), the skill looks it up rather than copying it.
 - **Anything hard to undo is yours to start.** A skill that pushes, merges, publishes or deletes gets `disable-model-invocation: true`, and opens by saying that typing the command is your approval. Committing on a feature branch or posting a record doesn't count.
-- **The done-checklist reaches beyond the skill:** the README, the guide's line, the skill's page in `docs/skills/`, a `decisions/` file for borrowed ideas, and a migration if projects set up earlier need changing.
+- **The done-checklist reaches beyond the skill itself,** to files such as the README and the skill's page here. Check its SKILL.md for the current list.
 
 ## Why it works this way
 
