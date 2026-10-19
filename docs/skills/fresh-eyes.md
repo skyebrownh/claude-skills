@@ -19,8 +19,8 @@ It has two modes, picked by whether it's given a path:
 
 Claude then checks each finding itself before keeping it, and reports them in three buckets:
 
-- **Fix:** a real problem that would block the PR, each with a 🔧 suggested fix.
-- **Needs you:** a fair point that may not be worth fixing now, each with a ➡️ recommendation.
+- **Fix:** a real problem that would block the PR, each with a suggested fix.
+- **Needs you:** a fair point that may not be worth fixing now, each with a recommendation.
 - **Dropped:** findings Claude judged wrong, each with why, so you can overrule it.
 
 An empty bucket says "None", so you can see it was checked. Then it stops, and says nothing has changed.
@@ -40,4 +40,4 @@ Which findings to act on. It never decides that for you. When `/handover` runs i
 - **It only reports,** so deciding what to act on stays with you, and other skills can run it without asking first. See [a review skill that only reports](../../decisions/2026-10-15-190045-review-skill-only-reports.md).
 - **The two reviewers run in parallel,** so neither colours the other's view; and the document reader gets nothing from the conversation, so it reads what the document actually says. Same file.
 - **It's called `fresh-eyes`, not `review`,** to avoid a clash with Claude Code's built-in `/review`. Same file.
-- **Fix, Needs you and Dropped,** each with what to do, so a report leads with what needs you. See [clearer review and handover reports](../../decisions/2026-10-16-194758-clearer-reports.md).
+- **Fix, Needs you and Dropped,** each with a fix, a recommendation or a reason, so a report leads with what needs you. See [clearer review and handover reports](../../decisions/2026-10-16-194758-clearer-reports.md).
