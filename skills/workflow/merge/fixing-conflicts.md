@@ -44,12 +44,14 @@ This step is done when `git diff --name-only --diff-filter=U` prints nothing.
 
 Run every command under **Checks before committing** in `.claude/workflow.md`. A merge can combine cleanly and still break.
 
-**A check fails:** fix it if the fix is part of resolving the conflict, and run the checks again. **It can't be fixed that way:** undo the merge, so nothing is left uncommitted, then switch back and report what failed:
+**A check fails:** fix it if the fix is part of resolving the conflict, and run the checks again. **It can't be fixed that way:** undo the merge, so nothing is left uncommitted, then switch back, stop, and report what failed:
 
 ```sh
 git merge --abort
 git switch <the branch you noted>
 ```
+
+Skip step 4. The branch is as it was before the fix, so Skye can decide how to resolve it, and then ask for the fix again.
 
 This step is done when every check passes.
 
