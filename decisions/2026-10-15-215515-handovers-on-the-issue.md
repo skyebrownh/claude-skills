@@ -2,7 +2,7 @@
 
 Issue: #8
 
-Replaced in part by: [2026-10-16-194758-clearer-reports](2026-10-16-194758-clearer-reports.md): Act on findings became Fix findings, and the handover lists findings under Needs you, Fixed and Dropped.
+Replaced in part by: [2026-10-16-194758-clearer-reports](2026-10-16-194758-clearer-reports.md): Act on findings became Fix findings, and the handover lists findings under Needs you, Fixed and Dropped, and Covers names only the short sha, not "the branch tip".
 
 `/handover` (#8) records each handover as a `## Handover` comment on the issue, naming the commit it covers (the branch tip). It's the first child of #18, which lets Claude commit on feature branches during the build.
 
