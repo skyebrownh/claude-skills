@@ -34,7 +34,7 @@ Bigger work is a **parent** issue with **children**. The parent holds no work of
 
 How it knows a child is folded: it looks for a commit on the parent's branch whose subject is the child's title. The child's own state can't tell it, because the child stays open until the parent's PR merges.
 
-**A fold that conflicts** (a sibling folded earlier changed the same lines) is resolved by Claude, keeping both sides where it can. The fold commit's message records each choice, and you review it in the parent PR. If the checks fail and the fix isn't part of the conflict, it undoes the fold and stops.
+**A fold that conflicts** (a sibling folded earlier changed the same lines) is resolved by Claude, keeping both sides where it can. The fold commit's message records each choice, and you review it in the parent PR. The checks run on every fold before it's committed. If they fail and the fix isn't part of resolving a conflict, it undoes the fold and stops.
 
 ## Decisions it asks you about
 
