@@ -23,7 +23,7 @@ Only decisions: choices that are yours to make. Facts, things Claude could find 
 
 ## Gotchas
 
-- **Correct a recommendation you disagree with.** A "yes" is a real answer, and it ends up in the issue or the plan.
+- **Correct a recommendation you disagree with.** A "yes" is a real answer, and it ends up in whatever the skill writes next: an issue, a plan, a spec or `workflow.md`.
 - **Raise anything it missed at the last check.** Saying so adds it to the list and starts another round; the summary only comes once you confirm nothing is left.
 - **A round can be long.** That is on purpose: holding questions back would only add more rounds.
 
