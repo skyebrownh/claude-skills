@@ -21,7 +21,7 @@ The default branch, the checks before committing, what to set up before trying a
 2. For an update, it brings the project up to the current process version (see below).
 3. It reads the project (README, CLAUDE.md, config files, recent merges and PRs) and guesses as many answers as it can.
 4. It grills you on whatever it couldn't settle, and always asks whether merging deploys.
-5. It shows the full draft, and writes it only once you approve.
+5. It shows the draft (the whole file when it's new, only what changes on an update), and writes it only once you approve.
 6. It may offer a one-line pointer to `workflow.md` in the project's CLAUDE.md.
 
 It commits nothing. `workflow.md` goes in with the project's next commit.
