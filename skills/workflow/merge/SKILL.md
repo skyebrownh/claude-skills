@@ -1,6 +1,6 @@
 ---
 name: merge
-description: Merge an approved pull request (which may deploy), run the after-merge clean-up (closing any parent issue the merge finished), and list what to check after the deploy. Running /merge is Skye's approval to merge. Reads the merge style and deploy facts from .claude/workflow.md. Use only when Skye types /merge.
+description: Merge an approved pull request (which may deploy), run the after-merge clean-up (closing any parent issue the merge finished), fix any other open PR the merge left conflicting, and list what to check after the deploy. Running /merge is Skye's approval to merge. Reads the merge style and deploy facts from .claude/workflow.md. Use only when Skye types /merge.
 disable-model-invocation: true
 argument-hint: "<PR#>"
 ---
@@ -35,7 +35,7 @@ Stop if:
 **Wait out `UNKNOWN`.** Just after a push or another merge, GitHub often reports `mergeable` as `UNKNOWN` while it recalculates. Check again every few seconds for up to about a minute, and don't merge while it's `UNKNOWN`.
 
 - **`MERGEABLE`:** carry on.
-- **`CONFLICTING`:** stop. Explain which files conflict (`gh pr view <PR> --json files`) and how to resolve it: **merge the default branch into the PR's branch**, keep both sides where both are wanted, and push normally. Committed history is never rewritten, so no rebase and no force-push. That merge commit is a commit, so it needs Skye's approval like any other.
+- **`CONFLICTING`:** don't merge. Fix the PR's branch with [fixing-conflicts.md](fixing-conflicts.md), then stop: Skye reviews the new handover, runs `/ship <N>` to push the fix, then `/merge <PR>` again.
 - **Still `UNKNOWN` after a minute,** or a `mergeStateStatus` that blocks merging: stop and report it.
 
 ## 2. Merge
@@ -84,14 +84,28 @@ Run each step and report its result:
    This item is done when every chain upwards has ended: at no parent, a skipped parent, or one with children still open.
 7. Show `git log --oneline -1`, the new commit on the default branch.
 
-## 4. Say what to check after the deploy
+## 4. Fix open PRs this merge left conflicting
+
+The merge may have changed lines that another open PR also changes, often a sibling built in parallel. Fixing it now saves Skye finding out at that PR's `/merge`.
+
+```sh
+gh pr list --base <default> --state open --json number,headRefName,mergeable
+```
+
+GitHub recomputes `mergeable` after a merge, so expect `UNKNOWN` at first. Re-check those PRs (`gh pr view <PR> --json mergeable`) every few seconds for up to about a minute. **Still `UNKNOWN` after that:** name it in the wrap-up, and don't fix it.
+
+For each `CONFLICTING` PR, one after the other, follow [fixing-conflicts.md](fixing-conflicts.md). It starts from this folder on the default branch, and comes back to it. **One stops** (uncommitted changes, or checks that can't be fixed): report why, and carry on with the next.
+
+This step is done when every open PR is `MERGEABLE`, fixed, or named in the wrap-up with why it wasn't.
+
+## 5. Say what to check after the deploy
 
 Skip this step if **Merging deploys** is no.
 
 **Don't check the live sites yourself.** Skye checks the deploy. List each item under **After a deploy, check**, and add anything the PR's "How to test" says to do after merging. If the PR changes nothing in the running app (only docs or skills), say so: the sites should look the same.
 
-## 5. Wrap up
+## 6. Wrap up
 
-Report briefly: the merge (commit and subject), each clean-up result (including each parent closed, or its progress), and the deploy checklist.
+Report briefly: the merge (commit and subject), each clean-up result (including each parent closed, or its progress), and the deploy checklist. For each PR step 4 fixed, give its handover link and "`/ship <N>`", which pushes the fix to that PR once Skye has reviewed it, and name any it couldn't fix, with why.
 
 Then mention what's next, if it's clear. For example, if this merge leaves the PR's milestone with no open issues, say so (`gh issue list --milestone "<milestone>" --state open`). If **Releases** describes a point like this one, suggest a release and draft its title, but **never create one**: a release publishes a tag and needs Skye's separate approval.
