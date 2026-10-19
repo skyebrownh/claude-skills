@@ -29,7 +29,7 @@ Only decisions: choices that are yours to make. Facts, things Claude could find 
 
 ## Why it works this way
 
-Each reason is in [the grilling and tdd decision](../../decisions/2026-10-15-185652-grilling-and-tdd.md):
+These choices are recorded in [the grilling and tdd decision](../../decisions/2026-10-15-185652-grilling-and-tdd.md), which adapts Matt Pocock's `grilling`. Some of the reasons are in its SKILL.md:
 
 - **Questions form a tree.** Some decisions hang off others, so a round only asks the ones whose parents are settled. That way no question guesses at an answer you haven't given yet.
 - **No limit on questions per round,** because holding them back only adds rounds. This replaced an older "at most four questions" rule in `/setup-project`.
