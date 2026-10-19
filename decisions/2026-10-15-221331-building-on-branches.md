@@ -2,6 +2,8 @@
 
 Issue: #19
 
+Replaced in part by: [2026-10-18-232724-fixing-conflicts-on-the-branch](2026-10-18-232724-fixing-conflicts-on-the-branch.md): revisions on another branch are made in this folder, not by a subagent in a worktree.
+
 `/build <N> …` (#19) builds approved issues on their own branches, committing each green slice, and ends with `/handover`. Several issues build at once, one subagent each in a worktree.
 
 - **Handovers run in the main session,** not in the subagents. Subagents can't start subagents, and `fresh-eyes` needs two, so a subagent's own review would lose the fresh context that makes it worth having. Each subagent builds and commits; the main session hands each branch over, from its worktree.

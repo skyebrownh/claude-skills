@@ -2,6 +2,8 @@
 
 Issue: #20
 
+Replaced in part by: [2026-10-18-232724-fixing-conflicts-on-the-branch](2026-10-18-232724-fixing-conflicts-on-the-branch.md): a conflicting fold is resolved and committed without waiting for Skye's OK, and she reviews it in the new handover.
+
 `/ship` (#20) now pushes work that `/build` committed and `/handover` recorded, rather than committing reviewed changes itself. Typing it is the approval to push and open the PR.
 
 - **The handover comment is the proof of review.** `/ship` checks that the issue's latest `## Handover` names the branch tip's exact commit, so it works from any session, and a commit added after the review stops it.

@@ -2,6 +2,8 @@
 
 Issue: #5
 
+Replaced in part by: [2026-10-16-194758-clearer-reports](2026-10-16-194758-clearer-reports.md): the Act on and Consider buckets became Fix and Needs you, and Noted is gone.
+
 `fresh-eyes` gives the work a fresh-context review before the handover, or reads a document such as a spec cold (#5). It never changes a file: deciding what to act on stays with Skye.
 
 Borrowed, and rewritten in Skye's conventions:

@@ -35,6 +35,12 @@ Issue: #<N>
 Replaced in part by: [<newer file>](<newer file>.md): <what changed, in a clause>
 ```
 
+For example, `2026-10-15-172511-parent-and-child-issues.md` has:
+
+```markdown
+Replaced in part by: [2026-10-16-001711-shipping-committed-branches](2026-10-16-001711-shipping-committed-branches.md): a fix to a folded child is a new child issue, not a `(follow-up)` commit.
+```
+
 - **It goes under the `Issue:` line,** or under the title if there's no `Issue:` line, after a blank line so it shows as its own paragraph.
 - **One line per newer file,** when more than one decision replaced parts of it.
 - **`Replaced by:`** in place of `Replaced in part by:`, only when the whole decision no longer holds.
