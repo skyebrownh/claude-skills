@@ -28,7 +28,7 @@ Once a PR from `/ship` is ready and you want it in. Only you start it: typing `/
 
 ## Why it works this way
 
-- **Check everything first, and stop at the first problem,** saying what's wrong rather than fixing it silently. A failed merge stops before any clean-up, so nothing is deleted while the outcome is in doubt. These safety rules come from the first version of this skill: [first version](../../decisions/2026-10-15-130821-first-version.md).
+- **Check everything first, and stop at the first problem,** saying what's wrong rather than fixing it silently. These rules come from [the first version](../../decisions/2026-10-15-130821-first-version.md). Its SKILL.md adds that a failed merge stops before any clean-up, so nothing is deleted while the outcome is in doubt.
 - **It stops when the project is behind** on its process version, rather than following facts that may no longer mean what it expects: [process versions and migrations](../../decisions/2026-10-15-181045-process-versions-and-migrations.md).
 - **Branches are deleted with `-D`.** A squash or rebase merge makes new commits, so git doesn't recognise the branch as merged. The check that the branch and the default branch match comes first, so `-D` only deletes work that's already merged.
 - **It doesn't check the live site itself.** It lists what to check, and you check the deploy.
