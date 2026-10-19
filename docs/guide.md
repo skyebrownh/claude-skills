@@ -28,7 +28,7 @@ Every change starts from an issue, so it has a recorded reason. Claude waits for
 
 1. [`/draft-issue <idea>`](../skills/workflow/draft-issue/SKILL.md): turns ideas into draft issues from the project's templates, splitting bigger work into a parent with children. Creates nothing until you approve.
 2. [`/plan-issue <N>`](../skills/workflow/plan-issue/SKILL.md): shows a plan in chat, settles what's open with you, and posts it on the issue as `## Plan (approved)`.
-3. [`/build <N>`](../skills/workflow/build/SKILL.md): makes the issue's branch and builds the plan, committing as it goes. Never pushes. Several issues build in parallel.
+3. [`/build <N>`](../skills/workflow/build/SKILL.md): makes the issue's branch and builds the plan, committing as it goes. Never pushes. Several issues build in parallel, each told where the others share a file.
 4. [`/handover`](../skills/workflow/handover/SKILL.md): runs the checks and a review, then posts a `## Handover` comment: what changed, test results, the review's findings and manual test steps. `/build` runs it for you.
 5. **You review** the branch from the handover. For changes, ask for them: they become new commits and a new handover, made in this folder even on another branch.
 6. [`/ship <N>`](../skills/workflow/ship/SKILL.md): pushes the branch and opens its PR, or only pushes when its PR is already open. With several branches, it warns which pairs will conflict once the first merges. A parent's `Ships as:` line decides whether its children ship as one PR or one each.
