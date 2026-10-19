@@ -110,6 +110,7 @@ For each issue: its branch, the commit at its tip, and the link to its `## Hando
 Skye asks for changes after reading a handover. Each round is new commits, then a new handover, which replaces the old one:
 
 - **On the branch checked out in this folder:** make the change here, commit it, and follow `handover` again.
-- **On another branch:** make sure `.claude/worktrees/` is in `.git/info/exclude`, as in step 3, then make a worktree for it (`git worktree add .claude/worktrees/<N> <branch>`), and give a subagent the change to make and commit, as in step 3. Then hand it over from that worktree and remove it, as in step 4. Skye's folder stays on whatever branch she has checked out.
+- **On another branch:** make the change in this folder too. Worktrees are only for step 3's parallel builds. First check `git status --porcelain`: if it prints anything, stop and ask Skye what it is, because switching would carry it along. Then note the current branch, `git switch <branch>`, make the change, commit it, follow `handover`, and `git switch` back to the branch you noted.
+- **A conflict with the default branch** (its PR is `CONFLICTING`, often after a sibling merged): that's a round too. Follow [fixing-conflicts.md](../merge/fixing-conflicts.md).
 
 A round is done when its commits are on the branch and the new handover is posted.
