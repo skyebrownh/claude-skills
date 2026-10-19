@@ -55,6 +55,6 @@ It never decides how a parent ships. With no `Ships as:` line, or one it doesn't
 
 ## Why it works this way
 
-- **The handover comment is the proof of review,** so `/ship` works from any session and a commit added after review stops it. The same file covers squash-folding children and why a folded child's fix is a new issue: [shipping committed branches](../../decisions/2026-10-16-001711-shipping-committed-branches.md).
+- **The handover comment is the proof of review,** so `/ship` works from any session and a commit added after review stops it. The same file covers squash-folding children and why a folded child's fix is a new issue: [shipping committed branches](../../decisions/2026-10-16-001711-shipping-committed-branches.md). Its rule that a fold conflict waits for you was later replaced by [fixing conflicts on the branch](../../decisions/2026-10-18-232724-fixing-conflicts-on-the-branch.md).
 - **`Ships as:` is your call,** and with no line it stops rather than guess: [parent and child issues](../../decisions/2026-10-15-172511-parent-and-child-issues.md).
 - **It warns about conflicting pairs, and only pushes when a PR is open,** because the fix comes after the first merge anyway: [fixing conflicts on the branch](../../decisions/2026-10-18-232724-fixing-conflicts-on-the-branch.md).
