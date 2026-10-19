@@ -15,9 +15,16 @@ git merge --squash <C's branch>
 
 `--squash` stages every change on #C's branch as one set, without committing, so the parent's branch gets one commit per child however many commits the child's build made.
 
-**It reports a conflict:** stop before committing. A sibling folded since #C's branch was cut changed the same lines. Resolve each conflicted file, keeping both sides where both are wanted, and show Skye each resolution (`git diff --cached` on those files). **Commit the fold only after her OK, and after the checks below pass on it.** If she'd rather not go on, `git reset --merge` puts the parent's branch back as it was. (`git merge --abort` doesn't work here: a squash merge leaves no merge in progress for it to abort.)
+**It reports a conflict:** a sibling folded since #C's branch was cut changed the same lines. Resolve each conflicted file, keeping both sides where both are wanted. Where they can't both stay, pick the one that fits both children's plans best, and note why. `git add` each file by name. The commit body below records each resolution, and Skye reviews it in the parent PR, so there's no stop for her OK.
 
-Run every command under **Checks before committing** on the staged result, before committing. Step 3 of SKILL.md checked #C's branch alone, but the parent's branch may hold siblings folded since #C's branch was cut, and a merge can combine cleanly yet still break. **A check fails:** stop, show Skye the failure, and leave the fold uncommitted for her to decide (fix it, or undo it as above).
+Run every command under **Checks before committing** on the staged result, before committing. Step 3 of SKILL.md checked #C's branch alone, but the parent's branch may hold siblings folded since #C's branch was cut, and a merge can combine cleanly yet still break. **A check fails:** fix it if the fix is part of resolving the conflict. **It can't be fixed that way:** undo the fold, so nothing is left uncommitted, then switch back, stop, and report what failed:
+
+```sh
+git reset --merge
+git switch <the branch you started on>
+```
+
+`git reset --merge` puts the parent's branch back as it was. (`git merge --abort` doesn't work here: a squash merge leaves no merge in progress for it to abort.)
 
 Commit:
 
@@ -26,6 +33,8 @@ git commit -F - <<'EOF'
 <C's title>
 
 Part of #<P>
+
+<only after a conflict: each conflicted file, and what was kept and why>
 
 Co-Authored-By: <the co-author line>
 EOF
@@ -50,7 +59,7 @@ Step 2 of SKILL.md has already checked that every child is folded, or is folded 
 
 1. Re-run the checks on the whole branch: `git switch <P's branch>`, every command under **Checks before committing**, then switch back. Stop if any fails.
 2. Push: `git push -u origin <P's branch>`.
-3. Open the PR, following step 5 of [SKILL.md](SKILL.md), with the changes below.
+3. Open the PR, following step 5 of [SKILL.md](SKILL.md), with the changes below. Skip this if step 2 of SKILL.md found #P's PR already open: the push has added the new commits to it.
 4. Check it and hand back, following step 6 of SKILL.md. Say that merging closes #P and every child.
 
 This step is done when #P's PR is open and its link is reported.

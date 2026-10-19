@@ -64,7 +64,18 @@ Then, before looking for any branch:
 
 Only the comment counts, never this conversation, so `/ship` works the same from any session.
 
-This step is done when every issue passes, and you know each one's kind, branch and handover.
+### Open PRs and conflicts between branches
+
+- **Its open PR:** for each branch to push (every issue except a fold), `gh pr list --head <branch> --state open --json number,url`. A branch with one already open was pushed before, and is now carrying a revision or a conflict fix, so step 4 only pushes it.
+- **Branches that will conflict with each other:** when two or more branches will be pushed as PRs, dry-run merge each pair:
+
+  ```sh
+  git merge-tree --write-tree --name-only --no-messages <branch a> <branch b>
+  ```
+
+  It merges in memory and changes nothing. Exit code 1 means they conflict, and the lines after the first (a tree id) name the conflicting files. Note each pair and its files, but don't stop: both can still ship, and once the first merges, `/merge` fixes the second on its branch.
+
+This step is done when every issue passes, and you know each one's kind, branch, handover and open PR, and any pairs that conflict.
 
 ## 3. Re-run the checks on each branch
 
@@ -83,15 +94,15 @@ This step is done when every branch passes and this folder is back on its branch
 ## 4. Ship each issue, in order
 
 - **A fold, or a parent PR:** follow [parent-pr.md](parent-pr.md).
-- **A single issue, or a child of a "one PR per child" parent:** push, then open its PR (step 5):
+- **A single issue, or a child of a "one PR per child" parent:** push, then open its PR (step 5), unless step 2 found one already open:
 
   ```sh
   git push -u origin <branch>
   ```
 
-  `-u` sets the branch's upstream, so it now tracks its own branch on GitHub.
+  `-u` sets the branch's upstream, so it now tracks its own branch on GitHub. The push adds the new commits to an open PR, so it needs no `gh pr create`.
 
-This step is done when every issue to fold is folded, and every other branch is pushed and has its PR open (step 5).
+This step is done when every issue to fold is folded, and every other branch is pushed and has a PR open, either one it already had or one from step 5.
 
 ## 5. Open the pull request
 
@@ -115,6 +126,8 @@ This step is done when `gh pr create` prints the PR's link.
 
 ## 6. Check each PR and hand back
 
+Use the PR from step 5, or the one step 2 found open:
+
 ```sh
 gh pr view <PR> --json number,url,mergeable,mergeStateStatus
 ```
@@ -123,8 +136,10 @@ gh pr view <PR> --json number,url,mergeable,mergeStateStatus
 
 Report briefly, for each issue:
 
-- **a PR:** the branch pushed, the PR link, its milestone and labels, whether GitHub says it can merge, and any criterion left unticked, with why;
+- **a PR:** the branch pushed, the PR link (and whether it's new or was already open), its milestone and labels, whether GitHub says it can merge, and any criterion left unticked, with why;
 - **a fold:** the fold commit (short id and title) on the parent's branch, and which children still have no fold.
+
+Then name each pair from step 2 that will conflict, with its files, and say that the second to merge will need a fix after the first lands, which `/merge` makes.
 
 Then say what merging will do, from **Merging**. For a child of a `one PR per child` parent, add that merging closes the child, and that its parent closes once its last child merges. If merging deploys, say so plainly, even when a PR doesn't change the running app. Skye approves with `/merge <PR#>` or by saying so in chat.
 
