@@ -37,7 +37,7 @@ For each issue, read:
 - **its parent, if it has one** (step 1 of [finding-the-parent.md](../ship/finding-the-parent.md)): the directive, the `**Ships as:**` line, and the sibling issues, whose work is out of scope here;
 - **the SPEC.md requirements the issue cites,** if the project has a SPEC.md;
 - **CLAUDE.md,** for the project's standards;
-- **the code the work affects,** through read-only Explore subagents, so the files stay out of this conversation and several areas can be read at once.
+- **the code the work affects,** through read-only Explore subagents on the `sonnet` model, so the files stay out of this conversation and several areas can be read at once. Their reports decide every file the plan names, so they get the stronger of the two cheap models.
 
 This step is done when you can name every file the work changes, and why.
 
