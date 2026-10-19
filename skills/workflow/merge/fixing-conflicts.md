@@ -18,7 +18,7 @@ Note the branch this folder is on (`git branch --show-current`), to switch back 
 git fetch origin
 ```
 
-**The PR's branch on GitHub has commits the local copy lacks** (it was pushed from another clone): `git merge-base --is-ancestor origin/<branch> <branch>` fails. Stop and report it, because a merge on the old copy would split the branch in two. With no local copy at all, `git switch <branch>` in step 2 makes one from `origin/<branch>`, so there's nothing to compare.
+**The PR's branch on GitHub has commits the local copy lacks** (it was pushed from another clone): `git merge-base --is-ancestor origin/<branch> <branch>` fails. Stop and report it, because a merge on the old copy would split the branch in two. Say to bring those commits in first (`git switch <branch> && git pull --ff-only`, then switch back), and to ask for the fix again. With no local copy at all, `git switch <branch>` in step 2 makes one from `origin/<branch>`, so there's nothing to compare.
 
 This step is done when the folder is clean and you know the branch to fix and the branch to come back to.
 
