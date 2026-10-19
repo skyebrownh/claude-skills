@@ -92,7 +92,7 @@ When the plan is done, follow `handover`, then go to step 5.
 
    For an issue whose plan shares a file with another's (step 1), add this to its brief, once per shared file:
 
-   > #<other N> (<its title>) is being built at the same time and also changes <path>, in <its section, or its whole `### Files` entry when the section isn't clear>. Make your changes in <this issue's section>, and leave every line you aren't changing exactly as it is: don't reflow, reorder or reformat it. Add new entries <this issue's spot>, so at least one unchanged line sits between yours and the sibling's. In your report, say where in <path> you made each change, and anything you couldn't keep apart.
+   > #<other N> (<its title>) is being built at the same time and also changes <path>, in <its section, or its whole `### Files` entry when the section isn't clear>. Make your changes in <this issue's section>, and leave every line you aren't changing exactly as it is: don't reflow, reorder or reformat it. <Only when step 1 gave this issue a spot:> Add new entries <this issue's spot>, so at least one unchanged line sits between yours and the sibling's. In your report, say where in <path> you made each change, and anything you couldn't keep apart.
 
    `tdd`'s SKILL.md is at `../../guides/tdd/SKILL.md` from this skill's folder. Give its absolute path, because the subagent can't open this skill's files by name.
 
