@@ -36,4 +36,5 @@ Each one's **stage** sets its command: needs a plan (`/plan-issue`), ready to bu
 
 ## Why it works this way
 
+- **It only recommends,** because the command it suggests is yours to type: typing it is how you approve that step.
 - **It needs a clean, up-to-date default branch,** which removes all the local-state reporting from the answer to "what do I do now?" The same file covers working the stage out each time instead of storing it in labels, reading comments only for the shortlist, and showing at most five: [whats-next](../../decisions/2026-10-17-012844-whats-next.md).
