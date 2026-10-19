@@ -16,7 +16,7 @@ Once a PR from `/ship` is ready and you want it in. Only you start it: typing `/
 4. It cleans up: updates the default branch, confirms nothing was left behind on the branch, deletes the local branch (and any worktree still using it), and checks each closed issue really closed.
 5. It closes any `one PR per child` parent whose last child just closed, with a comment listing each child and its PR. If children are still open, it reports the parent's progress, such as "2 of 4 children still open".
 6. It checks every other open PR. Any the merge left `CONFLICTING` it fixes on that PR's branch, in this folder, and hands over.
-7. It lists what to check after the deploy, from `workflow.md`, and suggests a release if `workflow.md` describes one. It never creates one.
+7. If merging deploys, it lists what to check after the deploy, from `workflow.md`. It suggests a release if `workflow.md` describes one. It never creates one.
 
 ## Gotchas
 
