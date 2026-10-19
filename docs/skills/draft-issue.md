@@ -20,6 +20,8 @@ For the exact steps, see its [SKILL.md](../../skills/workflow/draft-issue/SKILL.
 5. It shows every draft in one message, with a short summary, and stops.
 6. Once you approve, it creates exactly what you approved, and gives you the links.
 
+When it's done, it suggests planning the new issues with `/plan-issue`. If you asked it to "create and plan", it moves straight on to planning.
+
 ## Decisions it asks you about
 
 - **Scope:** what's in and out. If an idea is on the spec's out-of-scope list, it quotes the line and asks whether to draft it anyway.
@@ -37,8 +39,6 @@ For the exact steps, see its [SKILL.md](../../skills/workflow/draft-issue/SKILL.
 - **If a create fails,** it stops and reports what was created so far, rather than retrying. A retry could create the same issue twice, and an issue is public as soon as it exists.
 - **No issue templates in the project:** it stops and asks how issues should look, rather than guessing.
 - **Blocked-by links** go only where one child really needs another first.
-
-When it's done, it suggests planning the new issues with `/plan-issue`. If you asked it to "create and plan", it moves straight on to planning.
 
 ## Why it works this way
 
