@@ -26,7 +26,7 @@ For the exact steps, see its [SKILL.md](../../skills/authoring/retro/SKILL.md).
 
 - **Not every mistake counts.** A finding is kept when it happened twice in the session, or once here and once before (a memory note or an earlier issue), or when an instruction caused it. A slip with no cause in the instructions is a one-off.
 - **Fixes are ranked on a ladder:** an automated check or test first, then a skill change, then a CLAUDE.md line. Each rung down relies more on Claude remembering. If a rule already existed and was broken anyway, the fix moves one rung up.
-- **Skill fixes go to this repo.** A finding about a skill or the global CLAUDE.md belongs in the skills repo, even when you ran `/retro` in another project. The handover line says which folder to type it in.
+- **Skill fixes go to this repo.** A finding about a skill or the global CLAUDE.md belongs in the skills repo, even when you ran `/retro` in another project. The `/draft-issue` line says which folder to type it in.
 - **If the trim fails or comes out empty,** it stops and shows the error: the transcript's format may have changed, and the filter needs updating first.
 
 ## Why it works this way
