@@ -32,7 +32,7 @@ With several issues, Claude starts one subagent per issue. The subagents only bu
 
 - **Commit or stash first.** It won't start with uncommitted or untracked files in this folder, because switching branches would carry them along.
 - **One issue blocking another** in the same `/build` stops it. Build the blocker first, then the other once the blocker has landed.
-- **A branch checked out here** stops a multi-issue build, because git won't check out one branch in two folders.
+- **One of the issues' branches already checked out here,** in a multi-issue build: it asks you to switch this folder to another branch first, because git won't check out one branch in two folders.
 - **Revisions on another branch** are made in this folder: Claude switches to that branch, commits, hands over, and switches back.
 - **Switch back to `main`** in this repo when you're done with a branch, because installed skills follow whatever is checked out.
 
