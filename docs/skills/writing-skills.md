@@ -29,7 +29,7 @@ For the rules themselves, see its [SKILL.md](../../skills/authoring/writing-skil
 The reasons are in its SKILL.md, next to each rule:
 
 - **One fact, one place,** because a copy elsewhere goes stale.
-- **Typing the command is the approval,** so a skill only you start never acts without you, and a skill Claude can start is one that's safe for it to reach for.
+- **Typing the command is the approval,** so a skill only you start never acts without you, and a skill Claude can start is a guide or reference it should reach for on its own.
 - **Every step ends on a completion criterion,** because a vague end invites rushing on to the next step.
 - **Say what to do, not only what to avoid,** because naming the forbidden thing makes it more likely.
 - **Give the reason for a rule,** so Claude can handle cases the rule didn't foresee, and you learn from reading it.
