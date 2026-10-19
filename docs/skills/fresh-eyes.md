@@ -32,7 +32,7 @@ Which findings to act on. It never decides that for you. When `/handover` runs i
 ## Gotchas
 
 - **Code mode needs `.claude/workflow.md`,** to know the default branch to compare with. Without it, it stops and points to `/setup-project`. Document mode doesn't need it.
-- **The branch name must start with the issue number** (`29-some-slug`), so the Issue reviewer can find the issue. If it doesn't, Claude asks you which issue it is.
+- **The Issue reviewer finds the issue from the branch name,** which starts with its number (`29-some-slug`). If it doesn't, Claude asks you which issue it is.
 - **A short report is a good sign.** If reviewers find only nits, Claude says the work is fine rather than padding the report.
 
 ## Why it works this way
