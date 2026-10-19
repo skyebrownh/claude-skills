@@ -20,5 +20,5 @@ Closes #
 
 - [ ] Install tests pass (`bash tests/test_install.sh`)
 - [ ] README, `docs/guide.md` and the skill's `docs/skills/` page updated if a skill was added, renamed or changed what it does
-- [ ] A file in `decisions/` for any choice made, or idea borrowed (with credit)
+- [ ] A file in `decisions/` for any choice made, or idea borrowed (with credit), and a `Replaced in part by:` line on any older decision it replaces
 - [ ] Migration added to `setup-project/migrations.md` if projects set up earlier need changing (or not needed)

@@ -23,6 +23,26 @@ Issue: #<N>
 
 The `Issue:` line names the issue the decision came from, and is left out where there wasn't one. Link to another decision by its file name.
 
+## When a later decision replaces one
+
+An older decision stays as written, because it records what was decided at the time. When a later decision replaces part of it, the older file gets one marker line, so a reader of `decisions/` alone doesn't take the old rule as current:
+
+```markdown
+# <title>
+
+Issue: #<N>
+
+Replaced in part by: [<newer file>](<newer file>.md): <what changed, in a clause>
+```
+
+For a real one, see the top of `2026-10-15-221331-building-on-branches.md`.
+
+- **It goes under the `Issue:` line,** or under the title if there's no `Issue:` line, after a blank line so it shows as its own paragraph.
+- **One line per newer file,** when more than one decision replaced parts of it.
+- **`Replaced by:`** in place of `Replaced in part by:`, only when the whole decision no longer holds.
+- **The marker is the only edit** made to an older decision.
+- **The newer decision's own branch adds it,** in the same change that writes the newer file.
+
 ## Listing them
 
 ```sh
