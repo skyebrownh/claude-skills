@@ -18,7 +18,7 @@ For the exact steps, see its [SKILL.md](../../skills/workflow/plan-issue/SKILL.m
 4. It writes the whole plan out in the chat, then asks about what's still open. After each round of answers, it writes the updated plan out in full again.
 5. Once you approve, it posts the plan on the issue, then suggests `/build <N>`.
 
-The plan lists the decisions made, the files that change and why, the tests and checks, what you'll try by hand, and what's left out.
+The plan's sections are set out in step 5 of its [SKILL.md](../../skills/workflow/plan-issue/SKILL.md): mainly the decisions made, the files that change and why, and how it will be tested.
 
 ## Draft and approved plans
 
