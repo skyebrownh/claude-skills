@@ -28,7 +28,7 @@ For the exact steps, see its [SKILL.md](../../skills/workflow/draft-issue/SKILL.
 - **Parent:** whether an idea belongs under an open parent.
 - **Ships as,** for a new parent: `one PR` for all its children, or `one PR per child`. It recommends one, but never decides for you, because `/ship` relies on this line.
 - **Combining ideas:** when two look related, it suggests combining them, and you decide.
-- **Duplicates:** when an idea matches an existing issue, it suggests a comment on that issue in place of a new one.
+- **Duplicates:** when an idea matches an open issue, it suggests a comment on that issue in place of a new one. When a closed issue's problem has come back, it suggests a new issue that links to the old one.
 
 ## Gotchas
 
