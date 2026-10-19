@@ -2,7 +2,7 @@
 
 Issue: #50
 
-Some older decisions state rules a later decision changed, and nothing in the older file said so: the only link ran from the newer file back ("This replaces the … bullet in …"). Someone reading `decisions/` alone could take the old rule as current. Now an older file gets a `Replaced in part by:` line linking the newer one, as `decisions/README.md` describes.
+Some older decisions state rules a later decision changed, and nothing in the older file said so. At most, the newer file named what it replaced ("This replaces the … bullet in …"), and some didn't name the older file at all. Someone reading `decisions/` alone could take the old rule as current. Now an older file gets a `Replaced in part by:` line linking the newer one, as `decisions/README.md` describes.
 
 - **One marker line, and nothing else changes.** An old decision records what was decided at the time, so its text stays as written. The marker only says where to look for what holds now.
 - **`Replaced in part by:` by default,** and `Replaced by:` only when the whole decision no longer holds. So far every replacement has changed one or two bullets, not a whole decision.
