@@ -17,7 +17,7 @@ Claude may start it itself, because posting a comment is a record, not an approv
 1. It checks the branch: not the default branch, named `<N>-<slug>`, its issue open, nothing uncommitted, and at least one commit of its own.
 2. It runs every check from `.claude/workflow.md`. If one fails, it stops and posts nothing, because a handover says the work is ready.
 3. It runs `fresh-eyes`, and fixes in-plan findings, one commit each.
-4. It posts the handover on the issue without asking, and doesn't show the text in chat. Chat gets a short hand-back: the comment's link, the checks result, and how many items are under **Needs you**. You review the comment after it's posted.
+4. It posts the handover on the issue without asking, and doesn't show the text in chat. Chat gets a short hand-back: the comment's link, the checks result, how many items are under **Needs you**, and anything missing from `.claude/workflow.md`. You review the comment after it's posted.
 
 The handover has a fixed shape: **Branch**, **Covers** (the commit), **Compared with** (the base), what changed (a line per file), test results, the review's findings, and manual test steps.
 
