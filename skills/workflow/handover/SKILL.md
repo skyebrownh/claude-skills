@@ -6,7 +6,7 @@ argument-hint: "(no arguments; hands over the current branch)"
 
 # Hand over an issue's branch
 
-The work on this branch is built and committed. Your job is to check it, then hand it to Skye for review in a fixed format, posted on the issue as well as shown here. The comment records the commit it covers, so `/ship` can tell, from any session, whether the review is still current.
+The work on this branch is built and committed. Your job is to check it, then hand it to Skye for review in a fixed format, posted on the issue. The comment records the commit it covers, so `/ship` can tell, from any session, whether the review is still current.
 
 Check everything first, and stop at the first problem, saying what's wrong and what to do. Put each step below on the task list.
 
@@ -105,9 +105,9 @@ Run `git rev-parse --short HEAD` for the commit it covers: the branch tip, after
 
 - **What changed has one line per file,** saying what changed in it, not how. Files with the same change share a line (`` `a.md`, `b.md`: point to the new file ``). The diff holds the detail.
 - **Needs you comes first,** because it's what Skye has to act on. Write "None" under an empty Needs you, Fixed or Dropped, so she can see it was checked.
-- **Headings, bold and lists only,** with each finding's answer on its own indented line, so the text reads the same in chat as on GitHub.
+- **Headings, bold and lists only,** because the findings are copied from fresh-eyes' report, which uses only those. Each finding's answer sits on its own indented line.
 - **Emoji mark the answers,** so Skye finds them at a glance: ➡️ on each Recommend, ✅ on each Fix (done, unlike fresh-eyes' 🔧 Suggested fix). Dropped's Why gets none, because it needs nothing from her.
-- **Files are plain paths,** in chat and in the comment alike, so the two are the same text. The branch stays local until `/ship`, so a link to it on GitHub would be broken.
+- **Files are plain paths.** The branch stays local until `/ship`, so a link to it on GitHub would be broken.
 - **Manual test steps** cover what the plan says the work does, including its stop conditions and error paths, each with what Skye should see.
 - **No Manual test setup in `workflow.md`:** start the steps from what the project's README says about running it, and add a line under the steps saying the section is missing.
 
@@ -115,7 +115,7 @@ This step is done when every section is filled in, with no `<placeholders>` left
 
 ## 5. Post it, then hand back
 
-Write the handover to a file in the scratchpad, show that file's text in chat unchanged, then post the same file on the issue, without asking first: it's a record of what was handed over, and Skye reviews it after it's posted.
+Write the handover to a file in the scratchpad and post that file on the issue, without asking first: it's a record of what was handed over, and Skye reviews it after it's posted. Don't show the handover's text in chat: the comment is the record `/ship` reads, and a copy in chat is noise.
 
 ```sh
 gh issue comment <N> --body-file <file in the scratchpad>
@@ -125,4 +125,4 @@ The latest `## Handover` comment is the one that counts, so after each round of 
 
 This step is done when the comment is posted and you have its link.
 
-Hand back with the comment's link, and anything step 0 found missing. Then stop: Skye reviews the branch, asks for revisions, or runs `/ship`.
+Hand back in one short paragraph: "Handover posted: <link>. Checks: <passed, N tests>. Needs you: <N items, or None>." Add anything step 0 found missing as a last sentence. Then stop: Skye reviews the branch, asks for revisions, or runs `/ship`.

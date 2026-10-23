@@ -97,7 +97,7 @@ This step is done when every finding is in a bucket, dropped, or left out as nee
 
 ## 7. Hand back
 
-Report in this shape, using only headings, bold and lists, so it reads the same in chat as on GitHub, where a handover posts its findings. Each finding's answer sits on its own indented line, so the problem and what to do about it read apart. The emoji mark the lines Skye acts on, so she can find them at a glance: 🔧 for a fix still to make, ➡️ for a recommendation. Dropped's Why gets none, because it needs nothing from her.
+Report in this shape, using only headings, bold and lists, because chat shows HTML as raw tags, and a handover copies the findings into its GitHub comment. Each finding's answer sits on its own indented line, so the problem and what to do about it read apart. The emoji mark the lines Skye acts on, so she can find them at a glance: 🔧 for a fix still to make, ➡️ for a recommendation. Dropped's Why gets none, because it needs nothing from her.
 
 ```markdown
 ## Review of <branch, or document path>
