@@ -105,7 +105,7 @@ Run `git rev-parse --short HEAD` for the commit it covers: the branch tip, after
 
 - **What changed has one line per file,** saying what changed in it, not how. Files with the same change share a line (`` `a.md`, `b.md`: point to the new file ``). The diff holds the detail.
 - **Needs you comes first,** because it's what Skye has to act on. Write "None" under an empty Needs you, Fixed or Dropped, so she can see it was checked.
-- **Headings, bold and lists only,** with each finding's answer on its own indented line.
+- **Headings, bold and lists only,** because the findings are copied from fresh-eyes' report, which uses only those. Each finding's answer sits on its own indented line.
 - **Emoji mark the answers,** so Skye finds them at a glance: ➡️ on each Recommend, ✅ on each Fix (done, unlike fresh-eyes' 🔧 Suggested fix). Dropped's Why gets none, because it needs nothing from her.
 - **Files are plain paths.** The branch stays local until `/ship`, so a link to it on GitHub would be broken.
 - **Manual test steps** cover what the plan says the work does, including its stop conditions and error paths, each with what Skye should see.
